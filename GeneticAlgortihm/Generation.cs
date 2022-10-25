@@ -2,7 +2,7 @@
 
 namespace GeneticAlgortihm
 {
-    public class Class1
+    public class Generation : IGeneration
     {
     }
 }
