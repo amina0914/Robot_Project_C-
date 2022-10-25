@@ -9,7 +9,14 @@ namespace GeneticAlgortihm
         double Fitness {get;}
 
          int[] Genes { get; }
+        private int _seed;
+        public Chromosomes(int numbergenes, int lenght, int? seed = null)
+        {
+            Length= lenght;
+            _seed=seed;
+            Genes= new int[numbergenes];
 
+        }
         /// <summary>
         /// Uses a crossover function to create two offspring, then iterates through the
         /// two child Chromosomes genes, changing them to random values according to the mutation rate.
