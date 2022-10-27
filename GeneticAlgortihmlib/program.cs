@@ -6,12 +6,12 @@ namespace GeneticAlgortihmLib
 
       static void Main(string[] args)
         {
-           Chromosome testa= new Chromosome(20,20,6);
-           Chromosome testb= new Chromosome(20,20,6);
+           IChromosome testa= new Chromosome(20,20,6);
+           IChromosome testb= new Chromosome(20,20,6);
     
-           Chromosome[] mychilds= testa.Reproduce(testb);
-           Chromosome resutla= mychilds[0];           
-           Chromosome resutl2b= mychilds[1];
+           IChromosome[] mychilds= testa.Reproduce(testb,2);
+           IChromosome resutla= mychilds[0];           
+           IChromosome resutl2b= mychilds[1];
 
         }
 

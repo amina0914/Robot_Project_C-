@@ -7,11 +7,11 @@ namespace GeneticAlgortihmLib
         /// The fitness score of the IChromosome
         /// </summary>
         /// <value>A value representing the fitness of the IChromosome</value>
-        double Fitness {get;}
+        public double Fitness {get;}
 
         public int[] Genes { get; }
         private int _seed;
-        public Chromosome(int numbergenes, int lenght, int seed )
+        public Chromosome(int numbergenes, long lenght, int seed )
         {
             Length= lenght;
             _seed=seed;
@@ -21,6 +21,10 @@ namespace GeneticAlgortihmLib
                 Genes[i]= rand.Next(0,6);
             }
 
+        }
+        public int CompareTo(IChromosome chromosome)
+        {
+            return this.Fitness.CompareTo(chromosome.Fitness);
         }
 
         public Chromosome(Chromosome chromosome)
@@ -41,11 +45,11 @@ namespace GeneticAlgortihmLib
         /// <param name="spouse">The Chromosome to reproduce with</param>
         /// <param name="mutationProb">The rate of mutation</param>
         /// <returns></returns>
-        public Chromosome[] Reproduce(Chromosome spouse, double mutationProb)
+        public IChromosome[] Reproduce(IChromosome spouse, double mutationProb)
         {   
             Random rand= new Random();
-            Chromosome child1= new(this.Genes.Length,Length,_seed);
-             Chromosome child2=new(spouse.Genes.Length,spouse.Length,2);
+            Chromosome child1= new Chromosome(this.Genes.Length,Length,_seed);
+             Chromosome child2=new Chromosome(spouse.Genes.Length,spouse.Length,2);
             int pointa= rand.Next(1,this.Genes.Length-5);
             int pointb=rand.Next(pointa,Genes.Length);
             for(int i=0; i<pointa; i++)
@@ -64,7 +68,7 @@ namespace GeneticAlgortihmLib
                 child2.Genes[z]= spouse.Genes[z];
             }
             
-            return new Chromosome[]{child1,child2};
+            return new IChromosome[]{child1,child2};
         }
 
        public override bool Equals(object obj)
@@ -87,7 +91,7 @@ namespace GeneticAlgortihmLib
         /// Returns the current gene at the provided position
         /// </summary>
         /// <value></value>
-        int this[int index] {
+        public int this[int index] {
             get{
                 return Genes[index];
             }}
@@ -95,7 +99,7 @@ namespace GeneticAlgortihmLib
         /// <summary>
         /// The length of the genes
         /// </summary>
-        long Length {get;}
+        public long Length {get;}
 
         
     }

@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace GeneticAlgortihm
+namespace GeneticAlgortihmLib
 {
     public class Generation : IGeneration
     {
+
     }
 }

@@ -7,9 +7,9 @@ namespace GeneticAlgortihmLib
       IGeneticAlgorithm algorithm1;
       FitnessEventHandler fitnessEvent1;
       int _seed;
-      public GenerationDetails(IChromosome[] arrayChromosomes)
+      public GenerationDetails(Chromosome[] arrayChromosomes)
       {
-        _chromosomes= new IChromosome[arrayChromosomes.Length];
+        _chromosomes= new Chromosome[arrayChromosomes.Length];
         for(int i=0; i < arrayChromosomes.Length; i++){
           _chromosomes[i]= new Chromosome(arrayChromosomes[i]);
         }
@@ -26,11 +26,12 @@ namespace GeneticAlgortihmLib
         /// <returns></returns>
         public IChromosome SelectParent(){
           Chromosome potentialparent= _chromosomes[0];
-         foreach(IChromosome chromosome in _chromosomes){
-          if(chromosome.Fitness> potentialparent){
+         foreach(Chromosome chromosome in _chromosomes){
+          if(chromosome.Fitness > potentialparent.Fitness){
             potentialparent=chromosome;
           }
          }
+         return potentialparent;
         }
 
         /// <summary>
