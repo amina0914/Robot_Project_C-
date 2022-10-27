@@ -1,4 +1,4 @@
-namespace GeneticAlgorithm
+namespace GeneticAlgortihmLib
 {
     public static class GeneticLib 
     {

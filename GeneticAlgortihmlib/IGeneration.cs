@@ -1,4 +1,4 @@
- namespace GeneticAlgorithm
+ namespace GeneticAlgortihmLib
 {
     public delegate double FitnessEventHandler(IChromosome chromosome, IGeneration generation);
     /// <summary>
