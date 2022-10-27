@@ -2,7 +2,7 @@
 
 namespace GeneticAlgortihmLib
 {
-    public class Generation : IGeneration
+    public class Generation 
     {
 
     }
