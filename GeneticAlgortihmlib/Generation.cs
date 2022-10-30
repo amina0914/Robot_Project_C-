@@ -4,8 +4,8 @@ namespace GeneticAlgortihmLib
   public class Generation : IGenerationDetails
   {
     private IChromosome[] _chromosomes;
-    IGeneticAlgorithm algorithm1;
-    FitnessEventHandler fitnessEvent1;
+    private IGeneticAlgorithm algorithm1;
+    private FitnessEventHandler fitnessEvent1;
     int _seed;
     /// <summary>
     /// The average fitness across all Chromosomes
