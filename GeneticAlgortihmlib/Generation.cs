@@ -10,16 +10,36 @@ namespace GeneticAlgortihmLib
     /// <summary>
     /// The average fitness across all Chromosomes
     /// </summary>
-    public double AverageFitness { get; }
-    /// <summary>
+    public double AverageFitness { get{
+        double average=0;
+        foreach(IChromosome chrom in _chromosomes){
+            average+=chrom.Fitness;
+        }
+        return (average/_chromosomes.Length);
+    } }
+    /// <summary
     /// The maximum fitness across all Chromosomes
     /// </summary>
-    public double MaxFitness { get; }
+    public double MaxFitness { get{
+        double maxfitness;
+        maxfitness = _chromosomes[0].Fitness;
+      foreach (Chromosome chromosome in _chromosomes)
+      {
+        if (chromosome.Fitness > maxfitness)
+        {
+          maxfitness = chromosome.Fitness;
+        }
+      }
+      return maxfitness;
+
+    } }
 
     /// <summary>
     /// Returns the number of Chromosomes in the generation
     /// </summary>
-    public long NumberOfChromosomes { get; }
+    public long NumberOfChromosomes { get{
+        return _chromosomes.LongLength;
+    } }
 
     /// <summary>
     /// Retrieves the IChromosome from the generation
