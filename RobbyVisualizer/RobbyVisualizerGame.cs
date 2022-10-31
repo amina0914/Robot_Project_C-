@@ -29,13 +29,19 @@ namespace RobbyVisualizer
             int initialPos = 50;
             int posX=initialPos;
             int posY=initialPos;
+            bool isEmpty = true;
             for (int a=0; a<grid.GetLength(0); a++)
             {
                 for (int b=0; b<grid.GetLength(1); b++)
                 {
-                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY);
+                    //hardcoded values for testing purposes 
+                    if (a==2 && b==8){
+                        isEmpty = false;
+                    }
+                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty);
                     Components.Add(newGridSquare);
                     posX = posX + 80; 
+                    isEmpty = true;
                 }
                 posX = initialPos;
                 posY = posY + 80;
