@@ -76,4 +76,5 @@ namespace RobbyTheRobot
     }
 
     ///TODO Add custom delegate
+    public delegate void FileEventHandler(String fileMetaData);
 }
