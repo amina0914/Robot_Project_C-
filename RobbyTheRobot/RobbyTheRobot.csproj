@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-    <ProjectReference Include="..\GeneticAlgortihmlib\GeneticAlgortihm.csproj" />
+    <ProjectReference Include="..\GeneticAlgortihm\GeneticAlgortihm.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

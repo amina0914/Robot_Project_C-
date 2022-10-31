@@ -4,42 +4,22 @@ namespace GeneticAlgortihmLib
   public class Generation : IGenerationDetails
   {
     private IChromosome[] _chromosomes;
-    private IGeneticAlgorithm algorithm1;
-    private FitnessEventHandler fitnessEvent1;
+    IGeneticAlgorithm algorithm1;
+    FitnessEventHandler fitnessEvent1;
     int _seed;
     /// <summary>
     /// The average fitness across all Chromosomes
     /// </summary>
-    public double AverageFitness { get{
-        double average=0;
-        foreach(IChromosome chrom in _chromosomes){
-            average+=chrom.Fitness;
-        }
-        return (average/_chromosomes.Length);
-    } }
-    /// <summary
+    public double AverageFitness { get; }
+    /// <summary>
     /// The maximum fitness across all Chromosomes
     /// </summary>
-    public double MaxFitness { get{
-        double maxfitness;
-        maxfitness = _chromosomes[0].Fitness;
-      foreach (Chromosome chromosome in _chromosomes)
-      {
-        if (chromosome.Fitness > maxfitness)
-        {
-          maxfitness = chromosome.Fitness;
-        }
-      }
-      return maxfitness;
-
-    } }
+    public double MaxFitness { get; }
 
     /// <summary>
     /// Returns the number of Chromosomes in the generation
     /// </summary>
-    public long NumberOfChromosomes { get{
-        return _chromosomes.LongLength;
-    } }
+    public long NumberOfChromosomes { get; }
 
     /// <summary>
     /// Retrieves the IChromosome from the generation

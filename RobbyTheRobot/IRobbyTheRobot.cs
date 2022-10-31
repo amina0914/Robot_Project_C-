@@ -1,5 +1,5 @@
 using System;
-using GeneticAlgortihmLib;
+using GeneticAlgorithm;
 
 namespace RobbyTheRobot
 {   
@@ -76,5 +76,4 @@ namespace RobbyTheRobot
     }
 
     ///TODO Add custom delegate
-    public delegate void FileEventHandler(String fileMetaData);
 }
