@@ -45,9 +45,12 @@ namespace GeneticAlgortihmLib
         /// <returns></returns>
         public IChromosome[] Reproduce(IChromosome spouse, double mutationProb)
         {   
-            Random rand= new Random();
+            return CrossoverFunction(spouse, mutationProb);
+        }
+        private IChromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
             Chromosome child1= new Chromosome(this.Genes.Length,Length,_seed);
-             Chromosome child2=new Chromosome(spouse.Genes.Length,spouse.Length,2);
+            Chromosome child2=new Chromosome(spouse.Genes.Length,spouse.Length,2);
+            Random rand= new Random();
             int pointa= rand.Next(1,this.Genes.Length-5);
             int pointb=rand.Next(pointa,Genes.Length);
             for(int i=0; i<pointa; i++)
@@ -65,7 +68,6 @@ namespace GeneticAlgortihmLib
                 child1.Genes[z]= Genes[z];
                 child2.Genes[z]= spouse.Genes[z];
             }
-            
             return new IChromosome[]{child1,child2};
         }
 
