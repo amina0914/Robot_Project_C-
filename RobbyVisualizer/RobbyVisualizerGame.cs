@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace RobbyVisualizer
 {
     public class RobbyVisualizerGame : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch SpriteBatch;
+
+        public Texture2D Texture;
 
         public RobbyVisualizerGame()
         {
@@ -18,16 +21,34 @@ namespace RobbyVisualizer
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = 900; 
+            _graphics.PreferredBackBufferHeight = 900;
+            _graphics.ApplyChanges();     
+
+            SimulationSprite[,] grid = new SimulationSprite[10,10];
+            int initialPos = 50;
+            int posX=initialPos;
+            int posY=initialPos;
+            for (int a=0; a<grid.GetLength(0); a++)
+            {
+                for (int b=0; b<grid.GetLength(1); b++)
+                {
+                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY);
+                    Components.Add(newGridSquare);
+                    posX = posX + 80; 
+                }
+                posX = initialPos;
+                posY = posY + 80;
+            }
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            this.SpriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
+            this.Texture = Content.Load<Texture2D>("square");
         }
 
         protected override void Update(GameTime gameTime)
@@ -43,9 +64,6 @@ namespace RobbyVisualizer
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }
