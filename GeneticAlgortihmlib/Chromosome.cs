@@ -18,7 +18,7 @@ namespace GeneticAlgortihmLib
             Genes= new int[numbergenes];
             Random rand= new Random();
             for(int i=0; i < Genes.Length;i++){
-                Genes[i]= rand.Next(0,7);
+                Genes[i]= rand.Next(0,6);
             }
 
         }
@@ -35,6 +35,8 @@ namespace GeneticAlgortihmLib
                 Genes[i]=chromosome.Genes[i];
             }
             Length=chromosome.Length;
+
+
         }
         /// <summary>
         /// Uses a crossover function to create two offspring, then iterates through the
