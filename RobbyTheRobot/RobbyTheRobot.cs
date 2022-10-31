@@ -11,7 +11,6 @@ namespace RobbyTheRobot
         private int Seed {get;}
 
         public int NumberOfActions {get;}
-
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}
         public int NumberOfGenerations {get;}
@@ -19,12 +18,14 @@ namespace RobbyTheRobot
         public double EliteRate {get;}
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
-            NbGenerations = nbGenerations;
+            NumberOfGenerations = nbGenerations;
             PopulationSize = populationSize;
             NbTrials = nbTrials;
             Seed = seed;
             //hardcoded the value to 100
             GridSize = 100;
+            NumberOfActions = 200;
+            NumberOfTestGrids = nbTrials;
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
