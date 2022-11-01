@@ -49,9 +49,9 @@ namespace GeneticAlgortihmLib
         }
         private IChromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
             Chromosome child1= new Chromosome(this.Genes.Length,Length,_seed);
-            Chromosome child2=new Chromosome(spouse.Genes.Length,spouse.Length,2);
+            Chromosome child2=new Chromosome(spouse.Genes.Length,spouse.Length,_seed);
             Random rand= new Random();
-            int pointa= rand.Next(1,this.Genes.Length-5);
+            int pointa= rand.Next(1,this.Genes.Length-15);
             int pointb=rand.Next(pointa,Genes.Length);
             for(int i=0; i<pointa; i++)
             {
@@ -60,17 +60,24 @@ namespace GeneticAlgortihmLib
             }
             for(int j=pointa;j<pointb;j++)
             {
-                child1.Genes[j]=Genes[j];
-                child2.Genes[j]=spouse.Genes[j];
+                child1.Genes[j]=spouse.Genes[j];
+                child2.Genes[j]=Genes[j];
             }
             for(int z=pointb; z <Genes.Length; z++)
             {
                 child1.Genes[z]= Genes[z];
                 child2.Genes[z]= spouse.Genes[z];
             }
-            return new IChromosome[]{child1,child2};
+            for(int c=0; c< child1.Genes.Length;c++){
+                if(mutationprob>rand.NextDouble())
+                {
+                child1.Genes[c]= rand.Next(0,6);
+                child2.Genes[c]= rand.Next(0,6);
+                }
+            }
+            IChromosome[] childs=new IChromosome[]{child1,child2};
+            return childs;
         }
-
        public override bool Equals(object obj)
     {
         return Equals(obj as Chromosome);
