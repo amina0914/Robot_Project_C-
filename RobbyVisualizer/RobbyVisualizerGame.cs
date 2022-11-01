@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+//for now to test using RobbyTheRobot app, later when console app done will need to use RobbyIterationGenerator instead
+using RobbyTheRobot;
+using GeneticAlgortihmLib;
 
 namespace RobbyVisualizer
 {
@@ -25,27 +28,31 @@ namespace RobbyVisualizer
             _graphics.PreferredBackBufferHeight = 900;
             _graphics.ApplyChanges();     
 
+            //creating robby obj, so can create a grid with either empty or cans, will need to use console later
+            IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 70, 50);
+            //ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
+
             SimulationSprite[,] grid = new SimulationSprite[10,10];
             int initialPos = 50;
             int posX=initialPos;
             int posY=initialPos;
             bool isEmpty = true;
-            for (int a=0; a<grid.GetLength(0); a++)
-            {
-                for (int b=0; b<grid.GetLength(1); b++)
-                {
-                    //hardcoded values for testing purposes 
-                    if (a==2 && b==8){
-                        isEmpty = false;
-                    }
+            // for (int a=0; a<grid.GetLength(0); a++)
+            // {
+            //     for (int b=0; b<grid.GetLength(1); b++)
+            //     {
+            //         //hardcoded values for testing purposes 
+            //         if (robbyGrid[a,b] == ContentsOfGrid.Can){
+            //             isEmpty = false;
+            //         }
                     SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty);
                     Components.Add(newGridSquare);
                     posX = posX + 80; 
                     isEmpty = true;
-                }
+                // }
                 posX = initialPos;
                 posY = posY + 80;
-            }
+            // }
 
             base.Initialize();
         }
@@ -53,7 +60,6 @@ namespace RobbyVisualizer
         protected override void LoadContent()
         {
             this.SpriteBatch = new SpriteBatch(GraphicsDevice);
-            // TODO: use this.Content to load your game content here
             this.Texture = Content.Load<Texture2D>("square");
         }
 
