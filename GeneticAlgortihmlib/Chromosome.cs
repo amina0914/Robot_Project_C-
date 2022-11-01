@@ -34,6 +34,7 @@ namespace GeneticAlgortihmLib
             for(int i=0; i<Genes.Length; i++){
                 Genes[i]=chromosome.Genes[i];
             }
+            Fitness=chromosome.Fitness;
             Length=chromosome.Length;
         }
         /// <summary>

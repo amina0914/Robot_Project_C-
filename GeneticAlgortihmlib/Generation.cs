@@ -3,7 +3,7 @@ namespace GeneticAlgortihmLib
 {
   public class Generation : IGenerationDetails
   {
-    private IChromosome[] _chromosomes;
+    private Chromosome[] _chromosomes;
     private IGeneticAlgorithm algorithm1;
     private FitnessEventHandler fitnessEvent1;
     int _seed;
@@ -66,6 +66,10 @@ namespace GeneticAlgortihmLib
       algorithm1 = algorithm;
       fitnessEvent1 = fitnessEvent;
       _seed = seed;
+      for(int i=0; i<_chromosomes.Length; i++)
+      {
+        _chromosomes[i]= new Chromosome(algorithm1.NumberOfGenes, algorithm1.LengthOfGene, _seed);
+      }
     }
     /// <summary>
     /// Randomly selects a parent by comparing its fitness to others in the population
@@ -73,15 +77,17 @@ namespace GeneticAlgortihmLib
     /// <returns></returns>
     public IChromosome SelectParent()
     {
-      IChromosome potentialparent = _chromosomes[0];
+      // Array.Sort(_chromosomes);
+      // Array.Reverse(_chromosomes);
+      // IChromosome potentialparent = _chromosomes[0];
       foreach (Chromosome chromosome in _chromosomes)
       {
-        if (chromosome.Fitness > potentialparent.Fitness)
+        if (AverageFitness < chromosome.Fitness)
         {
-          potentialparent = chromosome;
+          return chromosome;
         }
       }
-      return potentialparent;
+      return null;
     }
 
     /// <summary>

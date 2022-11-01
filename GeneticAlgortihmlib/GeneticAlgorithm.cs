@@ -48,7 +48,29 @@ namespace GeneticAlgortihmLib
         /// </summary>
         /// <returns>The current generation</returns>
         public IGeneration GenerateGeneration(){
-          return null;
+          if(CurrentGeneration is null){
+            Generation currentgen= new Generation(this,FitnessCalculation,_seed);
+            return currentgen;
+          }else
+          {
+            int count=0;
+            Chromosome[] newgen= new Chromosome[CurrentGeneration.NumberOfChromosomes];
+            while(count <PopulationSize)
+            {
+              IChromosome parent1= ((IGenerationDetails)CurrentGeneration).SelectParent();
+              IChromosome parent2= ((IGenerationDetails)CurrentGeneration).SelectParent();
+              IChromosome[] childs=parent1.Reproduce(parent2,MutationRate);
+              foreach(Chromosome kid in childs)
+              {
+                if(count < PopulationSize){
+                  newgen[count]=kid;
+                  count++;
+                }
+              }
+            }
+            IGenerationDetails newgeneration= new Generation(newgen);
+            return newgeneration;
+          }          
         }
 
     }
