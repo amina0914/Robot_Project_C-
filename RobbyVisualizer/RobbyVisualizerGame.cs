@@ -30,29 +30,29 @@ namespace RobbyVisualizer
 
             //creating robby obj, so can create a grid with either empty or cans, will need to use console later
             IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 70, 50);
-            //ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
+            ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
             int initialPos = 50;
             int posX=initialPos;
             int posY=initialPos;
             bool isEmpty = true;
-            // for (int a=0; a<grid.GetLength(0); a++)
-            // {
-            //     for (int b=0; b<grid.GetLength(1); b++)
-            //     {
-            //         //hardcoded values for testing purposes 
-            //         if (robbyGrid[a,b] == ContentsOfGrid.Can){
-            //             isEmpty = false;
-            //         }
+            for (int a=0; a<grid.GetLength(0); a++)
+            {
+                for (int b=0; b<grid.GetLength(1); b++)
+                {
+                    if (robbyGrid[a,b] == ContentsOfGrid.Can)
+                    {
+                        isEmpty = false;
+                    }
                     SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty);
                     Components.Add(newGridSquare);
                     posX = posX + 80; 
                     isEmpty = true;
-                // }
+                }
                 posX = initialPos;
                 posY = posY + 80;
-            // }
+            }
 
             base.Initialize();
         }
