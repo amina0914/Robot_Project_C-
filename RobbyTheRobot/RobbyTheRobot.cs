@@ -32,21 +32,30 @@ namespace RobbyTheRobot
         public ContentsOfGrid[,] GenerateRandomTestGrid()
         {
             ContentsOfGrid[,] grid = new ContentsOfGrid[Convert.ToInt32(Math.Sqrt(GridSize)), Convert.ToInt32(Math.Sqrt(GridSize))];
-            
             // sets the positions of the cans 
             List<int> randomCansPositions = generateRandomLocation();
-            for (int i=0; i<randomCansPositions.Count; i++){
-                String randomPosString = randomCansPositions[i].ToString();
-                grid[randomPosString[0], randomPosString[1]] = ContentsOfGrid.Can;
-            }
 
-            // sets the positions of empty to the rest of the grid
+            // sets all positions of the grid to start with empty
             for (int a=0; a<grid.GetLength(0); a++){
                 for (int b=0; b<grid.GetLength(1); b++){
-                    if (grid[a,b] != ContentsOfGrid.Can){
-                        grid[a,b] = ContentsOfGrid.Empty;
-                    }
+                    grid[a,b] = ContentsOfGrid.Empty;
                 }
+            }
+
+            // sets the positions of the grid from the generateRandomLocation to have a can 
+            for (int i=0; i<randomCansPositions.Count; i++)
+            {
+                // if the location contains 2 digits, it separates the digit and sets the grid at digit 1 and digit 2 to can
+                if (randomCansPositions[i]>9)
+                {
+                    String randomPosString = randomCansPositions[i].ToString();
+                    grid[randomPosString[0]-'0',randomPosString[1]-'0'] = ContentsOfGrid.Can;
+                } 
+                else 
+                {
+                    grid[0, randomCansPositions[i]] = ContentsOfGrid.Can;
+                }
+                
             }
             return grid;
         }
