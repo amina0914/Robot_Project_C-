@@ -68,7 +68,7 @@ namespace GeneticAlgortihmLib
                 }
               }
             }
-            IGenerationDetails newgeneration= new Generation(newgen);
+            Generation newgeneration= new Generation(newgen);
             return newgeneration;
           }          
         }
