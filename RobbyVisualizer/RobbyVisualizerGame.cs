@@ -34,9 +34,10 @@ namespace RobbyVisualizer
             ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
-            int initialPos = 50;
-            int posX=initialPos;
-            int posY=initialPos;
+            int initialPosX = 50;
+            int initialPosY = 0;
+            int posX=initialPosX;
+            int posY=initialPosY;
             bool isEmpty = true;
             bool isRobbyHere = false;
             for (int a=0; a<grid.GetLength(0); a++)
@@ -57,7 +58,7 @@ namespace RobbyVisualizer
                     isEmpty = true;
                     isRobbyHere = false;
                 }
-                posX = initialPos;
+                posX = initialPosX;
                 posY = posY + 80;
             }
 
