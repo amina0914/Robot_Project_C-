@@ -14,6 +14,7 @@ namespace RobbyVisualizer
         public SpriteBatch SpriteBatch;
 
         public Texture2D Texture;
+        private Texture2D _backgroundTexture;
 
         public RobbyVisualizerGame()
         {
@@ -67,6 +68,7 @@ namespace RobbyVisualizer
         {
             this.SpriteBatch = new SpriteBatch(GraphicsDevice);
             this.Texture = Content.Load<Texture2D>("square");
+            this._backgroundTexture = Content.Load<Texture2D>("background");
         }
 
         protected override void Update(GameTime gameTime)
@@ -82,6 +84,9 @@ namespace RobbyVisualizer
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
+            SpriteBatch.End();
             base.Draw(gameTime);
         }
     }
