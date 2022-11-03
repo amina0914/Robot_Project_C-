@@ -25,7 +25,7 @@ namespace RobbyVisualizer
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 900; 
+            _graphics.PreferredBackBufferWidth = 1000; 
             _graphics.PreferredBackBufferHeight = 900;
             _graphics.ApplyChanges();     
 
@@ -34,8 +34,8 @@ namespace RobbyVisualizer
             ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
-            int initialPosX = 50;
-            int initialPosY = 0;
+            int initialPosX = 200;
+            int initialPosY = 10;
             int posX=initialPosX;
             int posY=initialPosY;
             bool isEmpty = true;
@@ -48,18 +48,19 @@ namespace RobbyVisualizer
                     {
                         isEmpty = false;
                     }
+                    // hardcoded robby position
                     if (a==0 && b ==0)
                     {
                         isRobbyHere = true;
                     }
                     SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
                     Components.Add(newGridSquare);
-                    posX = posX + 80; 
+                    posX = posX + 60; 
                     isEmpty = true;
                     isRobbyHere = false;
                 }
                 posX = initialPosX;
-                posY = posY + 80;
+                posY = posY + 60;
             }
 
             base.Initialize();

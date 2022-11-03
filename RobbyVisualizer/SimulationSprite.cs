@@ -28,8 +28,8 @@ namespace RobbyVisualizer
             this._color = Color.CornflowerBlue;
             this._posX = posX;
             this._posY = posY;
-            this._sizeX = 80; 
-            this._sizeY = 80;
+            this._sizeX = 60; 
+            this._sizeY = 60;
             this._isEmpty = isEmpty;
             this._isRobbyHere = isRobbyHere;
         }
