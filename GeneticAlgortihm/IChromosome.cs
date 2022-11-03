@@ -1,6 +1,6 @@
 using System;
 
-namespace GeneticAlgortihmLib
+namespace GeneticAlgortihm
 {
     public interface IChromosome :IComparable<IChromosome>
     {

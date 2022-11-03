@@ -1,26 +1,28 @@
 using System;
-namespace GeneticAlgortihmLib
+using System.Linq;
+namespace GeneticAlgortihm
 {
-    public class Chromosome: IChromosome
+    internal class Chromosome: IChromosome
     {
-        /// <summary>
+          /// <summary>
         /// The fitness score of the IChromosome
         /// </summary>
         /// <value>A value representing the fitness of the IChromosome</value>
-        public double Fitness {get;}
+        public double Fitness {get;set;}
 
-        public int[] Genes { get; }
-        private int _seed;
-        public Chromosome(int numbergenes, long lenght, int seed )
+        public int[] Genes => _genes.ToArray();//Better practice
+        private int[] _genes;
+        private int? _seed;
+        private int _lengthgene;
+        public Chromosome(int numbergenes, int length, int? seed=null )
         {
-            Length= lenght;
             _seed=seed;
-            Genes= new int[numbergenes];
+            _lengthgene=length;
+            _genes= new int[numbergenes];
             Random rand= new Random();
-            for(int i=0; i < Genes.Length;i++){
-                Genes[i]= rand.Next(0,7);
+            for(int i=0; i < _genes.Length;i++){
+                _genes[i]= rand.Next(0,7);
             }
-
         }
         public int CompareTo(IChromosome chromosome)
         {
@@ -30,12 +32,11 @@ namespace GeneticAlgortihmLib
         public Chromosome(Chromosome chromosome)
         {
             _seed= chromosome._seed;
-            Genes=new int[chromosome.Genes.Length];
-            for(int i=0; i<Genes.Length; i++){
-                Genes[i]=chromosome.Genes[i];
+            _genes=new int[chromosome._genes.Length];
+            for(int i=0; i<_genes.Length; i++){
+                _genes[i]=chromosome._genes[i];
             }
             Fitness=chromosome.Fitness;
-            Length=chromosome.Length;
         }
         /// <summary>
         /// Uses a crossover function to create two offspring, then iterates through the
@@ -48,37 +49,43 @@ namespace GeneticAlgortihmLib
         {   
             return CrossoverFunction(spouse, mutationProb);
         }
-        private IChromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
-            Chromosome child1= new Chromosome(this.Genes.Length,Length,_seed);
-            Chromosome child2=new Chromosome(spouse.Genes.Length,spouse.Length,_seed);
-            Random rand= new Random();
+        private Chromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
+            Chromosome child1= new Chromosome(this.Genes.Length,_lengthgene,_seed);
+            child1.Fitness=3;
+            
+            Chromosome child2=new Chromosome(spouse.Genes.Length,_lengthgene,_seed);
+            child2.Fitness=5;
+            Random rand= _seed != null ? new Random((int)_seed): new Random();
             int pointa= rand.Next(1,this.Genes.Length-15);
             int pointb=rand.Next(pointa,Genes.Length);
             for(int i=0; i<pointa; i++)
             {
-                child1.Genes[i]=Genes[i];
-                child2.Genes[i]=spouse.Genes[i];
+                child1._genes[i]=_genes[i];
+                child2._genes[i]=spouse[i];
             }
             for(int j=pointa;j<pointb;j++)
             {
-                child1.Genes[j]=spouse.Genes[j];
-                child2.Genes[j]=Genes[j];
+                child1._genes[j]=spouse[j];
+                child2._genes[j]=Genes[j];
             }
-            for(int z=pointb; z <Genes.Length; z++)
+            for(int z=pointb; z <_genes.Length; z++)
             {
-                child1.Genes[z]= Genes[z];
-                child2.Genes[z]= spouse.Genes[z];
+                child1._genes[z]= Genes[z];
+                child2._genes[z]= spouse[z];
             }
+            //Mutate
             for(int c=0; c< child1.Genes.Length;c++){
                 if(mutationprob>rand.NextDouble())
                 {
-                child1.Genes[c]= rand.Next(0,6);
-                child2.Genes[c]= rand.Next(0,6);
+                child1._genes[c]= rand.Next(0,6);
+                child2._genes[c]= rand.Next(0,6);
                 }
             }
-            IChromosome[] childs=new IChromosome[]{child1,child2};
+            Chromosome[] childs=new Chromosome[]{child1,child2};
             return childs;
         }
+      
+
        public override bool Equals(object obj)
     {
         return Equals(obj as Chromosome);
@@ -101,13 +108,14 @@ namespace GeneticAlgortihmLib
         /// <value></value>
         public int this[int index] {
             get{
-                return Genes[index];
-            }}
+                return _genes[index];
+            }
+           }
 
         /// <summary>
         /// The length of the genes
         /// </summary>
-        public long Length {get;}
+        public long Length => _genes.Length;
 
         
     }
