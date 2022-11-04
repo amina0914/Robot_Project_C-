@@ -65,7 +65,8 @@ namespace RobbyTheRobot
             throw new NotImplementedException();
         }
 
-        private List<int> generateRandomLocation(){
+        private List<int> generateRandomLocation()
+        {
             Random rnd = new Random();
             
             int randomLocation;
@@ -78,6 +79,21 @@ namespace RobbyTheRobot
                 listRandomLocations.Add(randomLocation);
             }
             return listRandomLocations;
+        }
+
+        // method to calculate fitness ComputeFitness()
+        // calls generateRandomGrid, runs Robby through grid, scoring moves 
+        public double ComputeFitness(IChromosome chromosome){
+            // calls the generate grid
+            ContentsOfGrid[,] grid = GenerateRandomTestGrid();
+            // generates Robby's moves from geneticAlgorithm
+            int [] moves = chromosome.Genes;
+            // generating random for the first position at x and y (position between 0 and 10, since width and height are 10)
+            Random rnd = new Random();
+            int xPos = rnd.Next(0, 10);
+            int yPos = rnd.Next(0, 10);
+            double fitness = RobbyHelper.ScoreForAllele(moves, grid, rnd, ref xPos, ref yPos);
+            return fitness;
         }
     }
 }
