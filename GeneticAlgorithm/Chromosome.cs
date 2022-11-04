@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-namespace GeneticAlgortihm
+namespace GeneticAlgorithm
 {
     internal class Chromosome: IChromosome
     {

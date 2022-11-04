@@ -1,5 +1,5 @@
 using System;
-namespace GeneticAlgortihm
+namespace GeneticAlgorithm
 {
   internal class GeneticAlgorithm : IGeneticAlgorithm
   {
