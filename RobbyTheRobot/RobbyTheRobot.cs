@@ -7,10 +7,10 @@ namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot
     {
-        private int NbGenerations {get;}
-        private int PopulationSize {get;}
-        private int NbTrials {get;}
-        private int Seed {get;}
+        private int _nbGenerations {get;}
+        private int _populationSize {get;}
+        private int _nbTrials {get;}
+        private int _seed {get;}
 
         public int NumberOfActions {get;}
         public int NumberOfTestGrids {get;}
@@ -21,9 +21,9 @@ namespace RobbyTheRobot
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
             NumberOfGenerations = nbGenerations;
-            PopulationSize = populationSize;
-            NbTrials = nbTrials;
-            Seed = seed;
+            _populationSize = populationSize;
+            _nbTrials = nbTrials;
+            _seed = seed;
             //hardcoded the value to 100
             GridSize = 100;
             NumberOfActions = 200;
@@ -67,8 +67,11 @@ namespace RobbyTheRobot
             double maxScore = 0.0;
             int nbMoves = 200;
             IChromosome genes = null;
+            int lengthOfGene = 0;
+            // IGeneticAlgorithm geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, 1000, lengthOfGene, this.MutationRate, this.EliteRate, NumberOfActions, ComputeFitness());
 
-            //Write to a file
+
+            // Write to a file the top candidate of the 1st, 20th, 100, 200, 500 and 1000th generation.
             using (StreamWriter writer = new StreamWriter(folderPath))
             {
                 writer.WriteLine("Max score " + maxScore);
