@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 namespace GeneticAlgorithm
 {
   internal class Generation : IGenerationDetails
@@ -12,7 +13,7 @@ namespace GeneticAlgorithm
     /// <summary>
     /// The average fitness across all Chromosomes
     /// </summary>
-    public double AverageFitness => _avergfitness;
+    public double AverageFitness => _chromosomes.Average(i=>i.Fitness);
     /// <summary
     /// The maximum fitness across all Chromosomes
     /// </summary>
@@ -84,16 +85,53 @@ namespace GeneticAlgorithm
     {
       //Here Invoke the Handler and that should be it.
       double averagefitness = 0;
-      for (int i = 0; i < _chromosomes.Length; i++)
+    
+      foreach(Chromosome chromo in _chromosomes)
       {
-        double fitness = _fitnessHandler.Invoke(_chromosomes[i], this);
-        averagefitness += fitness;
-        _chromosomes[i].Fitness = fitness;
+        double fitness=0;
+        for(int z=0; z < _algorithm.NumberOfTrials;z++){
+           fitness+=_fitnessHandler.Invoke(chromo, this);
+        }
+       chromo.Fitness=fitness/_algorithm.NumberOfTrials;
+      
       }
-      _avergfitness = averagefitness / NumberOfChromosomes;
+        
+      
+      // for (int i = 0; i < _chromosomes.Length; i++)
+      // {
+      //   double fitness = _fitnessHandler.Invoke(_chromosomes[i], this);
+      //   averagefitness += fitness;
+      //   _chromosomes[i].Fitness = fitness;
+      // }
+      // _avergfitness = averagefitness / NumberOfChromosomes;
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes); //This is expensive goes on mehtod below Recommendation usign a subset
       _maxfit = _chromosomes[0].Fitness;
+    // int nbmoftria= _algorithm.NumberOfTrials;
+    // double fintessscore=0;
+    // double totalFitnessScore = 0;
+    // double finalaveragefitsc=0;
+    // foreach(Chromosome a in _chromosomes){
+
+    //     fintessscore=
+        
+
+    // }
+    // //per chromosome nth number of trials
+    // for(int i=0; i < nbmoftria;i++){
+    //   fintessscore = _fitnessHandler.Invoke(a, this);
+    //   totalFitnessScore += fintessscore;
+    //   nbmoftria++;
+
+    // }
+    // //find the average of fitness score of chromosome after nth trials
+    // finalaveragefitsc = totalFitnessScore / nbmoftria;
+
+    //pass the fitness score to the chromosome 
+    //then put the chromosome into the chromosome array
+
+
+
     }
 
 

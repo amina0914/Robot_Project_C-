@@ -6,7 +6,7 @@ namespace testgeneticalgo
   {
     static void Main(string[] args)
     {
-     GeneticAlgorith test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) as GeneticAlgorith;
+     IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
      test.GenerateGeneration();
      Console.WriteLine("Printing My Population Size");
      Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
