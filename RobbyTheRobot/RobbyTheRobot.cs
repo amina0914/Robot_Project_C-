@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeneticAlgortihmLib;
+using System.IO;
 
 namespace RobbyTheRobot
 {
@@ -60,9 +61,20 @@ namespace RobbyTheRobot
             return grid;
         }
 
+        // Method not finished yet, only started the file reader, will need the genetic algorithm to get the genes and moves
         public void GeneratePossibleSolutions(string folderPath)
         {
-            throw new NotImplementedException();
+            double maxScore = 0.0;
+            int nbMoves = 200;
+            IChromosome genes = null;
+
+            //Write to a file
+            using (StreamWriter writer = new StreamWriter(folderPath))
+            {
+                writer.WriteLine("Max score " + maxScore);
+                writer.WriteLine("Number of moves " + nbMoves);
+                writer.WriteLine("Robby's actions " + genes);
+            }
         }
 
         private List<int> generateRandomLocation()
