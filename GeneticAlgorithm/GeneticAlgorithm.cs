@@ -53,8 +53,9 @@ namespace GeneticAlgorithm
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
       if (CurrentGeneration is null)
       {
-        Generation currentgen = new Generation(this, FitnessCalculation, _seed);
-        return currentgen;
+       CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
+        // return currentgen;
+        return CurrentGeneration;
       }
       else
       {
