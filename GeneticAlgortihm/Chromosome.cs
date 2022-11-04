@@ -50,11 +50,8 @@ namespace GeneticAlgortihm
             return CrossoverFunction(spouse, mutationProb);
         }
         private Chromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
-            Chromosome child1= new Chromosome(this.Genes.Length,_lengthgene,_seed);
-            child1.Fitness=3;
-            
+            Chromosome child1= new Chromosome(this.Genes.Length,_lengthgene,_seed);   
             Chromosome child2=new Chromosome(spouse.Genes.Length,_lengthgene,_seed);
-            child2.Fitness=5;
             Random rand= _seed != null ? new Random((int)_seed): new Random();
             int pointa= rand.Next(1,this.Genes.Length-15);
             int pointb=rand.Next(pointa,Genes.Length);

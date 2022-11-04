@@ -35,7 +35,7 @@ namespace GeneticAlgortihm
     /// <summary>
     /// Returns the current generation
     /// </summary>
-    public IGeneration CurrentGeneration { get; }
+    public IGeneration CurrentGeneration { get; set; }
 
     /// <summary>
     /// The delegate of the fitness method to be called
@@ -50,7 +50,7 @@ namespace GeneticAlgortihm
     /// <returns>The current generation</returns>
     public IGeneration GenerateGeneration()
     {
-      Random rand= _seed != null ? new Random((int)_seed): new Random();
+      Random rand = _seed != null ? new Random((int)_seed) : new Random();
       if (CurrentGeneration is null)
       {
         Generation currentgen = new Generation(this, FitnessCalculation, _seed);
@@ -60,28 +60,33 @@ namespace GeneticAlgortihm
       {
         int count = 0;
         int elitepopulation = 0;
-        elitepopulation = (int)EliteRate * PopulationSize;//modulus % for even 2 numbers.
-        if(elitepopulation%2 !=0){
-          elitepopulation+=1;
+        elitepopulation = (int)(EliteRate * PopulationSize);
+        if (elitepopulation % 2 != 0)
+        {
+          elitepopulation += 1;
         }
-        Chromosome[] newgen = new Chromosome[PopulationSize];//  remember final array[] has same population
-        for(int i=0; i < elitepopulation; i ++){
-           IChromosome parent = (CurrentGeneration as IGenerationDetails)?.SelectParent();
+        Chromosome[] newgen = new Chromosome[PopulationSize];
+        for (int i = 0; i < elitepopulation; i++)
+        {
+          IChromosome parent = (CurrentGeneration as IGenerationDetails)?.SelectParent();
           newgen[i] = parent as Chromosome;
         }
-        count=elitepopulation;
-       
-        while (count < PopulationSize)//Subset + childs. 
+
+        count = elitepopulation;
+
+        while (count < PopulationSize)
         {
-          IChromosome[] childs=newgen[rand.Next(0,elitepopulation)].Reproduce(newgen[rand.Next(0,elitepopulation)],MutationRate);
-          foreach(Chromosome kid in childs)
+          int index1 = rand.Next(0, elitepopulation);
+          int index2 = rand.Next(0, elitepopulation);
+          IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
+          foreach (Chromosome kid in childs)
           {
-              newgen[count]=kid;
-              count++;          
+            newgen[count] = kid;
+            count++;
           }
         }
-        Generation newgeneration = new Generation(newgen);
-        return newgeneration;
+        CurrentGeneration = new Generation(newgen);
+        return CurrentGeneration;
       }
     }
 
