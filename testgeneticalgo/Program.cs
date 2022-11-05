@@ -1,13 +1,17 @@
 ﻿using System;
 using GeneticAlgorithm;
+using RobbyTheRobot;
 namespace testgeneticalgo
 {
   class Program
   {
     static void Main(string[] args)
     {
+     
+     
      IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
      test.GenerateGeneration();
+     IRobbyTheRobot robby = Robby.CreateRobby(2,5,2,2);
      Console.WriteLine("Printing My Population Size");
      Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
      Console.WriteLine("Fitness is 0 not being initialized by Robby");

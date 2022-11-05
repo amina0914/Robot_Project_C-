@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeneticAlgortihmLib;
+using GeneticAlgorithm;
 using System.IO;
 
 namespace RobbyTheRobot
@@ -11,7 +11,6 @@ namespace RobbyTheRobot
         private int _populationSize {get;}
         private int _nbTrials {get;}
         private int _seed {get;}
-
         public int NumberOfActions {get;}
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}

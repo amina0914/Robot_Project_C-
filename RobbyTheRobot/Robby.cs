@@ -1,10 +1,11 @@
+using GeneticAlgorithm;
 namespace RobbyTheRobot
 {
     public static class Robby
     {
-        public static IRobbyTheRobot CreateRobby(int nbGenerations, int populationSize, int nbTrials, int seed)
+        public static IRobbyTheRobot CreateRobby(int nbGenerations, int populationSize, int nbTrials, int seed, IGeneticAlgorithm testga)
         {
-            return new RobbyTheRobot(nbGenerations,populationSize, nbTrials, seed);
+            return new RobbyTheRobot(nbGenerations,populationSize, nbTrials, seed,  testga);
         }
     }
 }

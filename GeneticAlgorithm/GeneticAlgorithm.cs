@@ -45,7 +45,7 @@ namespace GeneticAlgorithm
     /// The delegate of the fitness method to be called
     /// </summary>
     /// <value></value>
-    public FitnessEventHandler FitnessCalculation { get; }
+    public FitnessEventHandler FitnessCalculation {get;}
 
     /// <summary>
     /// Generates a generation for the given parameters. If no generation has been created the initial one will be constructed. 

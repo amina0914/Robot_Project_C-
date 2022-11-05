@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" />
+    <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" /> 
+    <ProjectReference Include="..\RobbyTheRobot\RobbyTheRobot.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
