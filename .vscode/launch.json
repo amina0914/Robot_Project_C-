@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/RobbyVisualizer/bin/Debug/netcoreapp3.1/RobbyVisualizer.dll",
+            "program": "${workspaceFolder}/RobbyTheRobotTest/bin/Debug/netcoreapp3.1/RobbyTheRobotTest.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/RobbyVisualizer",
+            "cwd": "${workspaceFolder}/RobbyTheRobotTest",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
