@@ -86,8 +86,6 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-      double averagefitness = 0;
-    
       foreach(Chromosome chromo in _chromosomes)
       {
         double fitness=0;
@@ -101,31 +99,6 @@ namespace GeneticAlgorithm
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes); 
       
-    // int nbmoftria= _algorithm.NumberOfTrials;
-    // double fintessscore=0;
-    // double totalFitnessScore = 0;
-    // double finalaveragefitsc=0;
-    // foreach(Chromosome a in _chromosomes){
-
-    //     fintessscore=
-        
-
-    // }
-    // //per chromosome nth number of trials
-    // for(int i=0; i < nbmoftria;i++){
-    //   fintessscore = _fitnessHandler.Invoke(a, this);
-    //   totalFitnessScore += fintessscore;
-    //   nbmoftria++;
-
-    // }
-    // //find the average of fitness score of chromosome after nth trials
-    // finalaveragefitsc = totalFitnessScore / nbmoftria;
-
-    //pass the fitness score to the chromosome 
-    //then put the chromosome into the chromosome array
-
-
-
     }
 
 
