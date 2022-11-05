@@ -8,8 +8,7 @@ namespace GeneticAlgorithm
     private IGeneticAlgorithm _algorithm;
     private FitnessEventHandler _fitnessHandler;
     int? _seed;
-    private double _avergfitness;
-    private double _maxfit;
+    
     /// <summary>
     /// The average fitness across all Chromosomes
     /// </summary>
@@ -17,7 +16,7 @@ namespace GeneticAlgorithm
     /// <summary
     /// The maximum fitness across all Chromosomes
     /// </summary>
-    public double MaxFitness => _maxfit;
+    public double MaxFitness => _chromosomes[0].Fitness;
 
     /// <summary>
     /// Returns the number of Chromosomes in the generation
@@ -48,7 +47,10 @@ namespace GeneticAlgorithm
     {
       _algorithm = algorithm;
       _fitnessHandler = fitnessEvent;
-      _seed = seed;
+      if(seed != null){
+        _seed= seed;
+
+      }
       _chromosomes = new Chromosome[_algorithm.PopulationSize];
       for (int i = 0; i < _chromosomes.Length; i++)
       {
@@ -92,21 +94,13 @@ namespace GeneticAlgorithm
         for(int z=0; z < _algorithm.NumberOfTrials;z++){
            fitness+=_fitnessHandler.Invoke(chromo, this);
         }
-       chromo.Fitness=fitness/_algorithm.NumberOfTrials;
+       chromo.Fitness=(fitness/_algorithm.NumberOfTrials);
       
       }
         
-      
-      // for (int i = 0; i < _chromosomes.Length; i++)
-      // {
-      //   double fitness = _fitnessHandler.Invoke(_chromosomes[i], this);
-      //   averagefitness += fitness;
-      //   _chromosomes[i].Fitness = fitness;
-      // }
-      // _avergfitness = averagefitness / NumberOfChromosomes;
       Array.Sort(_chromosomes);
-      Array.Reverse(_chromosomes); //This is expensive goes on mehtod below Recommendation usign a subset
-      _maxfit = _chromosomes[0].Fitness;
+      Array.Reverse(_chromosomes); 
+      
     // int nbmoftria= _algorithm.NumberOfTrials;
     // double fintessscore=0;
     // double totalFitnessScore = 0;

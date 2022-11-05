@@ -16,7 +16,9 @@ namespace GeneticAlgorithm
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
         {
-            _seed=seed;
+            if(seed !=null){
+                 _seed=seed;
+            }
             _lengthgene=length;
             _genes= new int[numbergenes];
             Random rand= new Random();

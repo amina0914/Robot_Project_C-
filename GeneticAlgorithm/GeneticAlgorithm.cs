@@ -12,7 +12,10 @@ namespace GeneticAlgorithm
 
 
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
-    {
+    { 
+      if(seed !=null){
+        _seed = seed ;
+      }
       PopulationSize = populationSize;
       NumberOfGenes = numberOfGenes;
       LengthOfGene = lengthOfGene;
@@ -20,7 +23,8 @@ namespace GeneticAlgorithm
       EliteRate = eliteRate;
       NumberOfTrials = numberOfTrials;
       FitnessCalculation = fitnessCalculation;
-      _seed = seed;
+      
+     
     }
     /// <summary>
     /// The number of times the fitness function should be called when computing the result
