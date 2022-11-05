@@ -39,7 +39,7 @@ namespace GeneticAlgorithm
       _chromosomes = new Chromosome[arrayChromosomes.Length];
       for (int i = 0; i < arrayChromosomes.Length; i++)
       {
-        _chromosomes[i] = arrayChromosomes[i];
+        _chromosomes[i] = new Chromosome(arrayChromosomes[i]);
       }
     }
 
