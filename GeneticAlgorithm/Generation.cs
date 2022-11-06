@@ -8,11 +8,11 @@ namespace GeneticAlgorithm
     private IGeneticAlgorithm _algorithm;
     private FitnessEventHandler _fitnessHandler;
     int? _seed;
-    
+
     /// <summary>
     /// The average fitness across all Chromosomes
     /// </summary>
-    public double AverageFitness => _chromosomes.Average(i=>i.Fitness);
+    public double AverageFitness => _chromosomes.Average(i => i.Fitness);
     /// <summary
     /// The maximum fitness across all Chromosomes
     /// </summary>
@@ -47,8 +47,9 @@ namespace GeneticAlgorithm
     {
       _algorithm = algorithm;
       _fitnessHandler += fitnessEvent;
-      if(seed != null){
-        _seed= seed;
+      if (seed != null)
+      {
+        _seed = seed;
 
       }
       _chromosomes = new Chromosome[_algorithm.PopulationSize];
@@ -86,21 +87,34 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-      if(_fitnessHandler !=null){
-        foreach(Chromosome chromo in _chromosomes)
+      if (_fitnessHandler != null && _algorithm.NumberOfTrials > 1)
       {
-        double fitness=0;
-        for(int z=0; z < _algorithm.NumberOfTrials;z++){
-           fitness+=_fitnessHandler.Invoke(chromo, this);
+        foreach (Chromosome chromo in _chromosomes)
+        {
+          double fitness = 0;
+          for (int z = 0; z < _algorithm.NumberOfTrials; z++)
+          {
+            fitness += _fitnessHandler.Invoke(chromo, this);
+          }
+          chromo.Fitness = (fitness / _algorithm.NumberOfTrials);
+
         }
-       chromo.Fitness=(fitness/_algorithm.NumberOfTrials);
-      
       }
+      else if (_fitnessHandler != null && _algorithm.NumberOfTrials! > 1)
+      {
+        foreach (Chromosome chromo in _chromosomes)
+        {
+          double fitness = 0;
+
+          fitness += _fitnessHandler.Invoke(chromo, this);
+          chromo.Fitness = (fitness / _algorithm.NumberOfTrials);
+
+        }
       }
-      
-        
+
+
       Array.Sort(_chromosomes);
-      Array.Reverse(_chromosomes); 
+      Array.Reverse(_chromosomes);
 
     }
 
