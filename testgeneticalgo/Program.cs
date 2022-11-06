@@ -12,12 +12,15 @@ namespace testgeneticalgo
      IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
      test.GenerateGeneration();
      IRobbyTheRobot robby = Robby.CreateRobby(2,5,2,2);
-     
+    
+    
+  
     //  robby.
     
      Console.WriteLine("Printing My Population Size");
      Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
      Console.WriteLine("Fitness is 0 not being initialized by Robby");
+     robby.
        for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
       {
         Console.Write((test.CurrentGeneration[i]).Fitness);
