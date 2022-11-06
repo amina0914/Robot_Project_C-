@@ -68,13 +68,21 @@ namespace GeneticAlgorithm
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
 
       Chromosome potentialparent = _chromosomes[rand.Next(_chromosomes.Length)];//Subesett.
-      foreach (Chromosome chromosome in _chromosomes)
+      int subset= rand.Next(_chromosomes.Length);
+      for(int i=0; i < subset; i++)
       {
-        if (potentialparent.Fitness > chromosome.Fitness)
+        if(potentialparent.Fitness > _chromosomes[i].Fitness && potentialparent.Fitness >AverageFitness)
         {
           return potentialparent;
         }
       }
+      // foreach (Chromosome chromosome in _chromosomes)
+      // {
+      //   if (potentialparent.Fitness > chromosome.Fitness)
+      //   {
+      //     return potentialparent;
+      //   }
+      // }
       return potentialparent;
     }
 

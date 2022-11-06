@@ -30,7 +30,7 @@ namespace RobbyTheRobot
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
-            Pene= GeneticLib.CreateGeneticAlgorithm(_populationSize,243,7,0.1,0.1,nbTrials,ComputeFitness,seed);            
+            Pene= GeneticLib.CreateGeneticAlgorithm(_populationSize,243,7,0.1,0.2,nbTrials,ComputeFitness,seed);            
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()

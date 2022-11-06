@@ -11,10 +11,20 @@ namespace testgeneticalgo
      
      IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
      test.GenerateGeneration();
-     IRobbyTheRobot robot= Robby.CreateRobby(2,10,2,3);
+     IRobbyTheRobot robot= Robby.CreateRobby(5,200,10,6);
       robot.Pene.GenerateGeneration();
+      Console.WriteLine("Robby Generation One ");
       Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.Pene.CurrentGeneration.NumberOfChromosomes);
-      Console.WriteLine("Average fitness in robby "+ robot.Pene.CurrentGeneration.MaxFitness);
+      Console.WriteLine("Average fitness in robby "+ robot.Pene.CurrentGeneration.AverageFitness);
+
+      for(int i=0; i< robot.Pene.CurrentGeneration.NumberOfChromosomes;i++){
+        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.Pene.CurrentGeneration[i].Fitness);
+      }
+      Console.WriteLine("****************************************************************");
+      Console.WriteLine("This Is the 2nd Generations ");
+       robot.Pene.GenerateGeneration();
+      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.Pene.CurrentGeneration.NumberOfChromosomes);
+      Console.WriteLine("Average fitness in robby "+ robot.Pene.CurrentGeneration.AverageFitness);
 
       for(int i=0; i< robot.Pene.CurrentGeneration.NumberOfChromosomes;i++){
         Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.Pene.CurrentGeneration[i].Fitness);
