@@ -5,7 +5,7 @@ using System.IO;
 
 namespace RobbyTheRobot
 {
-    internal class RobbyTheRobot : IRobbyTheRobot
+    public class RobbyTheRobot : IRobbyTheRobot
     {
         private int _nbGenerations {get;}
         private int _populationSize {get;}
@@ -17,7 +17,8 @@ namespace RobbyTheRobot
         public int NumberOfGenerations {get;}
         public double MutationRate {get;}
         public double EliteRate {get;}
-        public IGeneticAlgorithm Something{get;}
+        public int Testnuts{get;}
+        public IGeneticAlgorithm pene;
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
             NumberOfGenerations = nbGenerations;
@@ -28,8 +29,7 @@ namespace RobbyTheRobot
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
-            Something= GeneticLib.CreateGeneticAlgorithm(_populationSize,10,7,0.1,0.1,nbTrials,ComputeFitness,seed);
-            
+            pene= GeneticLib.CreateGeneticAlgorithm(_populationSize,10,7,0.1,0.1,nbTrials,ComputeFitness,seed);            
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
@@ -69,7 +69,7 @@ namespace RobbyTheRobot
             double maxScore = 0.0;
             int nbMoves = 200;
             IChromosome genes = null;
-            int lengthOfGene = 0;
+            // int lengthOfGene = 0;
             // IGeneticAlgorithm geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, 1000, lengthOfGene, this.MutationRate, this.EliteRate, NumberOfActions, ComputeFitness());
 
 
