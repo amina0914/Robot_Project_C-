@@ -46,7 +46,7 @@ namespace GeneticAlgorithm
     public Generation(IGeneticAlgorithm algorithm, FitnessEventHandler fitnessEvent, int? seed)
     {
       _algorithm = algorithm;
-      _fitnessHandler = fitnessEvent;
+      _fitnessHandler += fitnessEvent;
       if(seed != null){
         _seed= seed;
 
@@ -86,7 +86,8 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-      foreach(Chromosome chromo in _chromosomes)
+      if(_fitnessHandler !=null){
+        foreach(Chromosome chromo in _chromosomes)
       {
         double fitness=0;
         for(int z=0; z < _algorithm.NumberOfTrials;z++){
@@ -95,6 +96,8 @@ namespace GeneticAlgorithm
        chromo.Fitness=(fitness/_algorithm.NumberOfTrials);
       
       }
+      }
+      
         
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes); 

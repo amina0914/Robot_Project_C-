@@ -59,6 +59,7 @@ namespace GeneticAlgorithm
       {
        CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
         // return currentgen;
+        (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
         return CurrentGeneration;
       }
       else
@@ -91,6 +92,7 @@ namespace GeneticAlgorithm
           }
         }
         CurrentGeneration = new Generation(newgen);
+        (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
         return CurrentGeneration;
       }
     }

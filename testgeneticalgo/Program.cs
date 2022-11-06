@@ -11,6 +11,15 @@ namespace testgeneticalgo
      
      IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
      test.GenerateGeneration();
+     IRobbyTheRobot robot= Robby.CreateRobby(2,10,2,3);
+      robot.Pene.GenerateGeneration();
+      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.Pene.CurrentGeneration.NumberOfChromosomes);
+      Console.WriteLine("Average fitness in robby "+ robot.Pene.CurrentGeneration.MaxFitness);
+
+      for(int i=0; i< robot.Pene.CurrentGeneration.NumberOfChromosomes;i++){
+        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.Pene.CurrentGeneration[i].Fitness);
+      }
+
      Console.WriteLine("Printing My Population Size");
      Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
        for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
