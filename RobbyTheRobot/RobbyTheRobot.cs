@@ -17,6 +17,7 @@ namespace RobbyTheRobot
         public int NumberOfGenerations {get;}
         public double MutationRate {get;}
         public double EliteRate {get;}
+        public IGeneticAlgorithm Tesga {get;}
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
             NumberOfGenerations = nbGenerations;
@@ -27,6 +28,7 @@ namespace RobbyTheRobot
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
+            Tesga= GeneticLib.CreateGeneticAlgorithm(_populationSize,10,7,0.1,0.1,nbTrials,ComputeFitness,seed);
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
@@ -97,7 +99,7 @@ namespace RobbyTheRobot
 
         // method to calculate fitness ComputeFitness()
         // calls generateRandomGrid, runs Robby through grid, scoring moves 
-        public double ComputeFitness(IChromosome chromosome){
+        public double ComputeFitness(IChromosome chromosome, IGeneration gen){
             // calls the generate grid
             ContentsOfGrid[,] grid = GenerateRandomTestGrid();
             // generates Robby's moves from geneticAlgorithm

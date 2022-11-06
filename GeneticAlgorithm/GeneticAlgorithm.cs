@@ -1,7 +1,7 @@
 using System;
 namespace GeneticAlgorithm
 {
-  public class GeneticAlgorithm : IGeneticAlgorithm
+  internal class GeneticAlgorithm : IGeneticAlgorithm
   {
     public int PopulationSize { get; }
     public int NumberOfGenes { get; }
