@@ -5,12 +5,13 @@ using System.IO;
 
 namespace RobbyTheRobot
 {
-    public class RobbyTheRobot : IRobbyTheRobot
+    internal class RobbyTheRobot : IRobbyTheRobot
     {
         private int _nbGenerations {get;}
         private int _populationSize {get;}
         private int _nbTrials {get;}
         private int _seed {get;}
+        public int Timis{get;}
         public int NumberOfActions {get;}
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}
@@ -18,7 +19,7 @@ namespace RobbyTheRobot
         public double MutationRate {get;}
         public double EliteRate {get;}
         public int Testnuts{get;}
-        public IGeneticAlgorithm pene;
+        public IGeneticAlgorithm Pene{get;}
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
             NumberOfGenerations = nbGenerations;
@@ -29,7 +30,7 @@ namespace RobbyTheRobot
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
-            pene= GeneticLib.CreateGeneticAlgorithm(_populationSize,10,7,0.1,0.1,nbTrials,ComputeFitness,seed);            
+            Pene= GeneticLib.CreateGeneticAlgorithm(_populationSize,10,7,0.1,0.1,nbTrials,ComputeFitness,seed);            
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()

@@ -1,4 +1,3 @@
-using GeneticAlgorithm;
 namespace RobbyTheRobot
 {
     public static class Robby
