@@ -11,54 +11,79 @@ namespace testgeneticalgo
      
      IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
      test.GenerateGeneration();
-     IRobbyTheRobot robot= Robby.CreateRobby(5,200,10,6);
-      robot.Pene.GenerateGeneration();
+     IRobbyTheRobot robot= Robby.CreateRobby(5,200,5,6);
+      
       Console.WriteLine("Robby Generation One ");
-      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.Pene.CurrentGeneration.NumberOfChromosomes);
-      Console.WriteLine("Average fitness in robby "+ robot.Pene.CurrentGeneration.AverageFitness);
-
-      for(int i=0; i< robot.Pene.CurrentGeneration.NumberOfChromosomes;i++){
-        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.Pene.CurrentGeneration[i].Fitness);
+      robot.GeneticA.GenerateGeneration();
+      Console.WriteLine("Numm Of Chromosomes In  1 generation inside Robby " +robot.GeneticA.CurrentGeneration.NumberOfChromosomes);
+      Console.WriteLine("Average fitness in robby "+ robot.GeneticA.CurrentGeneration.AverageFitness);
+      
+      // for(int i=0; i <1000; i ++)
+      // {
+      //    robot.GeneticA.GenerateGeneration();
+      // }
+        // Console.WriteLine("Average fitness in robby After 1000 trials"+ robot.GeneticA.CurrentGeneration.AverageFitness);
+      for(int i=0; i< robot.GeneticA.CurrentGeneration.NumberOfChromosomes;i++){
+        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.GeneticA.CurrentGeneration[i].Fitness);
       }
+      IGeneration tesc = robot.GeneticA.CurrentGeneration;
       Console.WriteLine("****************************************************************");
       Console.WriteLine("This Is the 2nd Generations ");
-       robot.Pene.GenerateGeneration();
-      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.Pene.CurrentGeneration.NumberOfChromosomes);
-      Console.WriteLine("Average fitness in robby "+ robot.Pene.CurrentGeneration.AverageFitness);
+       robot.GeneticA.GenerateGeneration();
+       IGeneration tesd = robot.GeneticA.CurrentGeneration;
+      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.GeneticA.CurrentGeneration.NumberOfChromosomes);
+      Console.WriteLine("Average fitness in robby "+ robot.GeneticA.CurrentGeneration.AverageFitness);
 
-      for(int i=0; i< robot.Pene.CurrentGeneration.NumberOfChromosomes;i++){
-        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.Pene.CurrentGeneration[i].Fitness);
+      for(int i=0; i< robot.GeneticA.CurrentGeneration.NumberOfChromosomes;i++){
+        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.GeneticA.CurrentGeneration[i].Fitness);
       }
-
-     Console.WriteLine("Printing My Population Size");
-     Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
-       for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
-      {
-        Console.Write((test.CurrentGeneration[i]).Fitness);
+       Console.WriteLine("****************************************************************");
+      Console.WriteLine("This Is the 3rd Generations ");
+      robot.GeneticA.GenerateGeneration();
+      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.GeneticA.CurrentGeneration.NumberOfChromosomes);
+      Console.WriteLine("Average fitness in robby "+ robot.GeneticA.CurrentGeneration.AverageFitness);
+      for(int i=0; i< robot.GeneticA.CurrentGeneration.NumberOfChromosomes;i++){
+        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.GeneticA.CurrentGeneration[i].Fitness);
       }
-      Console.WriteLine("");
-      Console.WriteLine("Printing Chromosome at 0 on The Current Generation");
-       for (int i = 0; i < test.CurrentGeneration[0].Length; i++)
-      {
-        Console.Write((test.CurrentGeneration[0][i]));
+       Console.WriteLine("****************************************************************");
+      Console.WriteLine("This Is the 4th Generations ");
+      robot.GeneticA.GenerateGeneration();
+      Console.WriteLine("Numm Of Chromosomes In generation inside Robby " +robot.GeneticA.CurrentGeneration.NumberOfChromosomes);
+      Console.WriteLine("Average fitness in robby "+ robot.GeneticA.CurrentGeneration.AverageFitness);
+      for(int i=0; i< robot.GeneticA.CurrentGeneration.NumberOfChromosomes;i++){
+        Console.WriteLine("Fitness Chromosome at : "+i + " Fitness ="+robot.GeneticA.CurrentGeneration[i].Fitness);
       }
-        Console.WriteLine("");
-        Console.WriteLine("Create a 2nd generations ");
-        test.GenerateGeneration();
-         Console.WriteLine("2nd Generation Pupulation size");
-         Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
-     Console.WriteLine("Fitness is 0 not being initialized by Robby");
-       for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
-      {
-        Console.Write((test.CurrentGeneration[i]).Fitness);
-      }
-      Console.WriteLine("");
-      Console.WriteLine("Printing Chromosome at 13 on The Current Generation #2");
-       for (int i = 0; i < test.CurrentGeneration[13].Length; i++)
-      {
-        Console.Write((test.CurrentGeneration[13][i]));
-      }
-        Console.WriteLine("");
+      
+      
+    //  Console.WriteLine("Printing My Population Size");
+    //  Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
+    //    for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
+    //   {
+    //     Console.Write((test.CurrentGeneration[i]).Fitness);
+    //   }
+    //   Console.WriteLine("");
+    //   Console.WriteLine("Printing Chromosome at 0 on The Current Generation");
+    //    for (int i = 0; i < test.CurrentGeneration[0].Length; i++)
+    //   {
+    //     Console.Write((test.CurrentGeneration[0][i]));
+    //   }
+    //     Console.WriteLine("");
+    //     Console.WriteLine("Create a 2nd generations ");
+    //     test.GenerateGeneration();
+    //      Console.WriteLine("2nd Generation Pupulation size");
+    //      Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
+    //  Console.WriteLine("Fitness is 0 not being initialized by Robby");
+    //    for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
+    //   {
+    //     Console.Write((test.CurrentGeneration[i]).Fitness);
+    //   }
+    //   Console.WriteLine("");
+    //   Console.WriteLine("Printing Chromosome at 13 on The Current Generation #2");
+    //    for (int i = 0; i < test.CurrentGeneration[13].Length; i++)
+    //   {
+    //     Console.Write((test.CurrentGeneration[13][i]));
+    //   }
+    //     Console.WriteLine("");
     }
 
     // public static void chromosome()

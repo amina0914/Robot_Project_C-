@@ -4,7 +4,7 @@ namespace GeneticAlgorithm
 {
   internal class Generation : IGenerationDetails
   {
-    private Chromosome[] _chromosomes;
+    public Chromosome[] _chromosomes;
     private IGeneticAlgorithm _algorithm;
     private FitnessEventHandler _fitnessHandler;
     int? _seed;
@@ -34,15 +34,22 @@ namespace GeneticAlgorithm
         return _chromosomes[index];
       }
     }
-    public Generation(Chromosome[] arrayChromosomes)
+    //WORK AROUND TO MAKE SURE THE FITNESSCAL EXIST ON THE CONTEXT OTHERWISE IT BE ALWAYS 0 WHEN
+    //FITNESS IS CALCULATED
+    public Generation(Chromosome[] arrayChromosomes,IGeneticAlgorithm algorithm)
     {
+      _algorithm = algorithm;
+      _fitnessHandler=_algorithm.FitnessCalculation;
       _chromosomes = new Chromosome[arrayChromosomes.Length];
       for (int i = 0; i < arrayChromosomes.Length; i++)
       {
-        _chromosomes[i] = arrayChromosomes[i];
+        _chromosomes[i] = new Chromosome(arrayChromosomes[i]);
       }
+      // EvaluateFitnessOfPopulation();Uncommenting to let GA Handle this and see if it breaks
     }
 
+
+    //We talk about the Null check but not sure if done properly
     public Generation(IGeneticAlgorithm algorithm, FitnessEventHandler fitnessEvent, int? seed)
     {
       _algorithm = algorithm;
@@ -51,6 +58,8 @@ namespace GeneticAlgorithm
       {
         _seed = seed;
 
+      }else{
+        _seed=null;
       }
       _chromosomes = new Chromosome[_algorithm.PopulationSize];
       for (int i = 0; i < _chromosomes.Length; i++)
@@ -66,23 +75,31 @@ namespace GeneticAlgorithm
     public IChromosome SelectParent()
     {
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
+       int elitepopulation=0;
 
-      Chromosome potentialparent = _chromosomes[rand.Next(_chromosomes.Length)];//Subesett.
-      int subset= rand.Next(_chromosomes.Length);
+
+       //SELECTING FROM THE % Elite batch only randomly
+      if(_algorithm != null)
+      {
+        elitepopulation = (int) (_algorithm.EliteRate * _algorithm.PopulationSize);
+         if (elitepopulation % 2 != 0)
+        {
+          elitepopulation += 1;
+        }
+      }else{
+        elitepopulation=15;
+      }
+              
+      Chromosome potentialparent = _chromosomes[rand.Next(elitepopulation)];//Subesett.
+      int subset= elitepopulation;
       for(int i=0; i < subset; i++)
       {
-        if(potentialparent.Fitness > _chromosomes[i].Fitness && potentialparent.Fitness >AverageFitness)
+        if(potentialparent.Fitness > _chromosomes[i].Fitness)
         {
           return potentialparent;
         }
       }
-      // foreach (Chromosome chromosome in _chromosomes)
-      // {
-      //   if (potentialparent.Fitness > chromosome.Fitness)
-      //   {
-      //     return potentialparent;
-      //   }
-      // }
+    
       return potentialparent;
     }
 
@@ -95,7 +112,8 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-      if (_fitnessHandler != null && _algorithm.NumberOfTrials > 1)
+      //To Review it Again.
+      if (_fitnessHandler != null && _algorithm != null) 
       {
         foreach (Chromosome chromo in _chromosomes)
         {
@@ -103,24 +121,10 @@ namespace GeneticAlgorithm
           for (int z = 0; z < _algorithm.NumberOfTrials; z++)
           {
             fitness += _fitnessHandler.Invoke(chromo, this);
-          }
-          chromo.Fitness = (fitness / _algorithm.NumberOfTrials);
-
+          }         
+          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));
         }
       }
-      else if (_fitnessHandler != null && _algorithm.NumberOfTrials! > 1)
-      {
-        foreach (Chromosome chromo in _chromosomes)
-        {
-          double fitness = 0;
-
-          fitness += _fitnessHandler.Invoke(chromo, this);
-          chromo.Fitness = (fitness / _algorithm.NumberOfTrials);
-
-        }
-      }
-
-
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
 

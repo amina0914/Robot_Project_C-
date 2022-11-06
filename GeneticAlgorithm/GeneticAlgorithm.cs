@@ -15,6 +15,8 @@ namespace GeneticAlgorithm
     { 
       if(seed !=null){
         _seed = seed ;
+      }else{
+        _seed=null;
       }
       PopulationSize = populationSize;
       NumberOfGenes = numberOfGenes;
@@ -55,12 +57,11 @@ namespace GeneticAlgorithm
     public IGeneration GenerateGeneration()
     {
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
-      if (CurrentGeneration is null)
+      if (CurrentGeneration == null)
       {
        CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
-        // return currentgen;
-        (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
-        return CurrentGeneration;
+      (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
+
       }
       else
       {
@@ -75,27 +76,37 @@ namespace GeneticAlgorithm
         for (int i = 0; i < elitepopulation; i++)
         {
           IChromosome parent = (CurrentGeneration as IGenerationDetails)?.SelectParent();
-          newgen[i] = parent as Chromosome;
+          newgen[i] = new Chromosome(parent as Chromosome);
         }
 
         count = elitepopulation;
 
-        while (count < PopulationSize)
+        // while (count < PopulationSize)
+        // {
+        //   int index1 = rand.Next(0, elitepopulation);
+        //   int index2 = rand.Next(0, elitepopulation);
+        //   IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
+        //   foreach (Chromosome kid in childs)
+        //   {
+        //     newgen[count] = new Chromosome(kid);
+        //     count++;
+        //   }
+        // }
+        for(int i=elitepopulation; i < PopulationSize; i ++)
         {
-          int index1 = rand.Next(0, elitepopulation);
+           int index1 = rand.Next(0, elitepopulation);
           int index2 = rand.Next(0, elitepopulation);
           IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
-          foreach (Chromosome kid in childs)
-          {
-            newgen[count] = kid;
-            count++;
-          }
-        }
-        CurrentGeneration = new Generation(newgen);
-        (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
-        return CurrentGeneration;
-      }
-    }
+          newgen[i] = new Chromosome(childs[0] as Chromosome);
+          newgen[i+=1] = new Chromosome(childs[0] as Chromosome);
 
+        }
+        CurrentGeneration = new Generation(newgen,this);
+        // (CurrentGeneration as Generation)._fitnessHandler+=this.FitnessCalculation;
+        (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
+        // return CurrentGeneration;
+      }
+      return CurrentGeneration;
+    }
   }
 }

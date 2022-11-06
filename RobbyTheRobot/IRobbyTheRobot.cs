@@ -51,7 +51,7 @@ namespace RobbyTheRobot
         double MutationRate {get;}
 
         double EliteRate {get;}
-        IGeneticAlgorithm Pene{get;}
+        IGeneticAlgorithm GeneticA{get;}
 
         /// <summary>
         /// Used to generate a single test grid filled with cans in random locations. Half of 
