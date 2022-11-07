@@ -41,6 +41,7 @@ namespace GeneticAlgorithm
       {
         _chromosomes[i] = new Chromosome(arrayChromosomes[i]);
       }
+      EvaluateFitnessOfPopulation();
     }
 
     public Generation(IGeneticAlgorithm algorithm, FitnessEventHandler fitnessEvent, int? seed)
@@ -56,7 +57,7 @@ namespace GeneticAlgorithm
       {
         _chromosomes[i] = new Chromosome(_algorithm.NumberOfGenes, _algorithm.LengthOfGene, _seed);
       }
-
+      EvaluateFitnessOfPopulation();
     }
     /// <summary>
     /// Randomly selects a parent by comparing its fitness to others in the population
@@ -85,16 +86,29 @@ namespace GeneticAlgorithm
     /// </summary>
     public void EvaluateFitnessOfPopulation()
     {
+      Random rand = _seed != null ? new Random((int)_seed) : new Random();
       //Here Invoke the Handler and that should be it.
+      //Testing Fixed Point
       foreach(Chromosome chromo in _chromosomes)
       {
         double fitness=0;
-        for(int z=0; z < _algorithm.NumberOfTrials;z++){
-           fitness+=_fitnessHandler.Invoke(chromo, this);
+        for(int z=0; z < 6;z++){
+           fitness+= (double)rand.Next(1,10);
         }
-       chromo.Fitness=(fitness/_algorithm.NumberOfTrials);
+       chromo.Fitness=(fitness/((double)(6)));
       
       }
+
+      //The Solution version
+      // foreach(Chromosome chromo in _chromosomes)
+      // {
+      //   double fitness=0;
+      //   for(int z=0; z < _algorithm.NumberOfTrials;z++){
+      //      fitness+=_fitnessHandler.Invoke(chromo, this);
+      //   }
+      //  chromo.Fitness=(fitness/_algorithm.NumberOfTrials);
+      
+      // }
         
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes); 

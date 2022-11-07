@@ -1,6 +1,4 @@
 using System;
-using GeneticAlgortihm;
-
 namespace RobbyTheRobot
 {
     class RobbyHelper

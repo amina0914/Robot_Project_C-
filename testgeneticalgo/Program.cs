@@ -4,42 +4,53 @@ namespace testgeneticalgo
 {
   class Program
   {
+    
     static void Main(string[] args)
     {
-     IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(14, 20, 7, 0.3, 0.5, 3, null, null) ;
-     test.GenerateGeneration();
-     Console.WriteLine("Printing My Population Size");
-     Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
-     Console.WriteLine("Fitness is 0 not being initialized by Robby");
-       for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
-      {
-        Console.Write((test.CurrentGeneration[i]).Fitness);
-      }
-      Console.WriteLine("");
-      Console.WriteLine("Printing Chromosome at 0 on The Current Generation");
-       for (int i = 0; i < test.CurrentGeneration[0].Length; i++)
-      {
-        Console.Write((test.CurrentGeneration[0][i]));
-      }
-        Console.WriteLine("");
-        Console.WriteLine("Create a 2nd generations ");
+     IGeneticAlgorithm test= GeneticLib.CreateGeneticAlgorithm(200, 243, 7, 0.3, 0.5, 3, null, null) ;
+     for(int i =0; i < 1000; i++){
         test.GenerateGeneration();
-         Console.WriteLine("2nd Generation Pupulation size");
-         Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
-     Console.WriteLine("Fitness is 0 not being initialized by Robby");
+     }
+    
+     
+     Console.WriteLine("Printing My Population Size After 1k Gens");
+     Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
+     Console.WriteLine("Fitness At 1 K Gen");
        for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
       {
-        Console.Write((test.CurrentGeneration[i]).Fitness);
+        Console.WriteLine((test.CurrentGeneration[i]).Fitness);
       }
+        Console.WriteLine("Printing Average Fit at 1k gens");
+      Console.WriteLine(test.CurrentGeneration.AverageFitness);
+      test.GenerateGeneration();
+      Console.WriteLine("Printing My Population Size After 1k+1 Gens");
+     Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
+        Console.WriteLine("Printing Average Fit at 1k+1 gens");
+      Console.WriteLine(test.CurrentGeneration.AverageFitness);
+    //   Console.WriteLine("Printing Chromosome at 0 on The Current Generation");
+    //    for (int i = 0; i < test.CurrentGeneration[0].Length; i++)
+    //   {
+    //     Console.Write((test.CurrentGeneration[0][i]));
+    //   }
+    //     Console.WriteLine("");
+    //     Console.WriteLine("Create a 2nd generations ");
+    //     test.GenerateGeneration();
+    //      Console.WriteLine("2nd Generation Pupulation size");
+    //      Console.WriteLine(test.CurrentGeneration.NumberOfChromosomes);
+    //  Console.WriteLine("Fitness is 0 not being initialized by Robby");
+    //    for (int i = 0; i < test.CurrentGeneration.NumberOfChromosomes; i++)
+    //   {
+    //     Console.Write((test.CurrentGeneration[i]).Fitness);
+    //   }
       Console.WriteLine("");
-      Console.WriteLine("Printing Chromosome at 13 on The Current Generation #2");
-       for (int i = 0; i < test.CurrentGeneration[13].Length; i++)
-      {
-        Console.Write((test.CurrentGeneration[13][i]));
-      }
-        Console.WriteLine("");
+      // Console.WriteLine("Printing Chromosome at 13 on The Current Generation #2");
+      //  for (int i = 0; i < test.CurrentGeneration[13].Length; i++)
+      // {
+      //   Console.Write((test.CurrentGeneration[13][i]));
+      // }
+      //   Console.WriteLine("");
     }
-
+  public void hi(){}
     // public static void chromosome()
     // {
     //   Console.WriteLine("Testing Chromosome Class");
