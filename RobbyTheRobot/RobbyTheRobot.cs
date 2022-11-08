@@ -28,7 +28,7 @@ namespace RobbyTheRobot
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
-            GeneticA= GeneticLib.CreateGeneticAlgorithm(_populationSize,243,7,0.1,0.4,nbTrials,ComputeFitness,null);  // Harcoded Vals          
+            GeneticA= GeneticLib.CreateGeneticAlgorithm(_populationSize,243,7,0.05,0.05,nbTrials,ComputeFitness,null);  // Harcoded Vals          
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
