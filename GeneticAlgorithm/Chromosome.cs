@@ -10,16 +10,20 @@ namespace GeneticAlgorithm
         /// <value>A value representing the fitness of the IChromosome</value>
         public double Fitness {get;set;}
 
-        public int[] Genes => _genes.ToArray();//Better practice
+        public int[] Genes => _genes.ToArray();
         private int[] _genes;
         private int? _seed;
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
         {
-            _seed=seed;
+             if(seed !=null){
+                 _seed=seed;
+            }else{
+                _seed=null;
+            }
             _lengthgene=length;
             _genes= new int[numbergenes];
-            Random rand= new Random();
+            Random rand= _seed != null ? new Random((int)_seed): new Random();
             for(int i=0; i < _genes.Length;i++){
                 _genes[i]= rand.Next(0,7);
             }
@@ -31,7 +35,12 @@ namespace GeneticAlgorithm
 
         public Chromosome(Chromosome chromosome)
         {
-            _seed= chromosome._seed;
+             if(chromosome._seed is null){
+                _seed=null;
+            }else{
+                _seed= chromosome._seed;
+            }
+
             _genes=new int[chromosome._genes.Length];
             for(int i=0; i<_genes.Length; i++){
                 _genes[i]=chromosome._genes[i];
@@ -53,7 +62,7 @@ namespace GeneticAlgorithm
             Chromosome child1= new Chromosome(this.Genes.Length,_lengthgene,_seed);   
             Chromosome child2=new Chromosome(spouse.Genes.Length,_lengthgene,_seed);
             Random rand= _seed != null ? new Random((int)_seed): new Random();
-            int pointa= rand.Next(1,this.Genes.Length-15);
+            int pointa= rand.Next(1,this.Genes.Length-53);
             int pointb=rand.Next(pointa,Genes.Length);
             for(int i=0; i<pointa; i++)
             {
@@ -74,12 +83,13 @@ namespace GeneticAlgorithm
             for(int c=0; c< child1.Genes.Length;c++){
                 if(mutationprob>rand.NextDouble())
                 {
-                child1._genes[c]= rand.Next(0,6);
-                child2._genes[c]= rand.Next(0,6);
+                child1._genes[c]= rand.Next(0,7);
+                child2._genes[c]= rand.Next(0,7);
                 }
             }
             Chromosome[] childs=new Chromosome[]{child1,child2};
             return childs;
+
         }
       
 

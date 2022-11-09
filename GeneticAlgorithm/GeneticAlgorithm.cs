@@ -13,6 +13,11 @@ namespace GeneticAlgorithm
 
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
     {
+      if(seed !=null){
+        _seed = seed ;
+      }else{
+        _seed=null;
+      }
       PopulationSize = populationSize;
       NumberOfGenes = numberOfGenes;
       LengthOfGene = lengthOfGene;
@@ -20,7 +25,7 @@ namespace GeneticAlgorithm
       EliteRate = eliteRate;
       NumberOfTrials = numberOfTrials;
       FitnessCalculation = fitnessCalculation;
-      _seed = seed;
+
     }
     /// <summary>
     /// The number of times the fitness function should be called when computing the result
@@ -30,7 +35,7 @@ namespace GeneticAlgorithm
     /// <summary>
     /// The current number of generations generated since the start of the algorithm
     /// </summary>
-    public long GenerationCount { get; }
+    public long GenerationCount { get;set; }
 
     /// <summary>
     /// Returns the current generation
@@ -50,12 +55,13 @@ namespace GeneticAlgorithm
     /// <returns>The current generation</returns>
     public IGeneration GenerateGeneration()
     {
+     GenerationCount++;
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
-      if (CurrentGeneration is null)
+      if (CurrentGeneration == null)
       {
-       CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
-        // return currentgen;
-        return CurrentGeneration;
+      CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
+      (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
+
       }
       else
       {
@@ -67,28 +73,35 @@ namespace GeneticAlgorithm
           elitepopulation += 1;
         }
         Chromosome[] newgen = new Chromosome[PopulationSize];
+
+        //WILL SELECT % ELITE PARENTS AS WELL AS THEIR FITNESS 
         for (int i = 0; i < elitepopulation; i++)
         {
           IChromosome parent = (CurrentGeneration as IGenerationDetails)?.SelectParent();
-          newgen[i] = parent as Chromosome;
+          newgen[i] = new Chromosome(parent as Chromosome);
         }
 
         count = elitepopulation;
 
-        while (count < PopulationSize)
+        //Before It ignored the Evaluation step and only % elite had fitness but not the new childs
+        for(int i=elitepopulation; i < PopulationSize; i ++)
         {
-          int index1 = rand.Next(0, elitepopulation);
+           int index1 = rand.Next(0, elitepopulation);
           int index2 = rand.Next(0, elitepopulation);
           IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
-          foreach (Chromosome kid in childs)
-          {
-            newgen[count] = kid;
-            count++;
-          }
+          newgen[i] = new Chromosome(childs[0] as Chromosome);
+          newgen[i+=1] = new Chromosome(childs[0] as Chromosome);
+
         }
+        //Making sure Everyone gets evaluated
         CurrentGeneration = new Generation(newgen);
-        return CurrentGeneration;
+        (CurrentGeneration as Generation).Algorithm=this;
+         (CurrentGeneration as Generation).FitnessHandler+= FitnessCalculation;
+        (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
+        // return CurrentGeneration;
       }
+      return CurrentGeneration;
+      
     }
 
   }
