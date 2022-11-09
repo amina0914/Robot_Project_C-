@@ -97,7 +97,7 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-        if (FitnessHandler != null && Algorithm != null) 
+        if (FitnessHandler != null && Algorithm != null && Algorithm.NumberOfTrials>1) 
       {
         foreach (Chromosome chromo in _chromosomes)
         {
@@ -108,19 +108,9 @@ namespace GeneticAlgorithm
           }         
           chromo.Fitness = (fitness /((double) Algorithm.NumberOfTrials));
         }
-      }else{
-         foreach (Chromosome chromo in _chromosomes)
-        {
-           double fitness = 0;   
-           if (FitnessHandler != null){
-          fitness = FitnessHandler.Invoke(chromo, this);        
-          chromo.Fitness = (fitness );
-           }         
-        }
       }
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
-
     }
 
 
