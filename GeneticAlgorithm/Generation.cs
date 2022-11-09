@@ -4,9 +4,9 @@ namespace GeneticAlgorithm
 {
   internal class Generation : IGenerationDetails
   {
-    public Chromosome[] _chromosomes;
-    private IGeneticAlgorithm _algorithm;
-    private FitnessEventHandler _fitnessHandler;
+    private Chromosome[] _chromosomes;
+    public IGeneticAlgorithm Algorithm{get;set;}
+    public FitnessEventHandler FitnessHandler{get;set;}
     int? _seed;
 
     /// <summary>
@@ -36,10 +36,9 @@ namespace GeneticAlgorithm
     }
     //WORK AROUND TO MAKE SURE THE FITNESSCAL EXIST ON THE CONTEXT OTHERWISE IT BE ALWAYS 0 WHEN
     //FITNESS IS CALCULATED
-    public Generation(Chromosome[] arrayChromosomes,IGeneticAlgorithm algorithm)
+    public Generation(Chromosome[] arrayChromosomes)
     {
-      _algorithm = algorithm;
-      _fitnessHandler=_algorithm.FitnessCalculation;
+      // _fitnessHandler=_algorithm.FitnessCalculation;
       _chromosomes = new Chromosome[arrayChromosomes.Length];
       for (int i = 0; i < arrayChromosomes.Length; i++)
       {
@@ -48,12 +47,10 @@ namespace GeneticAlgorithm
       // EvaluateFitnessOfPopulation();Uncommenting to let GA Handle this and see if it breaks
     }
 
-
-    //We talk about the Null check but not sure if done properly
     public Generation(IGeneticAlgorithm algorithm, FitnessEventHandler fitnessEvent, int? seed)
     {
-      _algorithm = algorithm;
-      _fitnessHandler += fitnessEvent;
+      Algorithm = algorithm;
+      FitnessHandler += fitnessEvent;
       if (seed != null)
       {
         _seed = seed;
@@ -61,10 +58,10 @@ namespace GeneticAlgorithm
       }else{
         _seed=null;
       }
-      _chromosomes = new Chromosome[_algorithm.PopulationSize];
+      _chromosomes = new Chromosome[Algorithm.PopulationSize];
       for (int i = 0; i < _chromosomes.Length; i++)
       {
-        _chromosomes[i] = new Chromosome(_algorithm.NumberOfGenes, _algorithm.LengthOfGene, _seed);
+        _chromosomes[i] = new Chromosome(Algorithm.NumberOfGenes, Algorithm.LengthOfGene, _seed);
       }
 
     }
@@ -76,30 +73,21 @@ namespace GeneticAlgorithm
     {
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
        int elitepopulation=0;
-
-
+      Chromosome potentialparent;
        //SELECTING FROM THE % Elite batch only randomly
-      if(_algorithm != null)
+      if(Algorithm != null)
       {
-        elitepopulation = (int) (_algorithm.EliteRate * _algorithm.PopulationSize);
+        elitepopulation = (int) (Algorithm.EliteRate * Algorithm.PopulationSize);
          if (elitepopulation % 2 != 0)
         {
           elitepopulation += 1;
         }
+         potentialparent = new Chromosome(_chromosomes[rand.Next(elitepopulation)]);
       }else{
-        elitepopulation=15;
+        elitepopulation=25;
+         int subset= elitepopulation;
+        potentialparent = new Chromosome(_chromosomes[rand.Next(elitepopulation)]);
       }
-              
-      Chromosome potentialparent = _chromosomes[rand.Next(elitepopulation)];//Subesett.
-      int subset= elitepopulation;
-      for(int i=0; i < subset; i++)
-      {
-        if(potentialparent.Fitness > _chromosomes[i].Fitness)
-        {
-          return potentialparent;
-        }
-      }
-    
       return potentialparent;
     }
 
@@ -113,16 +101,25 @@ namespace GeneticAlgorithm
     {
       //Here Invoke the Handler and that should be it.
       //To Review it Again.
-      if (_fitnessHandler != null && _algorithm != null) 
+      if (FitnessHandler != null && Algorithm != null) 
       {
         foreach (Chromosome chromo in _chromosomes)
         {
           double fitness = 0;
-          for (int z = 0; z < _algorithm.NumberOfTrials; z++)
+          for (int z = 0; z < Algorithm.NumberOfTrials; z++)
           {
-            fitness += _fitnessHandler.Invoke(chromo, this);
+            fitness += FitnessHandler.Invoke(chromo, this);
           }         
-          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));
+          chromo.Fitness = (fitness /((double) Algorithm.NumberOfTrials));
+        }
+      }else{
+         foreach (Chromosome chromo in _chromosomes)
+        {
+           double fitness = 0;   
+           if (FitnessHandler != null){
+          fitness = FitnessHandler.Invoke(chromo, this);        
+          chromo.Fitness = (fitness );
+           }         
         }
       }
       Array.Sort(_chromosomes);

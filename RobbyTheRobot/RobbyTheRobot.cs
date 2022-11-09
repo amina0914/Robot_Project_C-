@@ -108,7 +108,12 @@ namespace RobbyTheRobot
             Random rnd = new Random();
             int xPos = rnd.Next(0, 10);
             int yPos = rnd.Next(0, 10);
-            double fitness = RobbyHelper.ScoreForAllele(moves, grid, rnd, ref xPos, ref yPos);
+            double fitness=0;
+            for(int i=0; i < NumberOfActions;i++)
+            {
+                fitness += RobbyHelper.ScoreForAllele(moves, grid, rnd, ref xPos, ref yPos);
+            }
+            
             return fitness;
         }
     }
