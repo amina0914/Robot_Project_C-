@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using GeneticAlgorithm;
 namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot
@@ -19,12 +19,14 @@ namespace RobbyTheRobot
         public double EliteRate {get;}
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
-            NbGenerations = nbGenerations;
+            NumberOfGenerations = nbGenerations;
             PopulationSize = populationSize;
             NbTrials = nbTrials;
             Seed = seed;
             //hardcoded the value to 100
             GridSize = 100;
+            NumberOfActions = 200;
+            NumberOfTestGrids = nbTrials;
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
