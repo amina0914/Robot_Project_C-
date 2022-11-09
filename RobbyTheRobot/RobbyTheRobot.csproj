@@ -2,7 +2,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <ProjectReference Include="..\GeneticAlgortihm\GeneticAlgortihm.csproj" />
-    <ProjectReference Include="..\GeneticAlgortihmlib\GeneticAlgortihm.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
