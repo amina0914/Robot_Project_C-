@@ -112,15 +112,15 @@ namespace GeneticAlgorithm
           }         
           chromo.Fitness = (fitness /((double) Algorithm.NumberOfTrials));
         }
-      }else{
-         foreach (Chromosome chromo in _chromosomes)
-        {
-           double fitness = 0;   
-           if (FitnessHandler != null){
-          fitness = FitnessHandler.Invoke(chromo, this);        
-          chromo.Fitness = (fitness );
-           }         
-        }
+      // }else{
+      //    foreach (Chromosome chromo in _chromosomes)
+      //   {
+      //      double fitness = 0;   
+      //      if (FitnessHandler != null){
+      //     fitness = FitnessHandler.Invoke(chromo, this);        
+      //     chromo.Fitness = (fitness );
+      //      }         
+      //   }
       }
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
