@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 //for now to test using RobbyTheRobot app, later when console app done will need to use RobbyIterationGenerator instead
 using RobbyTheRobot;
-using GeneticAlgortihmLib;
+using GeneticAlgortihm;
 
 namespace RobbyVisualizer
 {
