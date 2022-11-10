@@ -68,7 +68,7 @@ namespace RobbyTheRobot
             int nbMoves = 200;
             IChromosome genes = null;
             int lengthOfGene = 0;
-            // IGeneticAlgorithm geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, 1000, lengthOfGene, this.MutationRate, this.EliteRate, NumberOfActions, ComputeFitness());
+            // IGeneticAlgorithm geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, 1000, lengthOfGene, this.MutationRate, this.EliteRate, NumberOfActions or trials, ComputeFitness());
 
 
             // Write to a file the top candidate of the 1st, 20th, 100, 200, 500 and 1000th generation.
