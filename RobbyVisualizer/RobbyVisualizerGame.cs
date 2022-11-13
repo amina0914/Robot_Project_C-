@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 //for now to test using RobbyTheRobot app, later when console app done will need to use RobbyIterationGenerator instead
 using RobbyTheRobot;
-using GeneticAlgortihm;
+using GeneticAlgorithm;
 
 namespace RobbyVisualizer
 {
@@ -30,7 +30,7 @@ namespace RobbyVisualizer
             _graphics.ApplyChanges();     
 
             //creating robby obj, so can create a grid with either empty or cans, will need to use console later
-            IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 70, 50);
+            IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
             ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
