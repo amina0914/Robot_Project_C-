@@ -14,6 +14,7 @@ namespace RobbyVisualizer
         public SpriteBatch SpriteBatch;
 
         public Texture2D Texture;
+        private Texture2D _backgroundTexture;
 
         public RobbyVisualizerGame()
         {
@@ -24,35 +25,43 @@ namespace RobbyVisualizer
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 900; 
+            _graphics.PreferredBackBufferWidth = 1000; 
             _graphics.PreferredBackBufferHeight = 900;
             _graphics.ApplyChanges();     
 
             //creating robby obj, so can create a grid with either empty or cans, will need to use console later
-            IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 70, 50);
-            //ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
+            IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
+            ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
-            int initialPos = 50;
-            int posX=initialPos;
-            int posY=initialPos;
+            int initialPosX = 200;
+            int initialPosY = 10;
+            int posX=initialPosX;
+            int posY=initialPosY;
             bool isEmpty = true;
-            // for (int a=0; a<grid.GetLength(0); a++)
-            // {
-            //     for (int b=0; b<grid.GetLength(1); b++)
-            //     {
-            //         //hardcoded values for testing purposes 
-            //         if (robbyGrid[a,b] == ContentsOfGrid.Can){
-            //             isEmpty = false;
-            //         }
-                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty);
+            bool isRobbyHere = false;
+            for (int a=0; a<grid.GetLength(0); a++)
+            {
+                for (int b=0; b<grid.GetLength(1); b++)
+                {
+                    if (robbyGrid[a,b] == ContentsOfGrid.Can)
+                    {
+                        isEmpty = false;
+                    }
+                    // hardcoded robby position
+                    if (a==0 && b ==0)
+                    {
+                        isRobbyHere = true;
+                    }
+                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
                     Components.Add(newGridSquare);
-                    posX = posX + 80; 
+                    posX = posX + 60; 
                     isEmpty = true;
-                // }
-                posX = initialPos;
-                posY = posY + 80;
-            // }
+                    isRobbyHere = false;
+                }
+                posX = initialPosX;
+                posY = posY + 60;
+            }
 
             base.Initialize();
         }
@@ -61,6 +70,7 @@ namespace RobbyVisualizer
         {
             this.SpriteBatch = new SpriteBatch(GraphicsDevice);
             this.Texture = Content.Load<Texture2D>("square");
+            this._backgroundTexture = Content.Load<Texture2D>("background");
         }
 
         protected override void Update(GameTime gameTime)
@@ -76,6 +86,9 @@ namespace RobbyVisualizer
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
+            SpriteBatch.End();
             base.Draw(gameTime);
         }
     }

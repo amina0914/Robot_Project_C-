@@ -8,7 +8,7 @@ namespace RobbyTheRobotTest
     [TestClass]
     public class RobbyTheRobotTest
     {
-        IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 70, 50);
+        IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
 
         // Testing if RobbyTheRobot object gets created and gets the right values assigned 
         [TestMethod]

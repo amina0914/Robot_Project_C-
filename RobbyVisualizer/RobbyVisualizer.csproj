@@ -29,6 +29,6 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <ProjectReference Include="..\RobbyTheRobot\RobbyTheRobot.csproj" />
-    <ProjectReference Include="..\GeneticAlgortihmlib\GeneticAlgortihm.csproj" />
+    <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" />
   </ItemGroup>
 </Project>

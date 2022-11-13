@@ -1,32 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using GeneticAlgorithm;
+
 namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot
     {
-        private int NbGenerations {get;}
-        private int PopulationSize {get;}
-        private int NbTrials {get;}
-        private int Seed {get;}
-
+        private int _populationSize {get;}
+        private int? _seed;
+        private int _nbGenes;
+        private IGeneticAlgorithm _geneticAlg;
         public int NumberOfActions {get;}
-
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}
         public int NumberOfGenerations {get;}
         public double MutationRate {get;}
         public double EliteRate {get;}
 
-        public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
+        public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, double mutationRate, double eliteRate, int? seed=null){
+            if(seed !=null){
+                _seed = seed ;
+            }
             NumberOfGenerations = nbGenerations;
-            PopulationSize = populationSize;
-            NbTrials = nbTrials;
-            Seed = seed;
-            //hardcoded the value to 100
+            _populationSize = populationSize;
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
+            MutationRate = mutationRate;
+            EliteRate = eliteRate;
+            _nbGenes = 243;
+            _geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, this._nbGenes, Enum.GetNames(typeof(PossibleMoves)).Length, this.MutationRate, this.EliteRate, this.NumberOfTestGrids, ComputeFitness);
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
@@ -60,12 +64,44 @@ namespace RobbyTheRobot
             return grid;
         }
 
+        // Method not tested
         public void GeneratePossibleSolutions(string folderPath)
         {
-            throw new NotImplementedException();
+            double maxScore = 0.0;
+            int nbMoves = 200;
+            int[] genes = null;
+
+            // CREATE GETEIC ALGORITHM OBJ
+            // loop nb Generations 
+            // call IGeneration gen = obj. generateGeneration()
+            // gen.maxFitness etc
+            IGeneration gen;
+           
+            for (int i=0; i<this.NumberOfGenerations; i++){
+                gen = _geneticAlg.GenerateGeneration();
+                maxScore = gen.MaxFitness;
+                nbMoves = _nbGenes;
+                genes = gen[0].Genes;
+                // (if i%) save to file 1st, 20th, 100, 200, 500 and 1000th
+                if (i == 0 || i==19 || i==99 || i==199 || i==499 || i==999)
+                {         
+                    using (StreamWriter writer = new StreamWriter(folderPath))
+                    {
+                        writer.WriteLine("Max score " + maxScore);
+                        writer.WriteLine("Number of moves " + nbMoves);
+                        writer.WriteLine("Robby's actions " + genes);
+                    }
+                }
+            }
+
+
+            //save based on modulo, to save 100 ... etc
+            // Write to a file the top candidate of the 1st, 20th, 100, 200, 500 and 1000th generation.
+           
         }
 
-        private List<int> generateRandomLocation(){
+        private List<int> generateRandomLocation()
+        {
             Random rnd = new Random();
             
             int randomLocation;
@@ -78,6 +114,24 @@ namespace RobbyTheRobot
                 listRandomLocations.Add(randomLocation);
             }
             return listRandomLocations;
+        }
+
+        // method to calculate fitness ComputeFitness()
+        // calls generateRandomGrid, runs Robby through grid, scoring moves 
+        public double ComputeFitness(IChromosome chromosome, IGeneration gen){
+            // calls the generate grid
+            ContentsOfGrid[,] grid = GenerateRandomTestGrid();
+            // generates Robby's moves from geneticAlgorithm
+            int [] moves = chromosome.Genes;
+            // generating random for the first position at x and y (position between 0 and 10, since width and height are 10)
+            Random rnd = _seed != null ? new Random((int)_seed) : new Random();
+            int xPos = rnd.Next(0, 10);
+            int yPos = rnd.Next(0, 10);
+            double fitness = 0;
+            for (int i=0; i<this.NumberOfActions; i++){
+                fitness = fitness + RobbyHelper.ScoreForAllele(moves, grid, rnd, ref xPos, ref yPos);
+            }
+            return fitness;
         }
     }
 }
