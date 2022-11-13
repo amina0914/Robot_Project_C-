@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RobbyTheRobot;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace RobbyTheRobotTest
@@ -16,11 +17,13 @@ namespace RobbyTheRobotTest
         {        
             Assert.AreEqual(100, robby.GridSize);
             Assert.AreEqual(200, robby.NumberOfActions);
-            Assert.AreEqual(70, robby.NumberOfTestGrids);
+            Assert.AreEqual(50, robby.NumberOfTestGrids);
             Assert.AreEqual(300, robby.NumberOfGenerations);
+            Assert.AreEqual(0.5, robby.MutationRate);
+            Assert.AreEqual(1, robby.EliteRate);
         }
 
-        // Test if 50% of the grid is empty and the other 50% is filled with cans cans 
+        // Test if 50% of the grid is empty and the other 50% is filled with cans 
         [TestMethod]
         public void TestGenerateRandomGrid()
         {        
@@ -45,6 +48,25 @@ namespace RobbyTheRobotTest
             int halfGrid = 50 * (randomGrid.GetLength(0) * randomGrid.GetLength(1)) / 100;
             Assert.AreEqual(halfGrid, countCans);
             Assert.AreEqual(halfGrid, countEmpty);
+        }
+
+        
+        // // Test the compute fitness function with the seed
+        // [TestMethod]
+        // public void TestComputeFitness()
+        // { 
+        // }
+
+        // Test the GeneratePossibleSolutions function, testing if file gets generated
+        [TestMethod]
+        public void TestComputeFitness()
+        { 
+            bool fileExists = false;
+            robby.GeneratePossibleSolutions("./testingGA.txt");
+            if (File.Exists("./testingGA.txt")) {
+                fileExists = true;
+            }
+            Assert.IsTrue(fileExists);
         }
     }
 }
