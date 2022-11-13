@@ -7,38 +7,30 @@ namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot
     {
-        private int _nbGenerations {get;}
         private int _populationSize {get;}
-        private int _nbTrials {get;}
         private int? _seed;
-
         private int _nbGenes;
-
+        private IGeneticAlgorithm _geneticAlg;
         public int NumberOfActions {get;}
-
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}
         public int NumberOfGenerations {get;}
         public double MutationRate {get;}
         public double EliteRate {get;}
 
-        private IGeneticAlgorithm geneticAlg;
-
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, double mutationRate, double eliteRate, int? seed=null){
+            if(seed !=null){
+                _seed = seed ;
+            }
             NumberOfGenerations = nbGenerations;
             _populationSize = populationSize;
-            _nbTrials = nbTrials;
-            // _seed = seed;
-            //hardcoded the value to 100
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
             MutationRate = mutationRate;
             EliteRate = eliteRate;
             _nbGenes = 243;
-
-            // change 7 to length of enum
-            geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, _nbGenes, Enum.GetNames(typeof(PossibleMoves)).Length, this.MutationRate, this.EliteRate, _nbTrials, ComputeFitness);
+            _geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, this._nbGenes, Enum.GetNames(typeof(PossibleMoves)).Length, this.MutationRate, this.EliteRate, this.NumberOfTestGrids, ComputeFitness);
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()
@@ -86,7 +78,7 @@ namespace RobbyTheRobot
             IGeneration gen;
            
             for (int i=0; i<this.NumberOfGenerations; i++){
-                gen = geneticAlg.GenerateGeneration();
+                gen = _geneticAlg.GenerateGeneration();
                 maxScore = gen.MaxFitness;
                 nbMoves = _nbGenes;
                 genes = gen[0].Genes;
@@ -132,7 +124,7 @@ namespace RobbyTheRobot
             // generates Robby's moves from geneticAlgorithm
             int [] moves = chromosome.Genes;
             // generating random for the first position at x and y (position between 0 and 10, since width and height are 10)
-            Random rnd = new Random();
+            Random rnd = _seed != null ? new Random((int)_seed) : new Random();
             int xPos = rnd.Next(0, 10);
             int yPos = rnd.Next(0, 10);
             double fitness = 0;
