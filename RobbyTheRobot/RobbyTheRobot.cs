@@ -18,6 +18,8 @@ namespace RobbyTheRobot
         public double MutationRate {get;}
         public double EliteRate {get;}
 
+        public event FileEventHandler FileEvent;
+
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, double mutationRate, double eliteRate, int? seed=null){
             if(seed !=null){
                 _seed = seed ;
@@ -84,20 +86,21 @@ namespace RobbyTheRobot
                 genes = gen[0].Genes;
                 // (if i%) save to file 1st, 20th, 100, 200, 500 and 1000th
                 if (i == 0 || i==19 || i==99 || i==199 || i==499 || i==999)
-                {         
-                    using (StreamWriter writer = new StreamWriter(folderPath))
-                    {
-                        writer.WriteLine("Max score " + maxScore);
-                        writer.WriteLine("Number of moves " + nbMoves);
-                        writer.WriteLine("Robby's actions " + genes);
-                    }
+                {        
+                    writeToFile(folderPath, maxScore, nbMoves, genes); 
+                    //  not sure about the event 
+                    FileEvent?.Invoke(folderPath + maxScore + nbMoves + genes);
                 }
-            }
+            }  
+        }
 
-
-            //save based on modulo, to save 100 ... etc
-            // Write to a file the top candidate of the 1st, 20th, 100, 200, 500 and 1000th generation.
-           
+        private void writeToFile(string folderPath, double maxScore, int nbMoves, int[] genes){
+            using (StreamWriter writer = new StreamWriter(folderPath))
+                {
+                    writer.WriteLine("Max score " + maxScore);
+                    writer.WriteLine("Number of moves " + nbMoves);
+                    writer.WriteLine("Robby's actions " + genes);
+                }
         }
 
         private List<int> generateRandomLocation()
