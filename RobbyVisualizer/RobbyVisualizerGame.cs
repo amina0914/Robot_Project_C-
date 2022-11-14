@@ -15,16 +15,22 @@ namespace RobbyVisualizer
 
         public Texture2D Texture;
         private Texture2D _backgroundTexture;
+        private Texture2D _folderTexture;
+
+      //  private FileExplorer _fileExplorer = FileExplorer.Instance;
 
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
         {
+          //  _fileExplorer = FileExplorer.Instance;
+
             _graphics.PreferredBackBufferWidth = 1000; 
             _graphics.PreferredBackBufferHeight = 900;
             _graphics.ApplyChanges();     
@@ -71,6 +77,7 @@ namespace RobbyVisualizer
             this.SpriteBatch = new SpriteBatch(GraphicsDevice);
             this.Texture = Content.Load<Texture2D>("square");
             this._backgroundTexture = Content.Load<Texture2D>("background");
+            this._folderTexture = Content.Load<Texture2D>("folder");
         }
 
         protected override void Update(GameTime gameTime)
@@ -88,6 +95,7 @@ namespace RobbyVisualizer
             GraphicsDevice.Clear(Color.CornflowerBlue);
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
+            SpriteBatch.Draw(_folderTexture, new Rectangle(450, 600, 150, 120), Color.CornflowerBlue);
             SpriteBatch.End();
             base.Draw(gameTime);
         }

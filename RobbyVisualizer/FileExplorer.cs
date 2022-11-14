@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Windows.Forms;
 
 namespace RobbyVisualizer
 {
@@ -15,7 +16,7 @@ namespace RobbyVisualizer
             this._game = robbyGame;
         }
 
-        public FileExplorer Instance
+        public static FileExplorer Instance
         {
             get
             {
@@ -23,7 +24,7 @@ namespace RobbyVisualizer
                 {
                     if (_instance == null)
                     {
-                        _instance = new FileExplorer(_game);
+                        _instance = new FileExplorer(_instance._game);
                     }
                     return _instance;
                 }
@@ -32,12 +33,12 @@ namespace RobbyVisualizer
 
         public void GetFile()
         {
-           // string path;
-           // OpenFileDialog ofdSelectLayout = new OpenFileDialog();
-            // if(ofdSelectLayout.ShowDialog() == DialogResult.OK)
-            // {
-            //     path = ofdSelectLayout.FileName;
-            // }
+           string path;
+           OpenFileDialog ofdSelectLayout = new OpenFileDialog();
+            if(ofdSelectLayout.ShowDialog() == DialogResult.OK)
+            {
+                path = ofdSelectLayout.FileName;
+            }
             //some code
         }
 
