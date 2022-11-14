@@ -63,7 +63,7 @@ namespace GeneticAlgorithm
         {   
             bool chromononull= spouse != null;
             Debug.Assert(chromononull);
-            Debug.Assert(mutationProb > 0 && mutationProb <1, "Mutation cant Be 0 or above 1");
+            Debug.Assert(mutationProb >= 0 && mutationProb <1, "Mutation cant Be 0 or above 1");
             return CrossoverFunction(spouse, mutationProb);
         }
         private Chromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
@@ -89,7 +89,7 @@ namespace GeneticAlgorithm
             }
             //Mutate
             for(int c=0; c< child1.Genes.Length;c++){
-                if(mutationprob>rand.NextDouble())
+                if(mutationprob>0 && mutationprob>rand.NextDouble())
                 {
                 child1._genes[c]= rand.Next(0,7);
                 child2._genes[c]= rand.Next(0,7);

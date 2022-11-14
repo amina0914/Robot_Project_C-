@@ -31,7 +31,7 @@ namespace GeneticAlgorithm
     {
       get
       {
-        Debug.Assert(index !> _chromosomes.Length);
+        Debug.Assert(index < _chromosomes.Length);
         return _chromosomes[index];
       }
     }

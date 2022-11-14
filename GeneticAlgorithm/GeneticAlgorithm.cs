@@ -16,7 +16,7 @@ namespace GeneticAlgorithm
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
     {
       Debug.Assert(populationSize >0 && populationSize<=200);
-      Debug.Assert(numberOfGenes >0 && numberOfGenes==243);
+      Debug.Assert(numberOfGenes >0 && numberOfGenes<=243);
       Debug.Assert(mutationRate >0 && eliteRate>0 && mutationRate <=1 &&eliteRate<=1 && numberOfTrials>0);
       Debug.Assert(fitnessCalculation !=null);
       if(seed !=null){
