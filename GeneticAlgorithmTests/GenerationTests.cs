@@ -14,7 +14,7 @@ namespace GeneticAlgorithmTests
       
     }
     public double testcalc(IChromosome chromo, IGeneration gen){
-      Random rand=new Random(5);
+      Random rand=new Random(4);
       return (double)(rand.Next(1,10));}
     [TestMethod]
     public void TestCopyConstructor()
@@ -47,78 +47,19 @@ namespace GeneticAlgorithmTests
 
     }
     [TestMethod]
-    public void TestReproduce()
+    public void TestSelectParent()
     {
-      //Testing the Reproduce Method With seed 4 and 5 for respective parent
-      Chromosome chromo = new Chromosome(63, 7, 4);
-      Chromosome spouse = new Chromosome(63, 7, 5);
-      //Generating the Child
-      IChromosome[] childs = chromo.Reproduce(spouse, 0);
-      int[] pointa = { 5, 6, 3, 2, 0, 0, 4, 3 };
-      int pointb = 5;
-      Console.WriteLine("chromo");
-      bool pointacheck = false;
-      bool pointendcheck = pointb == childs[0].Genes[62];
-      for (int i = 0; i < pointa.Length; i++)
+      IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(27,10,7,0.05,0.05,3,testcalc,7);
+      IGeneration mygen=new Generation(alg,testcalc,7);
+      (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();
+      IChromosome potentialparent=(mygen as IGenerationDetails).SelectParent();
+      foreach(Int32 x in potentialparent.Genes)
       {
-        if (chromo[i] == childs[0].Genes[i])
-        {
-          pointacheck = true;
-        }
-        else
-        {
-          pointacheck = false;
-        }
+        Console.Write(x+ " ");
       }
-      bool betweenpointcheck = false;
-      for (int i = 9; i < spouse.Length - 2; i++)
-      {
-        if (spouse[i] == childs[0].Genes[i])
-        {
-          betweenpointcheck = true;
-        }
-        else
-        {
-          betweenpointcheck = false;
-        }
-      }
-
-
-      int[] pointachilds2check = { 2, 1, 1, 4, 3, 6, 1, 6 };
-      int pointbchild2 = 0;
-      Console.WriteLine("chromo");
-      bool pointachild2check = false;
-      bool pointendchild2check = pointbchild2 == childs[1].Genes[62];
-
-      for (int i = 0; i < pointachilds2check.Length; i++)
-      {
-        if (spouse[i] == childs[1].Genes[i])
-        {
-          pointachild2check = true;
-        }
-        else
-        {
-          pointachild2check = false;
-        }
-      }
-      bool betweenpointchild2check = false;
-      for (int i = 9; i < chromo.Length - 2; i++)
-      {
-        if (chromo[i] == childs[1].Genes[i])
-        {
-          betweenpointchild2check = true;
-        }
-        else
-        {
-          betweenpointchild2check = false;
-        }
-      }
-      Assert.IsTrue(pointacheck);
-      Assert.IsTrue(pointendcheck);
-      Assert.IsTrue(betweenpointcheck);
-      Assert.IsTrue(pointachild2check);
-      Assert.IsTrue(pointendchild2check);
-      Assert.IsTrue(betweenpointchild2check);
+      Assert.AreEqual(mygen[0].Fitness,8);
+      Assert.AreEqual(mygen.MaxFitness,8);
+      Assert.AreEqual(mygen.AverageFitness,8);   
     }
   }
 }
