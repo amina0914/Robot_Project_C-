@@ -49,9 +49,10 @@ namespace RobbyVisualizer
             if (!_isEmpty){
                 _game.SpriteBatch.Draw(this._canTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
             }
-            if (_isRobbyHere){
-                _game.SpriteBatch.Draw(this._robbyTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
-            }
+            // if (_isRobbyHere){
+            //     _game.SpriteBatch.Draw(this._robbyTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
+            // }
+            // if robbyhere then remove the can
             _game.SpriteBatch.End();
             base.Draw(gameTime);
         }

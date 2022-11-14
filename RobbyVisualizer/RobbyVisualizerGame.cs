@@ -47,14 +47,12 @@ namespace RobbyVisualizer
                 Array.Sort(myfiles);
                 foreach(string generationFile in myfiles)
                 {
-                    System.Windows.Forms.MessageBox.Show(generationFile);
                     // read data, run Robby
                     getMoves(generationFile);
                 }
             }
 
 
-            //creating robby obj, so can create a grid with either empty or cans, will need to use console later
             IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
             ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
@@ -78,7 +76,9 @@ namespace RobbyVisualizer
                     {
                         isRobbyHere = true;
                     }
+                    RobbySprite robbyPosition = new RobbySprite(this, 0, 0);
                     SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
+                    Components.Add(robbyPosition);
                     Components.Add(newGridSquare);
                     posX = posX + 60; 
                     isEmpty = true;
@@ -122,14 +122,13 @@ namespace RobbyVisualizer
 
         // Reads provided file, gets the moves list
         // * For now, assumes that the moves are at the 3rd line, will need to be fixed
-        // * Ask Dirk if can assume where in file, moves are
+        // * Ask Dirk if can assume where, in file, are the moves
         private List<int> getMoves(String filePath){
             List <int> moves = new List<int>();
             // foreach (string line in System.IO.File.ReadLines(filePath))
             // {  
                 String line = System.IO.File.ReadLines(filePath).Skip(2).Take(1).First();
                 Console.WriteLine(line); 
-                System.Windows.Forms.MessageBox.Show(line);
                 for (int i=0; i<line.Length; i++){
                     // converts to int and pushes to list
                     moves.Add(line[i] - '0');
