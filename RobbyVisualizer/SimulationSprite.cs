@@ -7,6 +7,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 namespace RobbyVisualizer
 {
@@ -33,6 +34,7 @@ namespace RobbyVisualizer
             this._isEmpty = isEmpty;
             this._isRobbyHere = isRobbyHere;
         }
+
         protected override void LoadContent()
         {
             this._canTexture = this._game.Content.Load<Texture2D>("can");
