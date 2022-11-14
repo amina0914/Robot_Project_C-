@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 namespace GeneticAlgorithm
 {
@@ -16,6 +17,8 @@ namespace GeneticAlgorithm
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
         {
+            Debug.Assert(numbergenes >0 && numbergenes<=243 );
+            Debug.Assert(length==7);
              if(seed !=null){
                  _seed=seed;
             }else{
@@ -35,6 +38,8 @@ namespace GeneticAlgorithm
 
         public Chromosome(Chromosome chromosome)
         {
+            bool chromononull= chromosome != null;
+            Debug.Assert(chromononull);
              if(chromosome._seed is null){
                 _seed=null;
             }else{
@@ -56,6 +61,9 @@ namespace GeneticAlgorithm
         /// <returns></returns>
         public IChromosome[] Reproduce(IChromosome spouse, double mutationProb)
         {   
+            bool chromononull= spouse != null;
+            Debug.Assert(chromononull);
+            Debug.Assert(mutationProb > 0 && mutationProb <1, "Mutation cant Be 0 or above 1");
             return CrossoverFunction(spouse, mutationProb);
         }
         private Chromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
@@ -88,6 +96,8 @@ namespace GeneticAlgorithm
                 }
             }
             Chromosome[] childs=new Chromosome[]{child1,child2};
+            bool notempy= childs!= null;
+            Debug.Assert(notempy,"Why are the childs null");
             return childs;
 
         }
@@ -115,6 +125,8 @@ namespace GeneticAlgorithm
         /// <value></value>
         public int this[int index] {
             get{
+                bool indexout= index !> _genes.Length;
+                Debug.Assert(indexout);
                 return _genes[index];
             }
            }
