@@ -17,8 +17,8 @@ namespace GeneticAlgorithm
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
         {
-            Debug.Assert(numbergenes >0 && numbergenes<=243 );
-            Debug.Assert(length==7);
+            Debug.Assert(numbergenes >0 && numbergenes<=243, "Wrong Number of Genes" );
+            Debug.Assert(length==7, "Lenght of a Gene Must be 7");
              if(seed !=null){
                  _seed=seed;
             }else{
@@ -125,8 +125,7 @@ namespace GeneticAlgorithm
         /// <value></value>
         public int this[int index] {
             get{
-                bool indexout= index !> _genes.Length;
-                Debug.Assert(indexout);
+                Debug.Assert(index <_genes.Length);
                 return _genes[index];
             }
            }
