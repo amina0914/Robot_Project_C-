@@ -54,13 +54,7 @@ namespace GeneticAlgorithm
       Debug.Assert(fitnessEvent != null && algorithm != null);
       _algorithm = algorithm;
       _fitnessHandler += fitnessEvent;
-      if (seed != null)
-      {
-        _seed = seed;
-
-      }else{
-        _seed=null;
-      }
+      _seed = seed;
 
       _chromosomes = new Chromosome[_algorithm.PopulationSize];
       for (int i = 0; i < _chromosomes.Length; i++)
