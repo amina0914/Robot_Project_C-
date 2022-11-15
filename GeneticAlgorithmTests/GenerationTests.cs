@@ -53,12 +53,22 @@ namespace GeneticAlgorithmTests
       IGeneration mygen=new Generation(alg,testcalc,7);
       (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();
       IChromosome potentialparent=(mygen as IGenerationDetails).SelectParent();
-      foreach(Int32 x in potentialparent.Genes)
-      {
-        Console.Write(x+ " ");
-      }
       Assert.AreEqual(mygen[0].Fitness,8);
       Assert.AreEqual(mygen.MaxFitness,8);
+      Assert.AreEqual(mygen.AverageFitness,8);   
+    }
+
+     [TestMethod]
+    public void TestEvaluationFitness()
+    {
+      IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(27,10,7,0.05,0.05,3,testcalc,7);
+      IGeneration mygen=new Generation(alg,testcalc,7);
+      (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();
+      Assert.AreEqual(mygen[0].Fitness,8);
+      Assert.AreEqual(mygen[2].Fitness,8);
+      Assert.AreEqual(mygen[3].Fitness,8);
+      Assert.AreEqual(mygen[12].Fitness,8);
+      Assert.AreEqual(mygen.NumberOfChromosomes,27);
       Assert.AreEqual(mygen.AverageFitness,8);   
     }
   }
