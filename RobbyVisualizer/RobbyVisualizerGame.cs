@@ -34,7 +34,7 @@ namespace RobbyVisualizer
 
         private int moveCount;
 
-        private int[] moves = {1,1,2,2,2,0,2,2,1,3};    
+        private List<int> moves;    
         // private FileExplorer _fileExplorer;
 
 
@@ -58,7 +58,7 @@ namespace RobbyVisualizer
             _graphics.ApplyChanges();
 
             // FileExplorer 
-            List<int> moves = new List<int>();
+            // List<int> moves = new List<int>();
             System.Windows.Forms.MessageBox.Show("Select Folder");
             System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult dialogResult = folderBrowserDialog.ShowDialog();
@@ -70,8 +70,8 @@ namespace RobbyVisualizer
                 {
                     // read data, run Robby          
                     moves = GetMoves(generationFile);
-                
                 }
+                
             }
 
             IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
@@ -124,20 +124,23 @@ namespace RobbyVisualizer
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
             if(moveCount > 10) 
             {
                 
             } 
             else 
             {
-                    timer.Start();
-                        if(timer.ElapsedMilliseconds >= offset) 
-                        {
-                            MoveRobby(moves[moveCount]);
-                            moveCount++;                                
-                            timer.Reset();
-                        } 
+                timer.Start();
+                if(timer.ElapsedMilliseconds >= offset) 
+                {
+                                    // System.Windows.Forms.MessageBox.Show("inside if");
+                   
+                    MoveRobby(moves[moveCount]);
+                    //  foreach (int move in moves){
+                    // }
+                    moveCount++;                                
+                    timer.Reset();
+                } 
             }
             base.Update(gameTime);
         }
@@ -187,7 +190,7 @@ namespace RobbyVisualizer
                   _robbySprite.PosX= _robbySprite.PosX;
                   _robbySprite.PosY= _robbySprite.PosY;
             }
-           
+           // use score for allele
              
         }
 
