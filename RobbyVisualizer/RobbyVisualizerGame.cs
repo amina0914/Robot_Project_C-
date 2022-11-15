@@ -32,6 +32,9 @@ namespace RobbyVisualizer
 
         private int offset;
 
+        private int moveCount;
+
+        private int[] moves = {1,1,2,2,2,0,2,2,1,3};    
         // private FileExplorer _fileExplorer;
 
 
@@ -40,11 +43,12 @@ namespace RobbyVisualizer
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _robbyPosX =60;
-            _robbyPosY=60;
+            _robbyPosX =200;
+            _robbyPosY=10;
             _robbySprite = new RobbySprite(this, _robbyPosX, _robbyPosY);
             timer = new Stopwatch();
-            offset = 200;
+            offset = 2000;
+            moveCount = 0;
         }
 
         protected override void Initialize()
@@ -52,9 +56,6 @@ namespace RobbyVisualizer
             _graphics.PreferredBackBufferWidth = 1000; 
             _graphics.PreferredBackBufferHeight = 900;
             _graphics.ApplyChanges();
-
-            timer.Start(); 
-
 
             // FileExplorer 
             List<int> moves = new List<int>();
@@ -73,7 +74,6 @@ namespace RobbyVisualizer
                 }
             }
 
-
             IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
             ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
@@ -84,7 +84,6 @@ namespace RobbyVisualizer
             int posY=initialPosY;
             bool isEmpty = true;
             bool isRobbyHere = false;
-            // RobbySprite robbySprite = new RobbySprite(this, 0, 0);
 
             for (int a=0; a<grid.GetLength(0); a++)
             {
@@ -99,21 +98,7 @@ namespace RobbyVisualizer
                     // {
                     //     isRobbyHere = true;
                     // }
-
-                    // hardcoded initial value
-                    // Task t = Task.Run( () => {
-                    // for(int x=0; x<moves.Count; x++){
-                    //     // Task t = Task.Run( () => {
-                    //         robbySprite = MoveRobby(moves[x], robbySprite);
-                    //         Components.Add(robbySprite);
-                    //     // });
-                    //     // t.Wait(ts);
-                    // }    });
-                    // TimeSpan ts = TimeSpan.FromMilliseconds(3000);
-                    //  t.Wait(ts);
-
                     SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
-                    // Components.Add(robbySprite);
                     Components.Add(newGridSquare);
                     posX = posX + 60; 
                     isEmpty = true;
@@ -139,28 +124,20 @@ namespace RobbyVisualizer
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-            if(_robbySprite.PosX > maxX || _robbyPosY > maxY) {
-                
-            } else {
-            if(timer.ElapsedMilliseconds >= offset) {
-                int[] moves = {0,1,2,3,4,5};    
-                for(int x=0; x<moves.Length; x++)
-                {      
-                // Task t = Task.Run( () => {
-                    MoveRobby(moves[x]);
-                    // Components.Remove(_robbySprite);
-                    //         Components.Add(_robbySprite);
-                       
-                // });
-               // TimeSpan ts = TimeSpan.FromMilliseconds(100);
-                // Thread.Sleep(ts);
-              
-                }
-                timer.Reset();
-                timer.Start();
-            } 
 
+            if(moveCount > 10) 
+            {
+                
+            } 
+            else 
+            {
+                    timer.Start();
+                        if(timer.ElapsedMilliseconds >= offset) 
+                        {
+                            MoveRobby(moves[moveCount]);
+                            moveCount++;                                
+                            timer.Reset();
+                        } 
             }
             base.Update(gameTime);
         }
@@ -178,7 +155,7 @@ namespace RobbyVisualizer
 
         // Reads provided file, gets the moves list
         // * For now, assumes that the moves are at the 3rd line, will need to be fixed
-        // * Ask Dirk if can assume where, in file, are the moves
+        // * Ask Dirk if can assume where, in file, are the moves YES we can
         private List<int> GetMoves(String filePath){
             List <int> moves = new List<int>();
             // foreach (string line in System.IO.File.ReadLines(filePath))
@@ -195,24 +172,23 @@ namespace RobbyVisualizer
 
         // This method has switch cases that will tell where to display robby based on his move
         private void MoveRobby(int move){
-            // int x=RobbySprite.PosX;
-            // int y=RobbySprite.PosY;
-            // RobbySprite.PosX = (x + 60);
-            // RobbySprite.PosY = (y+ 60);
-            // System.Windows.Forms.MessageBox.Show(RobbySprite.PosX.ToString() + RobbySprite.PosY.ToString());
-          
-            // _robbyPosX = _robbyPosX + 60;
-            // _robbyPosY = _robbyPosY + 60;
-
-            // System.Windows.Forms.MessageBox.Show(_robbyPosX.ToString());
-            // RobbySprite robbySprite = new RobbySprite(this, _robbyPosX, _robbyPosY);
-          
-        //    _robbySprite = new RobbySprite(this, _robbyPosX, _robbyPosY);
-
-            // return robbySprite;
-            _robbySprite.PosX += 1;
-            _robbySprite.PosY+= 1;
-         
+            if (move == 0){
+                _robbySprite.PosY-= 60;
+            } else if (move == 1){
+                _robbySprite.PosY= _robbySprite.PosY+60;
+            } else if (move == 2){
+                _robbySprite.PosX+= 60;
+            }
+             else if (move == 3){
+                _robbySprite.PosX= _robbySprite.PosX-60;;
+            } else if (move == 4){
+                _robbySprite.PosX+= 60;
+            } else {
+                  _robbySprite.PosX= _robbySprite.PosX;
+                  _robbySprite.PosY= _robbySprite.PosY;
+            }
+           
+             
         }
 
     }

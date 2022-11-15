@@ -21,7 +21,7 @@ namespace RobbyVisualizer
         private Color _color; 
         private bool _isEmpty;
         private Texture2D _canTexture;
-        private bool _isRobbyHere;
+        public bool _isRobbyHere{get;set;}
         private Texture2D _robbyTexture;
         public SimulationSprite(RobbyVisualizerGame robbyGame, int posX, int posY, bool isEmpty, bool isRobbyHere): base(robbyGame)
         {
