@@ -14,8 +14,11 @@ namespace RobbyVisualizer
     public class RobbySprite : DrawableGameComponent
     {
         private RobbyVisualizerGame _game;
-        private int _posX;
-        private int _posY;
+        // public static int PosX{get;set;}
+        // public static int PosY{get;set;}
+
+        public int PosX{get;set;}
+        public int PosY{get;set;}
         private int _sizeX;
         private int _sizeY;
         private Color _color; 
@@ -25,8 +28,8 @@ namespace RobbyVisualizer
         {
             this._game = robbyGame;
             this._color = Color.White;
-            this._posX = posX;
-            this._posY = posY;
+            PosX = posX;
+            PosY = posY;
             this._sizeX = 60; 
             this._sizeY = 60;
         }
@@ -40,7 +43,7 @@ namespace RobbyVisualizer
         public override void Draw(GameTime gameTime)
         {
             _game.SpriteBatch.Begin();
-            _game.SpriteBatch.Draw(_robbyTexture,  new Rectangle(_posX, _posY, _sizeX, _sizeY), _color);
+            _game.SpriteBatch.Draw(_robbyTexture,  new Rectangle(PosX, PosY, _sizeX, _sizeY), _color);
             _game.SpriteBatch.End();
             base.Draw(gameTime);
         }
