@@ -1,4 +1,5 @@
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GeneticAlgorithm;
 namespace GeneticAlgorithmTests
 {
@@ -15,7 +16,7 @@ namespace GeneticAlgorithmTests
     }
     public double testcalc(IChromosome chromo, IGeneration gen){
       Random rand=new Random(4);
-      return (double)(rand.Next(1,10));}
+      return (double)(rand.Next(1,10));}//add the genes instead
     [TestMethod]
     public void TestCopyConstructor()
     {

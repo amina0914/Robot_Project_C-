@@ -16,14 +16,13 @@ namespace GeneticAlgorithm
         private int? _seed;
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
-        {
-            Debug.Assert(numbergenes >0 && numbergenes<=243, "Wrong Number of Genes" );
-            Debug.Assert(length==7, "Lenght of a Gene Must be 7");
-             if(seed !=null){
-                 _seed=seed;
-            }else{
-                _seed=null;
-            }
+        {   
+            //Shouldnt have specific stuff for length an num of genes
+            Debug.Assert(numbergenes >0, "Wrong Number of Genes" );
+            Debug.Assert(length>0, "Lenght of a Gene Must be Great 0");
+           
+            _seed=seed;//no need since it null by default
+           
             _lengthgene=length;
             _genes= new int[numbergenes];
             Random rand= _seed != null ? new Random((int)_seed): new Random();
@@ -38,14 +37,10 @@ namespace GeneticAlgorithm
 
         public Chromosome(Chromosome chromosome)
         {
-            bool chromononull= chromosome != null;
-            Debug.Assert(chromononull);
-             if(chromosome._seed is null){
-                _seed=null;
-            }else{
-                _seed= chromosome._seed;
-            }
-
+           
+            Debug.Assert(chromosome != null);
+            _seed= chromosome._seed;
+            
             _genes=new int[chromosome._genes.Length];
             for(int i=0; i<_genes.Length; i++){
                 _genes[i]=chromosome._genes[i];
@@ -61,8 +56,8 @@ namespace GeneticAlgorithm
         /// <returns></returns>
         public IChromosome[] Reproduce(IChromosome spouse, double mutationProb)
         {   
-            bool chromononull= spouse != null;
-            Debug.Assert(chromononull);
+            
+            Debug.Assert(spouse != null);
             Debug.Assert(mutationProb >= 0 && mutationProb <1, "Mutation cant Be 0 or above 1");
             return CrossoverFunction(spouse, mutationProb);
         }
@@ -96,8 +91,8 @@ namespace GeneticAlgorithm
                 }
             }
             Chromosome[] childs=new Chromosome[]{child1,child2};
-            bool notempy= childs!= null;
-            Debug.Assert(notempy,"Why are the childs null");
+            
+            Debug.Assert(childs!= null,"Why are the childs null");
             return childs;
 
         }
