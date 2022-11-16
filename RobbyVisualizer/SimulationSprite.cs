@@ -23,6 +23,7 @@ namespace RobbyVisualizer
         private Texture2D _canTexture;
         public bool _isRobbyHere{get;set;}
         private Texture2D _robbyTexture;
+        private Texture2D texture2;
         public SimulationSprite(RobbyVisualizerGame robbyGame, int posX, int posY, bool isEmpty, bool isRobbyHere): base(robbyGame)
         {
             this._game = robbyGame;
@@ -39,6 +40,8 @@ namespace RobbyVisualizer
         {
             this._canTexture = this._game.Content.Load<Texture2D>("can");
             this._robbyTexture = this._game.Content.Load<Texture2D>("robby");
+            this.texture2 = this._game.Content.Load<Texture2D>("blue_rectangle");
+
         }
 
 
@@ -49,9 +52,9 @@ namespace RobbyVisualizer
             if (!_isEmpty){
                 _game.SpriteBatch.Draw(this._canTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
             }
-            // if (_isRobbyHere){
-            //     _game.SpriteBatch.Draw(this._robbyTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
-            // }
+            if (_isRobbyHere){
+                _game.SpriteBatch.Draw(texture2,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
+            }
             // if robbyhere then remove the can
             _game.SpriteBatch.End();
             base.Draw(gameTime);

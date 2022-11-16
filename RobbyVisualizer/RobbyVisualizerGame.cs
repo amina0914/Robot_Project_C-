@@ -37,7 +37,7 @@ namespace RobbyVisualizer
         private List<int> moves;    
         // private FileExplorer _fileExplorer;
 
-
+        private IRobbyTheRobot robby;
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -49,6 +49,7 @@ namespace RobbyVisualizer
             timer = new Stopwatch();
             offset = 2000;
             moveCount = 0;
+            robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
         }
 
         protected override void Initialize()
@@ -58,7 +59,6 @@ namespace RobbyVisualizer
             _graphics.ApplyChanges();
 
             // FileExplorer 
-            // List<int> moves = new List<int>();
             System.Windows.Forms.MessageBox.Show("Select Folder");
             System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult dialogResult = folderBrowserDialog.ShowDialog();
@@ -68,13 +68,12 @@ namespace RobbyVisualizer
                 Array.Sort(myfiles);
                 foreach(string generationFile in myfiles)
                 {
-                    // read data, run Robby          
                     moves = GetMoves(generationFile);
                 }
                 
             }
 
-            IRobbyTheRobot robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
+           
             ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
@@ -115,6 +114,7 @@ namespace RobbyVisualizer
         {
             this.SpriteBatch = new SpriteBatch(GraphicsDevice);
             this.Texture = Content.Load<Texture2D>("square");
+            // this.Texture = Content.Load<Texture2D>("blue_rectangle");
             this._backgroundTexture = Content.Load<Texture2D>("background");
             this._folderTexture = Content.Load<Texture2D>("folder");
         }
@@ -132,12 +132,8 @@ namespace RobbyVisualizer
             {
                 timer.Start();
                 if(timer.ElapsedMilliseconds >= offset) 
-                {
-                                    // System.Windows.Forms.MessageBox.Show("inside if");
-                   
+                {                   
                     MoveRobby(moves[moveCount]);
-                    //  foreach (int move in moves){
-                    // }
                     moveCount++;                                
                     timer.Reset();
                 } 
@@ -176,7 +172,7 @@ namespace RobbyVisualizer
         // This method has switch cases that will tell where to display robby based on his move
         private void MoveRobby(int move){
             if (move == 0){
-                _robbySprite.PosY-= 60;
+               _robbySprite.PosY-= 60;
             } else if (move == 1){
                 _robbySprite.PosY= _robbySprite.PosY+60;
             } else if (move == 2){
@@ -186,6 +182,10 @@ namespace RobbyVisualizer
                 _robbySprite.PosX= _robbySprite.PosX-60;;
             } else if (move == 4){
                 _robbySprite.PosX+= 60;
+            }
+            else if (move == 5){
+                SimulationSprite newGridSquare = new SimulationSprite(this, _robbySprite.PosX, _robbySprite.PosY, true, true);
+                Components.Add(newGridSquare);
             } else {
                   _robbySprite.PosX= _robbySprite.PosX;
                   _robbySprite.PosY= _robbySprite.PosY;
@@ -193,6 +193,11 @@ namespace RobbyVisualizer
            // use score for allele
              
         }
+
+        // using score for allele
+        // private void MoveAllele(int[] moves){
+        //     robby.ScoreForAllele();
+        // }
 
     }
 }
