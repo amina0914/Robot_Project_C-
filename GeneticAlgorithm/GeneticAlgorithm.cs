@@ -95,9 +95,7 @@ namespace GeneticAlgorithm
 
         }
         //Making sure Everyone gets evaluated
-        CurrentGeneration = new Generation(newgen);
-        (CurrentGeneration as Generation).Algorithm=this;
-         (CurrentGeneration as Generation).FitnessHandler+= FitnessCalculation;
+        CurrentGeneration = new Generation(newgen,this);
         (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
         // return CurrentGeneration;
       }
