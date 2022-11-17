@@ -94,7 +94,7 @@ namespace GeneticAlgorithm
           int index2 = rand.Next(0, elitepopulation);
           IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
           newgen[i] = new Chromosome(childs[0] as Chromosome);
-          newgen[i+=1] = new Chromosome(childs[0] as Chromosome);
+          newgen[i+=1] = new Chromosome(childs[1] as Chromosome);
 
         }
         //Making sure Everyone gets evaluated

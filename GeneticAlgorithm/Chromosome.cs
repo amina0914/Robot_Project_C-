@@ -40,7 +40,7 @@ namespace GeneticAlgorithm
            
             Debug.Assert(chromosome != null);
             _seed= chromosome._seed;
-            
+            _lengthgene=chromosome._lengthgene;
             _genes=new int[chromosome._genes.Length];
             for(int i=0; i<_genes.Length; i++){
                 _genes[i]=chromosome._genes[i];
