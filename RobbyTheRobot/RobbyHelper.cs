@@ -3,7 +3,8 @@ using GeneticAlgorithm;
 
 namespace RobbyTheRobot
 {
-    class RobbyHelper
+    //change back to private, set to public for testing purposes in visualizer
+    public class RobbyHelper
     {
         
         /// <summary>
@@ -64,6 +65,9 @@ namespace RobbyTheRobot
                         move = (PossibleMoves)num;
                         break;
                 }
+                // to delete this line, printing to debug
+                Console.WriteLine("inside score for allele : " + x + " " + y);
+
             }
             while (!done);
             return 0;

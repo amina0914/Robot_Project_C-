@@ -17,38 +17,38 @@ namespace RobbyVisualizer
     {
         private GraphicsDeviceManager _graphics;
         public SpriteBatch SpriteBatch;
-
         public Texture2D Texture;
         private Texture2D _backgroundTexture;
         private Texture2D _folderTexture;
         private RobbySprite _robbySprite;
         private int _robbyPosX;
         private int _robbyPosY;
-        private int maxX = 500;
-
-        private int maxY = 500;
-
         private Stopwatch timer; 
-
+        private int totalNumberMoves;
+        private ContentsOfGrid[,] robbyGrid;
         private int offset;
 
         private int moveCount;
 
         private List<int> moves;    
-        // private FileExplorer _fileExplorer;
 
-        private IRobbyTheRobot robby;
+        private int[] movesArray = {0,0,1,2,3,1,0,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,4,5,3,2,2,3,4,3,2,2,3,5,4,1,1,1,1,1,0,0,1,1,1,0,0};
+
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _robbyPosX =200;
-            _robbyPosY=10;
-            _robbySprite = new RobbySprite(this, _robbyPosX, _robbyPosY);
+            // _robbyPosX =200;
+            // _robbyPosY=10;
+            Random rn = new Random();
+            _robbyPosX =rn.Next(0,10);
+            _robbyPosY=rn.Next(0,10);
+            _robbySprite = new RobbySprite(this,0 , 0);
             timer = new Stopwatch();
             offset = 2000;
-            moveCount = 0;
+            //moveCount = 0;
+            moveCount = 200;
             robby = Robby.CreateRobby(300, 400, 50, 0.5, 1, 4);
         }
 
@@ -73,8 +73,11 @@ namespace RobbyVisualizer
                 
             }
 
+            totalNumberMoves = moves.Count();
+
+
            
-            ContentsOfGrid[,] robbyGrid = robby.GenerateRandomTestGrid();
+            robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
             int initialPosX = 200;
@@ -107,6 +110,9 @@ namespace RobbyVisualizer
                 posY = posY + 60;
             }
             Components.Add(_robbySprite);
+
+
+
             base.Initialize();
         }
 
@@ -124,25 +130,28 @@ namespace RobbyVisualizer
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if(moveCount > 10) 
-            {
+            // if(moveCount > totalNumberMoves) 
+            // {
                 
-            } 
-            else 
-            {
-                timer.Start();
-                if(timer.ElapsedMilliseconds >= offset) 
-                {                   
-                    MoveRobby(moves[moveCount]);
-                    moveCount++;                                
-                    timer.Reset();
-                } 
-            }
+            // } 
+            // else 
+            // {
+                // timer.Start();
+                // if(timer.ElapsedMilliseconds >= offset) 
+                // {             
+                   // System.Windows.Forms.MessageBox.Show("Inside update " + _robbyPosX + " " + _robbyPosY);      
+                    //MoveRobby(moves[moveCount]);
+                    // MoveRobby();
+                //     moveCount++;                                
+                //     timer.Reset();
+                // } 
+            // }
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+             MoveRobby();
             GraphicsDevice.Clear(Color.CornflowerBlue);
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
@@ -157,47 +166,65 @@ namespace RobbyVisualizer
         // * Ask Dirk if can assume where, in file, are the moves YES we can
         private List<int> GetMoves(String filePath){
             List <int> moves = new List<int>();
-            // foreach (string line in System.IO.File.ReadLines(filePath))
-            // {  
                 String line = System.IO.File.ReadLines(filePath).Skip(2).Take(1).First();
                 Console.WriteLine(line); 
                 for (int i=0; i<line.Length; i++){
                     // converts to int and pushes to list
                     moves.Add(line[i] - '0');
                 }
-            // }  
             return moves;
         }
 
-        // This method has switch cases that will tell where to display robby based on his move
-        private void MoveRobby(int move){
-            if (move == 0){
-               _robbySprite.PosY-= 60;
-            } else if (move == 1){
-                _robbySprite.PosY= _robbySprite.PosY+60;
-            } else if (move == 2){
-                _robbySprite.PosX+= 60;
-            }
-             else if (move == 3){
-                _robbySprite.PosX= _robbySprite.PosX-60;;
-            } else if (move == 4){
-                _robbySprite.PosX+= 60;
-            }
-            else if (move == 5){
-                SimulationSprite newGridSquare = new SimulationSprite(this, _robbySprite.PosX, _robbySprite.PosY, true, true);
-                Components.Add(newGridSquare);
-            } else {
-                  _robbySprite.PosX= _robbySprite.PosX;
-                  _robbySprite.PosY= _robbySprite.PosY;
-            }
-           // use score for allele
-             
-        }
+        // // This method has switch cases that will tell where to display robby based on his move
+        // private void MoveRobby(int move){
+        //     if (move == 0){
+        //        _robbySprite.PosY-= 60;
+        //     } else if (move == 1){
+        //         _robbySprite.PosY= _robbySprite.PosY+60;
+        //     } else if (move == 2){
+        //         _robbySprite.PosX+= 60;
+        //     }
+        //      else if (move == 3){
+        //         _robbySprite.PosX= _robbySprite.PosX-60;;
+        //     } else if (move == 4){
+        //         _robbySprite.PosX+= 60;
+        //     }
+        //     else if (move == 5){
+        //         SimulationSprite newGridSquare = new SimulationSprite(this, _robbySprite.PosX, _robbySprite.PosY, true, true);
+        //         Components.Add(newGridSquare);
+        //     } else {
+        //           _robbySprite.PosX= _robbySprite.PosX;
+        //           _robbySprite.PosY= _robbySprite.PosY;
+        //     }             
+        // }
 
         // using score for allele
-        // private void MoveAllele(int[] moves){
-        //     robby.ScoreForAllele();
-        // }
+        private void MoveRobby(){
+            Random rnd = new Random();
+            // moves.ToArray();
+            //System.Windows.Forms.MessageBox.Show("Inside move robby before allele " + _robbyPosX + " " + _robbyPosY + " " + movesArray[0]);
+            double score = 0;
+            timer.Start();
+            //for (int i=0; i<moveCount; i++){
+                 
+                if(timer.ElapsedMilliseconds >= offset) 
+                {   
+                    Console.WriteLine("before pos x and y : " + _robbyPosX + " " + _robbyPosY);
+                score = score +  RobbyHelper.ScoreForAllele(movesArray, robbyGrid, rnd,ref _robbyPosX, ref _robbyPosY);
+                _robbySprite.PosX = (_robbyPosX*60)+200;
+                _robbySprite.PosY = (_robbyPosY*60)+10;
+                Console.WriteLine("after pos x and y : " + _robbyPosX + " " + _robbyPosY);
+                Console.WriteLine("robby sprite : " + _robbySprite.PosX + " " + _robbySprite.PosY);
+
+               // System.Windows.Forms.MessageBox.Show("Inside move robby " + _robbyPosX + " " + _robbyPosY);
+                                           
+                    timer.Reset();
+                } 
+            // }
+           // System.Windows.Forms.MessageBox.Show("Inside move robby " + _robbyPosX + " " + _robbyPosY);
+
+           
+        }
 
     }
 }
