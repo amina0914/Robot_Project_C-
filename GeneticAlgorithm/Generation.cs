@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+
 namespace GeneticAlgorithm
 {
   internal class Generation : IGenerationDetails
@@ -105,25 +107,33 @@ namespace GeneticAlgorithm
       //To Review it Again.
       if (_fitnessHandler != null && _algorithm != null) 
       {
-        foreach (Chromosome chromo in _chromosomes)
-        {
-          double fitness = 0;
-          for (int z = 0; z < _algorithm.NumberOfTrials; z++)
-          {
-            fitness += _fitnessHandler.Invoke(chromo, this);
-          }         
-          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));
-        }
-      }else{
-         foreach (Chromosome chromo in _chromosomes)
-        {
-           double fitness = 0;   
-           if (_fitnessHandler != null){
-          fitness = _fitnessHandler.Invoke(chromo, this);        
-          chromo.Fitness = (fitness );
-           }         
-        }
+        
+        Parallel.ForEach(_chromosomes, chromo => {
+         double fitness = 0;
+         Parallel.For(0,_algorithm.NumberOfTrials,i=>
+         fitness += _fitnessHandler.Invoke(chromo, this));
+         chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));}
+         );
+        // foreach (Chromosome chromo in _chromosomes)
+        // {
+        //   double fitness = 0;
+        //   for (int z = 0; z < _algorithm.NumberOfTrials; z++)
+        //   {
+        //     fitness += _fitnessHandler.Invoke(chromo, this);
+        //   }         
+        //   chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));
+        // }
       }
+      // }else{
+      //    foreach (Chromosome chromo in _chromosomes)
+      //   {
+      //      double fitness = 0;   
+      //      if (_fitnessHandler != null){
+      //     fitness = _fitnessHandler.Invoke(chromo, this);        
+      //     chromo.Fitness = (fitness );
+      //      }         
+      //   }
+      // }
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
 
