@@ -10,7 +10,7 @@ namespace RobbyTheRobot
         private int _nbGenerations {get;}
         private int _populationSize {get;}
         private int _nbTrials {get;}
-        private int _seed {get;}
+        private int? _seed {get;}
         public int NumberOfActions {get;}
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}
@@ -19,7 +19,7 @@ namespace RobbyTheRobot
         public double EliteRate {get;}
         public IGeneticAlgorithm GeneticA{get;}//The workd around from the Interface
 
-        public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int seed){
+        public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, int? seed=null){
             NumberOfGenerations = nbGenerations;
             _populationSize = populationSize;
             _nbTrials = nbTrials;
@@ -28,7 +28,7 @@ namespace RobbyTheRobot
             GridSize = 100;
             NumberOfActions = 200;
             NumberOfTestGrids = nbTrials;
-            GeneticA= GeneticLib.CreateGeneticAlgorithm(_populationSize,243,7,0.05,0.05,nbTrials,ComputeFitness,null);  // Harcoded Vals          
+            GeneticA= GeneticLib.CreateGeneticAlgorithm(_populationSize,243,7,0.05,0.05,nbTrials,ComputeFitness,_seed);  // Harcoded Vals          
         }
 
         public ContentsOfGrid[,] GenerateRandomTestGrid()

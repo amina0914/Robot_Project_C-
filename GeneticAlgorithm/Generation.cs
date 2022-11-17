@@ -110,8 +110,12 @@ namespace GeneticAlgorithm
         
         Parallel.ForEach(_chromosomes, chromo => {
          double fitness = 0;
-         Parallel.For(0,_algorithm.NumberOfTrials,i=>
-         fitness += _fitnessHandler.Invoke(chromo, this));
+        //  Parallel.For(0,_algorithm.NumberOfTrials,i=>
+        //  fitness += _fitnessHandler.Invoke(chromo, this));
+        for (int z = 0; z < _algorithm.NumberOfTrials; z++)
+          {
+            fitness += _fitnessHandler.Invoke(chromo, this);
+          }   
          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));}
          );
         // foreach (Chromosome chromo in _chromosomes)
@@ -120,9 +124,11 @@ namespace GeneticAlgorithm
         //   for (int z = 0; z < _algorithm.NumberOfTrials; z++)
         //   {
         //     fitness += _fitnessHandler.Invoke(chromo, this);
+        // //    Parallel.For(0,_algorithm.NumberOfTrials,i=>
+        // //  fitness += _fitnessHandler.Invoke(chromo, this));
         //   }         
         //   chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));
-        // }
+        //}
       }
       // }else{
       //    foreach (Chromosome chromo in _chromosomes)
