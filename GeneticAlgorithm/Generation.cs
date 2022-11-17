@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+
 namespace GeneticAlgorithm
 {
   internal class Generation : IGenerationDetails
@@ -99,26 +101,25 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-        if (_fitnessHandler != null && _algorithm != null && _algorithm.NumberOfTrials>1) 
+
+      if (_fitnessHandler != null && _algorithm != null && _algorithm.NumberOfTrials>1) 
       {
-        foreach (Chromosome chromo in _chromosomes)
-        {
-          double fitness = 0;
-          for (int z = 0; z < _algorithm.NumberOfTrials; z++)
+        
+        Parallel.ForEach(_chromosomes, chromo => {
+         double fitness = 0;
+        for (int z = 0; z < _algorithm.NumberOfTrials; z++)
           {
             fitness += _fitnessHandler.Invoke(chromo, this);
-          }         
-          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));
-        }
+          }   
+         chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));}
+         );
+       
       }else{
-         foreach (Chromosome chromo in _chromosomes)
-        {
-           double fitness = 0;   
-           if (_fitnessHandler != null){
-          fitness = _fitnessHandler.Invoke(chromo, this);        
-          chromo.Fitness = (fitness );
-           }         
-        }
+        Parallel.ForEach(_chromosomes, chromo => {
+         double fitness = 0;
+          fitness += _fitnessHandler.Invoke(chromo, this); 
+         chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));}
+         );
       }
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
