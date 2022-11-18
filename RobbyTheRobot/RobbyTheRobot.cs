@@ -141,7 +141,6 @@ namespace RobbyTheRobot
         private void writeToFile(string folderPath, string fileName, double maxScore, int nbMoves, int[] genes){
             Debug.Assert(folderPath != null, "Folder Path must be provided");
             Debug.Assert(fileName != null, "File name must be provided");
-            Debug.Assert(maxScore > 0, "Max Score must be a positive number");
             Debug.Assert(nbMoves > 0, "Number of moves must be a positive number");
             Debug.Assert(genes != null, "Genes array must be provided");
 
@@ -167,7 +166,7 @@ namespace RobbyTheRobot
 
         // This method calculates the fitness of a chromosome looping through the number of actions.
         // calls generateRandomGrid, runs Robby through grid, scoring moves 
-        public double ComputeFitness(IChromosome chromosome, IGeneration gen){
+        private double ComputeFitness(IChromosome chromosome, IGeneration gen){
             Debug.Assert(chromosome != null, "Chromosome must be provided");
             Debug.Assert(gen != null, "Generation must be provided");
             // calls the generate grid
