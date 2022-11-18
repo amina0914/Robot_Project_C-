@@ -1,6 +1,5 @@
 using System;
 using GeneticAlgorithm;
-
 namespace RobbyTheRobot
 {   
     /// <summary>
@@ -52,6 +51,7 @@ namespace RobbyTheRobot
         double MutationRate {get;}
 
         double EliteRate {get;}
+        IGeneticAlgorithm GeneticA{get;}
 
         /// <summary>
         /// Used to generate a single test grid filled with cans in random locations. Half of 
@@ -72,8 +72,9 @@ namespace RobbyTheRobot
         /// An event raised when a file is written to disk
         /// </summary>
         //event TODOMYCUSTOMDELEGATE FileWritten;
-
+        public event FileEventHandler FileWritten;
     }
 
     ///TODO Add custom delegate
+    public delegate void FileEventHandler(String fileMetaData);
 }
