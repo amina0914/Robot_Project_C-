@@ -40,6 +40,9 @@ namespace RobbyVisualizer
 
         private int generation =0;
 
+        private List<SimulationSprite> displayedGrid = new List<SimulationSprite>();
+        private List<SimulationSprite> pickedCansGrid = new List<SimulationSprite>();
+
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -51,12 +54,11 @@ namespace RobbyVisualizer
             _robbyPosY= rand.Next(0,10);
             _robbySprite = new RobbySprite(this,  (_robbyPosX*60)+200, (_robbyPosY*60)+10);
             timer = new Stopwatch();
-            offset = 200;
+            offset = 100;
             moveCount = 0;
             totalNumberMoves = 200;
             score = 0;
             robby = Robby.CreateRobby(1000, 200, 100, 0.05, 0.05);
-            robbyGrid = robby.GenerateRandomTestGrid();
 
             //robby.GeneratePossibleSolutions("C:/Users/ganco/OneDrive/Desktop/robby");
         }
@@ -85,31 +87,32 @@ namespace RobbyVisualizer
 
             robbyGrid = robby.GenerateRandomTestGrid();
 
-            SimulationSprite[,] grid = new SimulationSprite[10,10];
-            int initialPosX = 200;
-            int initialPosY = 10;
-            int posX=initialPosX;
-            int posY=initialPosY;
-            bool isEmpty = true;
-            bool isRobbyHere = false;
+            // SimulationSprite[,] grid = new SimulationSprite[10,10];
+            // int initialPosX = 200;
+            // int initialPosY = 10;
+            // int posX=initialPosX;
+            // int posY=initialPosY;
+            // bool isEmpty = true;
+            // bool isRobbyHere = false;
 
-            for (int a=0; a<grid.GetLength(0); a++)
-            {
-                for (int b=0; b<grid.GetLength(1); b++)
-                {
-                    if (robbyGrid[b,a] == ContentsOfGrid.Can)
-                    {
-                        isEmpty = false;
-                    } else {
-                        isEmpty = true;
-                    }
-                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
-                    Components.Add(newGridSquare);
-                    posX = posX + 60; 
-                }
-                posX = initialPosX;
-                posY = posY + 60;
-            }
+            // for (int a=0; a<grid.GetLength(0); a++)
+            // {
+            //     for (int b=0; b<grid.GetLength(1); b++)
+            //     {
+            //         if (robbyGrid[b,a] == ContentsOfGrid.Can)
+            //         {
+            //             isEmpty = false;
+            //         } else {
+            //             isEmpty = true;
+            //         }
+            //         SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
+            //         Components.Add(newGridSquare);
+            //         posX = posX + 60; 
+            //     }
+            //     posX = initialPosX;
+            //     posY = posY + 60;
+            // }
+            DrawGrid();
 
             Components.Add(_robbySprite);
 
@@ -146,7 +149,6 @@ namespace RobbyVisualizer
                             MoveRobby();
                             moveCount++; 
                             timer.Reset();
-                    
                          } 
                     }   
                     else 
@@ -158,7 +160,16 @@ namespace RobbyVisualizer
                     if (moveCount==200){
                         moves = null;
                         generation ++;
-                         moveCount = 0;
+                        moveCount = 0;
+                        // removes the grid
+                        foreach(SimulationSprite gridSquare in displayedGrid){
+                            Components.Remove(gridSquare);
+                        }
+                        // removes the pciked cans blue squares
+                        foreach(SimulationSprite gridCan in pickedCansGrid){
+                            Components.Remove(gridCan);
+                        }
+                        DrawGrid();
                     }
                 }
                 else {
@@ -205,7 +216,6 @@ namespace RobbyVisualizer
             List <int> moves = new List<int>();
                 String line = System.IO.File.ReadLines(filePath).Skip(2).Take(1).First();
                 char[] lines= line.ToArray();
-                Console.WriteLine(line); 
                 for (int i=0; i<lines.Length; i++){
                     // converts to int and pushes to list
                     if(Char.IsNumber(lines[i])){
@@ -223,10 +233,41 @@ namespace RobbyVisualizer
             _robbySprite.PosX = (_robbyPosX*60)+200;
             _robbySprite.PosY = (_robbyPosY*60)+10;
             if (score == (previousScore + 10)){
-                Console.WriteLine("inside if of moveRobby, previous score " + previousScore + " new score " + score);
                 SimulationSprite GridSquare = new SimulationSprite(this, _robbySprite.PosX,  _robbySprite.PosY, false, true);
+                pickedCansGrid.Add(GridSquare);
                 Components.Add(GridSquare);
             }
+        }
+
+        private void DrawGrid(){
+            robbyGrid = robby.GenerateRandomTestGrid();
+            SimulationSprite[,] grid = new SimulationSprite[10,10];
+            int initialPosX = 200;
+            int initialPosY = 10;
+            int posX=initialPosX;
+            int posY=initialPosY;
+            bool isEmpty = true;
+            bool isRobbyHere = false;
+
+            for (int a=0; a<grid.GetLength(0); a++)
+            {
+                for (int b=0; b<grid.GetLength(1); b++)
+                {
+                    if (robbyGrid[b,a] == ContentsOfGrid.Can)
+                    {
+                        isEmpty = false;
+                    } else {
+                        isEmpty = true;
+                    }
+                    SimulationSprite newGridSquare= new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
+                    displayedGrid.Add(newGridSquare);
+                    Components.Add(newGridSquare);
+                    posX = posX + 60; 
+                }
+                posX = initialPosX;
+                posY = posY + 60;
+            }
+
         }
 
     }
