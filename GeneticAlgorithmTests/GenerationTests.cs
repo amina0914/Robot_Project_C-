@@ -1,3 +1,7 @@
+﻿/**
+@author: Octavio Abel Ganchozo Paladines 
+@student id: 1539613
+*/
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GeneticAlgorithm;
@@ -9,6 +13,7 @@ namespace GeneticAlgorithmTests
     [TestMethod]
     public void TestConstructor()
     {
+      //Testing the constructor
       IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(5,63,7,0.05,0.05,3,testcalc,7);
       IGeneration mygen=new Generation(alg,testcalc,7);
       Assert.AreEqual(mygen.NumberOfChromosomes, alg.PopulationSize);
@@ -55,6 +60,7 @@ namespace GeneticAlgorithmTests
     [TestMethod]
     public void TestSelectParent()
     {
+      //Generating population chromosomes
       IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(4,10,7,0.05,0.05,3,testcalc,7);
       Chromosome chromo = new Chromosome(63, 7, 4);
       Chromosome chromo2 = new Chromosome(63, 7, 2);
@@ -64,7 +70,7 @@ namespace GeneticAlgorithmTests
       IGeneration mygen=new Generation(chromos,alg);
       (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();
       IChromosome potentialparent=(mygen as IGenerationDetails).SelectParent();
-     
+      //Checking if potential parent has the same vals
       Assert.AreEqual(mygen[0].Fitness,3.0476190476190474);
       Assert.AreEqual(mygen.MaxFitness,3.0476190476190474);
       Assert.AreEqual(potentialparent.Fitness,mygen[0].Fitness);   
@@ -73,11 +79,13 @@ namespace GeneticAlgorithmTests
      [TestMethod]
     public void TestEvaluationFitness()
     {
+      //Generating Generation
       IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(4,10,7,0.05,0.05,3,testcalc,7);
       Chromosome chromo = new Chromosome(63, 7, 4);
       Chromosome chromo2 = new Chromosome(63, 7, 2);
       Chromosome chromo3 = new Chromosome(63, 7, 1);
       Chromosome chromo4 = new Chromosome(63, 7, 6);
+      //Population to be evaluated
       Chromosome[] chromos= {chromo,chromo2,chromo3,chromo4};
       IGeneration mygen=new Generation(chromos,alg);
       (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();

@@ -1,3 +1,7 @@
+﻿/**
+@author: Octavio Abel Ganchozo Paladines 
+@student id: 1539613
+*/
 using System;
 using System.Diagnostics;
 
@@ -12,7 +16,10 @@ namespace GeneticAlgorithm
     public double EliteRate { get; }
     int? _seed;
 
-
+     /// <summary>
+    /// Constructor instantiates the algorithm with populationsize, numberofGenes, lengthGene, mutationRate
+    /// eliteRate, numberofTrials,FitnessCalculation, a nullable seed
+    /// </summary>
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
     {
       Debug.Assert(populationSize >0);
@@ -61,6 +68,7 @@ namespace GeneticAlgorithm
     {
       GenerationCount++;
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
+      //If No Generations creates a new One
       if (CurrentGeneration == null)
       {
       CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
@@ -97,7 +105,7 @@ namespace GeneticAlgorithm
           newgen[i+=1] = new Chromosome(childs[1] as Chromosome);
 
         }
-        //Making sure Everyone gets evaluated
+        //Evaluate Population Fitness
         CurrentGeneration = new Generation(newgen,this);
         (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
       }
