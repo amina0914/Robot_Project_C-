@@ -99,7 +99,7 @@ namespace RobbyTheRobot
 
         // method to calculate fitness ComputeFitness()
         // calls generateRandomGrid, runs Robby through grid, scoring moves 
-        public double ComputeFitness(IChromosome chromosome, IGeneration gen){
+        private double ComputeFitness(IChromosome chromosome, IGeneration gen){
             // calls the generate grid
             ContentsOfGrid[,] grid = GenerateRandomTestGrid();
             // generates Robby's moves from geneticAlgorithm
