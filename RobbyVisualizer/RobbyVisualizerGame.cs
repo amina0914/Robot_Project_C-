@@ -34,6 +34,8 @@ namespace RobbyVisualizer
         private int[] arraymovesver;
         private IRobbyTheRobot robby;
         private SpriteFont font;
+        private Random rand = new Random();
+
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,12 +43,13 @@ namespace RobbyVisualizer
             IsMouseVisible = true;
             // _robbyPosX =200;
             // _robbyPosY=10;
-            _robbyPosX =0;
-            _robbyPosY=0;
-            _robbySprite = new RobbySprite(this,  _robbyPosX+200, _robbyPosY+10);
+            _robbyPosX = rand.Next(0,10);
+            _robbyPosY= rand.Next(0,10);
+            _robbySprite = new RobbySprite(this,  (_robbyPosX*60)+200, (_robbyPosY*60)+10);
             timer = new Stopwatch();
             offset = 1000;
             moveCount = 0;
+            totalNumberMoves = 200;
             robby = Robby.CreateRobby(200, 200, 100, 0.05, 0.05);
             //robby.GeneratePossibleSolutions("C:/Users/ganco/OneDrive/Desktop/robby");
         }
@@ -72,8 +75,7 @@ namespace RobbyVisualizer
                 
             }
 
-            totalNumberMoves = moves.Count();
-            arraymovesver=moves.ToArray();
+            arraymovesver = moves.ToArray();
 
             score=0;
             robbyGrid = robby.GenerateRandomTestGrid();
@@ -142,9 +144,12 @@ namespace RobbyVisualizer
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
             // SpriteBatch.Draw(_folderTexture, new Rectangle(450, 600, 150, 120), Color.CornflowerBlue);
-            SpriteBatch.DrawString(font, "Move number:" + moveCount, new Vector2(0, 0), Color.Black);
-            SpriteBatch.DrawString(font, "Score:" + score, new Vector2(0, 20), Color.Black);
+            SpriteBatch.DrawString(font, "Generation: " , new Vector2(0, 0), Color.Black);
+            SpriteBatch.DrawString(font, "Move number: " + moveCount + "/"+totalNumberMoves, new Vector2(0, 20), Color.Black);
+            SpriteBatch.DrawString(font, "Current score: " + score, new Vector2(0, 40), Color.Black);
             SpriteBatch.End();
+            if(moveCount < totalNumberMoves)
+            {
                timer.Start();
                 if(timer.ElapsedMilliseconds >= offset) 
                 {                                
@@ -153,6 +158,11 @@ namespace RobbyVisualizer
                     Console.WriteLine("Current Score: "+score)    ;                           
                     timer.Reset();
                 } 
+            }
+            else 
+            {
+
+            }
             base.Draw(gameTime);
         }
 
