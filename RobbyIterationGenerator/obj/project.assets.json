@@ -1,11 +1,48 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "GeneticAlgorithm/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/GeneticAlgorithm.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GeneticAlgorithm.dll": {}
+        }
+      },
+      "RobbyTheRobot/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "GeneticAlgorithm": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RobbyTheRobot.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RobbyTheRobot.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "GeneticAlgorithm/1.0.0": {
+      "type": "project",
+      "path": "../GeneticAlgorithm/GeneticAlgorithm.csproj",
+      "msbuildProject": "../GeneticAlgorithm/GeneticAlgorithm.csproj"
+    },
+    "RobbyTheRobot/1.0.0": {
+      "type": "project",
+      "path": "../RobbyTheRobot/RobbyTheRobot.csproj",
+      "msbuildProject": "../RobbyTheRobot/RobbyTheRobot.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "RobbyTheRobot >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/alwrence9/.nuget/packages/": {}
@@ -31,7 +68,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj": {
+              "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -4,6 +4,59 @@
     "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/RobbyIterationGenerator.csproj": {}
   },
   "projects": {
+    "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj",
+        "projectName": "GeneticAlgorithm",
+        "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj",
+        "packagesPath": "/Users/alwrence9/.nuget/packages/",
+        "outputPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/alwrence9/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/RobbyIterationGenerator.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -25,7 +78,68 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj": {
+                "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj",
+        "projectName": "RobbyTheRobot",
+        "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj",
+        "packagesPath": "/Users/alwrence9/.nuget/packages/",
+        "outputPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/alwrence9/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj": {
+                "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
