@@ -78,7 +78,7 @@ namespace GeneticAlgorithm
         //WILL SELECT % ELITE PARENTS AS WELL AS THEIR FITNESS 
         for (int i = 0; i < elitepopulation; i++)
         {
-          IChromosome parent = (CurrentGeneration as IGenerationDetails)?.SelectParent();
+          IChromosome parent = CurrentGeneration[i];
           newgen[i] = new Chromosome(parent as Chromosome);
         }
 
@@ -89,6 +89,9 @@ namespace GeneticAlgorithm
         {
            int index1 = rand.Next(0, elitepopulation);
           int index2 = rand.Next(0, elitepopulation);
+          while(index2==index1){
+            index2=rand.Next(0, elitepopulation);
+          }
           IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
           newgen[i] = new Chromosome(childs[0] as Chromosome);
           newgen[i+=1] = new Chromosome(childs[1] as Chromosome);
