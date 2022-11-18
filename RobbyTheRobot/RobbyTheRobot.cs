@@ -131,7 +131,7 @@ namespace RobbyTheRobot
                     int fileIndex = i+1;
                     writeToFile(folderPath, fileName + fileIndex, maxScore, nbMoves, genes); 
                     //  not sure about the event param
-                    FileWritten?.Invoke(folderPath + maxScore + nbMoves + genes);
+                    FileWritten?.Invoke(" The max score, the number of moves and the genes were written to " + fileName);
                 }
             }  
         }
