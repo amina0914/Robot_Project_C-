@@ -50,7 +50,10 @@ namespace RobbyVisualizer
             offset = 1000;
             moveCount = 0;
             totalNumberMoves = 200;
+            score = 0;
             robby = Robby.CreateRobby(200, 200, 100, 0.05, 0.05);
+            robbyGrid = robby.GenerateRandomTestGrid();
+
             //robby.GeneratePossibleSolutions("C:/Users/ganco/OneDrive/Desktop/robby");
         }
 
@@ -77,41 +80,35 @@ namespace RobbyVisualizer
 
             arraymovesver = moves.ToArray();
 
-            score=0;
-            robbyGrid = robby.GenerateRandomTestGrid();
+            // robbyGrid = robby.GenerateRandomTestGrid();
 
-            SimulationSprite[,] grid = new SimulationSprite[10,10];
-            int initialPosX = 200;
-            int initialPosY = 10;
-            int posX=initialPosX;
-            int posY=initialPosY;
-            bool isEmpty = true;
-            bool isRobbyHere = false;
+            // SimulationSprite[,] grid = new SimulationSprite[10,10];
+            // int initialPosX = 200;
+            // int initialPosY = 10;
+            // int posX=initialPosX;
+            // int posY=initialPosY;
+            // bool isEmpty = true;
+            // bool isRobbyHere = false;
 
-            for (int a=0; a<grid.GetLength(0); a++)
-            {
-                for (int b=0; b<grid.GetLength(1); b++)
-                {
-                    if (robbyGrid[a,b] == ContentsOfGrid.Can)
-                    {
-                        isEmpty = false;
-                    }
-                    // // hardcoded robby position
-                    // if (a==0 && b ==0)
-                    // {
-                    //     isRobbyHere = true;
-                    // }
-                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
-                    Components.Add(newGridSquare);
-                    posX = posX + 60; 
-                    isEmpty = true;
-                    isRobbyHere = false;
-                }
-                posX = initialPosX;
-                posY = posY + 60;
-            }
+            // for (int a=0; a<grid.GetLength(0); a++)
+            // {
+            //     for (int b=0; b<grid.GetLength(1); b++)
+            //     {
+            //         if (robbyGrid[a,b] == ContentsOfGrid.Can)
+            //         {
+            //             isEmpty = false;
+            //         }
+            //         SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
+            //         Components.Add(newGridSquare);
+            //         posX = posX + 60; 
+            //         isEmpty = true;
+            //         isRobbyHere = false;
+            //     }
+            //     posX = initialPosX;
+            //     posY = posY + 60;
+            // }
+
             Components.Add(_robbySprite);
-
 
 
             base.Initialize();
@@ -134,7 +131,33 @@ namespace RobbyVisualizer
             Random rand= new Random();
             
              
-           
+
+            SimulationSprite[,] grid = new SimulationSprite[10,10];
+            int initialPosX = 200;
+            int initialPosY = 10;
+            int posX=initialPosX;
+            int posY=initialPosY;
+            bool isEmpty = true;
+            bool isRobbyHere = false;
+
+            for (int a=0; a<grid.GetLength(0); a++)
+            {
+                for (int b=0; b<grid.GetLength(1); b++)
+                {
+                    if (robbyGrid[a,b] == ContentsOfGrid.Can)
+                    {
+                        isEmpty = false;
+                    }
+                    SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
+                    Components.Add(newGridSquare);
+                    posX = posX + 60; 
+                    isEmpty = true;
+                    isRobbyHere = false;
+                }
+                posX = initialPosX;
+                posY = posY + 60;
+            }
+
             base.Update(gameTime);
         }
 
