@@ -82,7 +82,7 @@ namespace RobbyVisualizer
                 try{
                     myfiles = Directory.GetFiles(folderBrowserDialog.SelectedPath);
                     Array.Sort(myfiles);    
-                } catch{
+                } catch (Exception e){
                     System.Windows.Forms.MessageBox.Show("An invalid/empty folder was provided");
                 }  
             }
@@ -168,8 +168,9 @@ namespace RobbyVisualizer
 
         // Reads provided file and gets the moves list 
         private List<int> GetMoves(String filePath){
-           generationNumber = Path.GetFileName(filePath);
             List <int> moves = new List<int>();
+            try{
+                generationNumber = Path.GetFileName(filePath);
                 String line = System.IO.File.ReadLines(filePath).Skip(2).Take(1).First();
                 char[] lines= line.ToArray();
                 for (int i=0; i<lines.Length; i++){
@@ -179,6 +180,10 @@ namespace RobbyVisualizer
                     }
                     
                 }
+            }
+            catch (Exception e) {
+                System.Windows.Forms.MessageBox.Show("An invalid/empty folder was provided");
+            }
             return moves;
         }
 
