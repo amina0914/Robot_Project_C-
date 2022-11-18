@@ -18,11 +18,14 @@ namespace RobbyTheRobot
         public double MutationRate {get;}
         public double EliteRate {get;}
 
+        public event FileEventHandler FileWritten;
+
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, double mutationRate, double eliteRate, int? seed=null){
             if(seed !=null){
                 _seed = seed ;
             }
             NumberOfGenerations = nbGenerations;
+            //is pop size just nbGenes
             _populationSize = populationSize;
             GridSize = 100;
             NumberOfActions = 200;
@@ -64,17 +67,14 @@ namespace RobbyTheRobot
             return grid;
         }
 
-        // Method not tested
+        // Method was tested, works!
         public void GeneratePossibleSolutions(string folderPath)
         {
+            string fileName = "Generation";
             double maxScore = 0.0;
             int nbMoves = 200;
             int[] genes = null;
 
-            // CREATE GETEIC ALGORITHM OBJ
-            // loop nb Generations 
-            // call IGeneration gen = obj. generateGeneration()
-            // gen.maxFitness etc
             IGeneration gen;
            
             for (int i=0; i<this.NumberOfGenerations; i++){
@@ -84,20 +84,35 @@ namespace RobbyTheRobot
                 genes = gen[0].Genes;
                 // (if i%) save to file 1st, 20th, 100, 200, 500 and 1000th
                 if (i == 0 || i==19 || i==99 || i==199 || i==499 || i==999)
-                {         
-                    using (StreamWriter writer = new StreamWriter(folderPath))
-                    {
-                        writer.WriteLine("Max score " + maxScore);
-                        writer.WriteLine("Number of moves " + nbMoves);
-                        writer.WriteLine("Robby's actions " + genes);
-                    }
+                {        
+                    int fileIndex = i+1;
+                    writeToFile(folderPath, fileName + fileIndex, maxScore, nbMoves, genes); 
+                    //  not sure about the event param
+                    FileWritten?.Invoke(folderPath + maxScore + nbMoves + genes);
                 }
+            }  
+        }
+
+        // This methods writes results of a generation from the genetic algorithm to a file
+        // If the folder does not exist, it creates it
+        private void writeToFile(string folderPath, string fileName, double maxScore, int nbMoves, int[] genes){
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
             }
 
-
-            //save based on modulo, to save 100 ... etc
-            // Write to a file the top candidate of the 1st, 20th, 100, 200, 500 and 1000th generation.
-           
+            string filePath = Path.Combine(folderPath, fileName);
+            
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                writer.WriteLine("Max score " + maxScore);
+                writer.WriteLine("Number of moves " + nbMoves);
+                writer.Write("Robby's actions ");
+                foreach (int gene in genes)
+                {
+                    writer.Write(gene + " ");
+                }
+            }
         }
 
         private List<int> generateRandomLocation()
@@ -133,5 +148,7 @@ namespace RobbyTheRobot
             }
             return fitness;
         }
+
+
     }
 }

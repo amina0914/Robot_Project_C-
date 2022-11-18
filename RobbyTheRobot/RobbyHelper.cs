@@ -3,7 +3,8 @@ using GeneticAlgorithm;
 
 namespace RobbyTheRobot
 {
-    class RobbyHelper
+    //change back to private, set to public for testing purposes in visualizer
+    public class RobbyHelper
     {
         
         /// <summary>
@@ -22,6 +23,7 @@ namespace RobbyTheRobot
             int gene = RobbyHelper.FindGeneIndex(direction);
             //find the move
             PossibleMoves move = (PossibleMoves)moves[gene];
+
             bool done;
             do
             {

@@ -72,6 +72,7 @@ namespace RobbyTheRobot
         /// An event raised when a file is written to disk
         /// </summary>
         //event TODOMYCUSTOMDELEGATE FileWritten;
+        public event FileEventHandler FileWritten;
     }
 
     ///TODO Add custom delegate
