@@ -20,7 +20,7 @@ namespace RobbyIterationGenerator
             ConsoleKeyInfo cki;
             Console.Clear();
             // Establish an event handler to process key press events.
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(abortingKey);
+           
            
             //Declare the stopwatch
             Stopwatch stopWatch = new Stopwatch();
@@ -51,7 +51,7 @@ namespace RobbyIterationGenerator
             Task.Run(() => {
                     cki = Console.ReadKey(true);
                     if(cki.Key == ConsoleKey.X){
-                        notPressedX = false;
+                      
                         TimeSpan ts = stopWatch.Elapsed;
                         string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                         ts.Hours, ts.Minutes, ts.Seconds,

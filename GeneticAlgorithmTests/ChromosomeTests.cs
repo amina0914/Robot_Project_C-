@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
-﻿/**
+/**
 @author: Octavio Abel Ganchozo Paladines 
 @student id: 1539613
 */
->>>>>>> main
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GeneticAlgorithm;
@@ -22,10 +19,7 @@ namespace GeneticAlgorithmTests
     [TestMethod]
     public void TestCopyConstructor()
     {
-<<<<<<< HEAD
-=======
       //Test the copy constructor
->>>>>>> main
       Chromosome chromo = new Chromosome(243, 7, 4);
       Chromosome copy = new Chromosome(chromo);
       Assert.AreEqual(copy.Length, chromo.Length);
@@ -35,10 +29,7 @@ namespace GeneticAlgorithmTests
     [TestMethod]
     public void TestIndexer()
     {
-<<<<<<< HEAD
-=======
       //Checking if indexer works
->>>>>>> main
       Chromosome chromo = new Chromosome(50, 7, 4);
 
       int test = chromo[7];
@@ -62,10 +53,7 @@ namespace GeneticAlgorithmTests
       int[] pointa = { 5, 6, 3, 2, 0, 0, 4, 3 };
       int pointb = 5;
       Console.WriteLine("chromo");
-<<<<<<< HEAD
-=======
       //Finding the right points A and B on parents
->>>>>>> main
       bool pointacheck = false;
       bool pointendcheck = pointb == childs[0].Genes[62];
       for (int i = 0; i < pointa.Length; i++)
@@ -92,11 +80,7 @@ namespace GeneticAlgorithmTests
         }
       }
 
-<<<<<<< HEAD
-
-=======
       //Redo the process for the next check
->>>>>>> main
       int[] pointachilds2check = { 2, 1, 1, 4, 3, 6, 1, 6 };
       int pointbchild2 = 0;
       Console.WriteLine("chromo");
@@ -126,10 +110,7 @@ namespace GeneticAlgorithmTests
           betweenpointchild2check = false;
         }
       }
-<<<<<<< HEAD
-=======
       //Check if all the points Matches 
->>>>>>> main
       Assert.IsTrue(pointacheck);
       Assert.IsTrue(pointendcheck);
       Assert.IsTrue(betweenpointcheck);

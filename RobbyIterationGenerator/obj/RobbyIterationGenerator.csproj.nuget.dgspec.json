@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/RobbyIterationGenerator.csproj": {}
+    "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyIterationGenerator\\RobbyIterationGenerator.csproj": {}
   },
   "projects": {
-    "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj": {
+    "C:\\Users\\ganco\\assignement\\robbyrobotproject\\GeneticAlgorithm\\GeneticAlgorithm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj",
+        "projectUniqueName": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\GeneticAlgorithm\\GeneticAlgorithm.csproj",
         "projectName": "GeneticAlgorithm",
-        "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj",
-        "packagesPath": "/Users/alwrence9/.nuget/packages/",
-        "outputPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/obj/",
+        "projectPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\GeneticAlgorithm\\GeneticAlgorithm.csproj",
+        "packagesPath": "C:\\Users\\ganco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\GeneticAlgorithm\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/alwrence9/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ganco\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -53,21 +53,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/RobbyIterationGenerator.csproj": {
+    "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyIterationGenerator\\RobbyIterationGenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/RobbyIterationGenerator.csproj",
+        "projectUniqueName": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyIterationGenerator\\RobbyIterationGenerator.csproj",
         "projectName": "RobbyIterationGenerator",
-        "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/RobbyIterationGenerator.csproj",
-        "packagesPath": "/Users/alwrence9/.nuget/packages/",
-        "outputPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyIterationGenerator/obj/",
+        "projectPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyIterationGenerator\\RobbyIterationGenerator.csproj",
+        "packagesPath": "C:\\Users\\ganco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyIterationGenerator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/alwrence9/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ganco\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -79,8 +79,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj": {
-                "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj"
+              "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyTheRobot\\RobbyTheRobot.csproj": {
+                "projectPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyTheRobot\\RobbyTheRobot.csproj"
               }
             }
           }
@@ -110,21 +110,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj": {
+    "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyTheRobot\\RobbyTheRobot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj",
+        "projectUniqueName": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyTheRobot\\RobbyTheRobot.csproj",
         "projectName": "RobbyTheRobot",
-        "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/RobbyTheRobot.csproj",
-        "packagesPath": "/Users/alwrence9/.nuget/packages/",
-        "outputPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/RobbyTheRobot/obj/",
+        "projectPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyTheRobot\\RobbyTheRobot.csproj",
+        "packagesPath": "C:\\Users\\ganco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\RobbyTheRobot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/alwrence9/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\ganco\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -136,8 +136,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj": {
-                "projectPath": "/Users/alwrence9/Documents/Fall2022/Programming/robbyrobotproject/GeneticAlgorithm/GeneticAlgorithm.csproj"
+              "C:\\Users\\ganco\\assignement\\robbyrobotproject\\GeneticAlgorithm\\GeneticAlgorithm.csproj": {
+                "projectPath": "C:\\Users\\ganco\\assignement\\robbyrobotproject\\GeneticAlgorithm\\GeneticAlgorithm.csproj"
               }
             }
           }
@@ -167,7 +167,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

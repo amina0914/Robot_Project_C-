@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
-﻿/**
+/**
 @author: Octavio Abel Ganchozo Paladines 
 @student id: 1539613
 */
->>>>>>> main
 using System;
 using System.Diagnostics;
 
@@ -19,14 +16,10 @@ namespace GeneticAlgorithm
     public double EliteRate { get; }
     int? _seed;
 
-<<<<<<< HEAD
-
-=======
      /// <summary>
     /// Constructor instantiates the algorithm with populationsize, numberofGenes, lengthGene, mutationRate
     /// eliteRate, numberofTrials,FitnessCalculation, a nullable seed
     /// </summary>
->>>>>>> main
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
     {
       Debug.Assert(populationSize >0);
@@ -43,10 +36,6 @@ namespace GeneticAlgorithm
       EliteRate = eliteRate;
       NumberOfTrials = numberOfTrials;
       FitnessCalculation = fitnessCalculation;
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     }
     /// <summary>
     /// The number of times the fitness function should be called when computing the result
@@ -67,11 +56,7 @@ namespace GeneticAlgorithm
     /// The delegate of the fitness method to be called
     /// </summary>
     /// <value></value>
-<<<<<<< HEAD
-    public FitnessEventHandler FitnessCalculation {get;}
-=======
     public FitnessEventHandler FitnessCalculation { get; }
->>>>>>> main
 
     /// <summary>
     /// Generates a generation for the given parameters. If no generation has been created the initial one will be constructed. 
@@ -82,10 +67,7 @@ namespace GeneticAlgorithm
     {
       GenerationCount++;
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
-<<<<<<< HEAD
-=======
       //If No Generations creates a new One
->>>>>>> main
       if (CurrentGeneration == null)
       {
       CurrentGeneration= new Generation(this, FitnessCalculation, _seed);
@@ -122,11 +104,7 @@ namespace GeneticAlgorithm
           newgen[i+=1] = new Chromosome(childs[1] as Chromosome);
 
         }
-<<<<<<< HEAD
-        //Making sure Everyone gets evaluated
-=======
         //Evaluate Population Fitness
->>>>>>> main
         CurrentGeneration = new Generation(newgen,this);
         (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
       }
@@ -134,9 +112,5 @@ namespace GeneticAlgorithm
       return CurrentGeneration;
       
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> main
   }
 }

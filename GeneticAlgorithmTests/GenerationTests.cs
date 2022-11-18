@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
-﻿/**
+/**
 @author: Octavio Abel Ganchozo Paladines 
 @student id: 1539613
 */
->>>>>>> main
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GeneticAlgorithm;
@@ -16,10 +13,7 @@ namespace GeneticAlgorithmTests
     [TestMethod]
     public void TestConstructor()
     {
-<<<<<<< HEAD
-=======
       //Testing the constructor
->>>>>>> main
       IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(5,63,7,0.05,0.05,3,testcalc,7);
       IGeneration mygen=new Generation(alg,testcalc,7);
       Assert.AreEqual(mygen.NumberOfChromosomes, alg.PopulationSize);
@@ -66,10 +60,7 @@ namespace GeneticAlgorithmTests
     [TestMethod]
     public void TestSelectParent()
     {
-<<<<<<< HEAD
-=======
       //Generating population chromosomes
->>>>>>> main
       IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(4,10,7,0.05,0.05,3,testcalc,7);
       Chromosome chromo = new Chromosome(63, 7, 4);
       Chromosome chromo2 = new Chromosome(63, 7, 2);
@@ -79,11 +70,7 @@ namespace GeneticAlgorithmTests
       IGeneration mygen=new Generation(chromos,alg);
       (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();
       IChromosome potentialparent=(mygen as IGenerationDetails).SelectParent();
-<<<<<<< HEAD
-     
-=======
       //Checking if potential parent has the same vals
->>>>>>> main
       Assert.AreEqual(mygen[0].Fitness,3.0476190476190474);
       Assert.AreEqual(mygen.MaxFitness,3.0476190476190474);
       Assert.AreEqual(potentialparent.Fitness,mygen[0].Fitness);   
@@ -92,19 +79,13 @@ namespace GeneticAlgorithmTests
      [TestMethod]
     public void TestEvaluationFitness()
     {
-<<<<<<< HEAD
-=======
       //Generating Generation
->>>>>>> main
       IGeneticAlgorithm alg= GeneticLib.CreateGeneticAlgorithm(4,10,7,0.05,0.05,3,testcalc,7);
       Chromosome chromo = new Chromosome(63, 7, 4);
       Chromosome chromo2 = new Chromosome(63, 7, 2);
       Chromosome chromo3 = new Chromosome(63, 7, 1);
       Chromosome chromo4 = new Chromosome(63, 7, 6);
-<<<<<<< HEAD
-=======
       //Population to be evaluated
->>>>>>> main
       Chromosome[] chromos= {chromo,chromo2,chromo3,chromo4};
       IGeneration mygen=new Generation(chromos,alg);
       (mygen as IGenerationDetails).EvaluateFitnessOfPopulation();
