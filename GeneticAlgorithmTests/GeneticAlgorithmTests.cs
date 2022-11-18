@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+﻿/**
+@author: Octavio Abel Ganchozo Paladines 
+@student id: 1539613
+*/
+>>>>>>> main
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GeneticAlgorithm;

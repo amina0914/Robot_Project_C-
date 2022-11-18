@@ -25,6 +25,21 @@
 /processorParam:TextureFormat=Color
 /build:background.jpg
 
+<<<<<<< HEAD
+=======
+#begin blue_rectangle.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:blue_rectangle.jpg
+
+>>>>>>> main
 #begin can.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -37,6 +52,28 @@
 /processorParam:TextureFormat=Color
 /build:can.jpg
 
+<<<<<<< HEAD
+=======
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont;font.spritefont
+
+#begin folder.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:folder.png
+
+>>>>>>> main
 #begin robby.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
