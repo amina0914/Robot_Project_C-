@@ -36,6 +36,10 @@ namespace RobbyVisualizer
         private SpriteFont font;
         private Random rand = new Random();
 
+        private string[] myfiles;
+
+        private int generation =0;
+
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -47,7 +51,7 @@ namespace RobbyVisualizer
             _robbyPosY= rand.Next(0,10);
             _robbySprite = new RobbySprite(this,  (_robbyPosX*60)+200, (_robbyPosY*60)+10);
             timer = new Stopwatch();
-            offset = 700;
+            offset = 200;
             moveCount = 0;
             totalNumberMoves = 200;
             score = 0;
@@ -69,17 +73,15 @@ namespace RobbyVisualizer
             System.Windows.Forms.DialogResult dialogResult = folderBrowserDialog.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath)) 
             {
-                string[] myfiles = Directory.GetFiles(folderBrowserDialog.SelectedPath);
+               myfiles = Directory.GetFiles(folderBrowserDialog.SelectedPath);
                 Array.Sort(myfiles);
-                foreach(string generationFile in myfiles)
-                {
-                    moves = GetMoves(generationFile);
-                    arrayMoves = moves.ToArray();
-                }
+                // foreach(string generationFile in myfiles)
+                // {
+                //     moves = GetMoves(generationFile);
+                //     arrayMoves = moves.ToArray();
+                // }
                 
             }
-
-            
 
             robbyGrid = robby.GenerateRandomTestGrid();
 
@@ -128,9 +130,42 @@ namespace RobbyVisualizer
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            Random rand= new Random();
             
-             
+
+            if (generation<myfiles.Length)
+            {
+                
+                    moves = GetMoves(myfiles[generation]);
+                    arrayMoves = moves.ToArray();
+
+                     if(moveCount < totalNumberMoves)
+                    {
+                        timer.Start();
+                        if(timer.ElapsedMilliseconds >= offset) 
+                        {                                
+                            MoveRobby();
+                            moveCount++; 
+                            timer.Reset();
+                    
+                         } 
+                    }   
+                    else 
+                    {
+                    }
+                
+                    
+                   
+                    if (moveCount==200){
+                        moves = null;
+                        generation ++;
+                         moveCount = 0;
+                    }
+                }
+                else {
+
+                }
+            
+            
             base.Update(gameTime);
         }
 
@@ -141,25 +176,25 @@ namespace RobbyVisualizer
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
             // SpriteBatch.Draw(_folderTexture, new Rectangle(450, 600, 150, 120), Color.CornflowerBlue);
-            SpriteBatch.DrawString(font, "Generation: " , new Vector2(0, 0), Color.Black);
+            SpriteBatch.DrawString(font, "Generation: " + generation, new Vector2(0, 0), Color.Black);
             SpriteBatch.DrawString(font, "Move number: " + moveCount + "/"+totalNumberMoves, new Vector2(0, 20), Color.Black);
             SpriteBatch.DrawString(font, "Current score: " + score, new Vector2(0, 40), Color.Black);
         
-            if(moveCount < totalNumberMoves)
-            {
-               timer.Start();
-                if(timer.ElapsedMilliseconds >= offset) 
-                {                                
-                    MoveRobby2();
-                    moveCount++; 
-                    timer.Reset();
+            // if(moveCount < totalNumberMoves)
+            // {
+            //    timer.Start();
+            //     if(timer.ElapsedMilliseconds >= offset) 
+            //     {                                
+            //         MoveRobby();
+            //         moveCount++; 
+            //         timer.Reset();
                     
-                } 
-            }
-            else 
-            {
+            //     } 
+            // }
+            // else 
+            // {
 
-            }
+            // }
             SpriteBatch.End();
             base.Draw(gameTime);
         }
@@ -181,31 +216,8 @@ namespace RobbyVisualizer
             return moves;
         }
 
-        // // This method has switch cases that will tell where to display robby based on his move
-        private void MoveRobby(int move){
-            if (move == 0){
-               _robbySprite.PosY-= 60;
-            } else if (move == 1){
-                _robbySprite.PosY= _robbySprite.PosY+60;
-            } else if (move == 2){
-                _robbySprite.PosX+= 60;
-            }
-             else if (move == 3){
-                _robbySprite.PosX= _robbySprite.PosX-60;
-            } else if (move == 4){
-                _robbySprite.PosX+= 60;
-            }
-            else if (move == 5){
-                SimulationSprite newGridSquare = new SimulationSprite(this, _robbySprite.PosX, _robbySprite.PosY, true, true);
-                Components.Add(newGridSquare);
-            } else {
-                  _robbySprite.PosX= _robbySprite.PosX;
-                  _robbySprite.PosY= _robbySprite.PosY;
-            }             
-        }
-
         // using score for allele
-        private void MoveRobby2(){
+        private void MoveRobby(){
             double previousScore = score;
             score += RobbyHelper.ScoreForAllele(arrayMoves, robbyGrid, rand, ref _robbyPosX, ref _robbyPosY);
             _robbySprite.PosX = (_robbyPosX*60)+200;
