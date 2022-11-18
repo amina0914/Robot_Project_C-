@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 namespace GeneticAlgorithm
 {
@@ -10,20 +11,30 @@ namespace GeneticAlgorithm
         /// <value>A value representing the fitness of the IChromosome</value>
         public double Fitness {get;set;}
 
-        public int[] Genes => _genes.ToArray();//Better practice
+        public int[] Genes => _genes.ToArray();
         private int[] _genes;
         private int? _seed;
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
+<<<<<<< HEAD
         {
             if(seed !=null){
                  _seed=seed;
             }else{
                 _seed=null;
             }
+=======
+        {   
+            //Shouldnt have specific stuff for length an num of genes
+            Debug.Assert(numbergenes >0, "Wrong Number of Genes" );
+            Debug.Assert(length>0, "Lenght of a Gene Must be Great 0");
+           
+            _seed=seed;//no need since it null by default
+           
+>>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
             _lengthgene=length;
             _genes= new int[numbergenes];
-            Random rand= new Random();
+            Random rand= _seed != null ? new Random((int)_seed): new Random();
             for(int i=0; i < _genes.Length;i++){
                 _genes[i]= rand.Next(0,7);
             }
@@ -34,12 +45,20 @@ namespace GeneticAlgorithm
         }
 
         public Chromosome(Chromosome chromosome)
+<<<<<<< HEAD
         {   
             if(chromosome._seed is null){
                 _seed=null;
             }else{
                 _seed= chromosome._seed;
             }
+=======
+        {
+           
+            Debug.Assert(chromosome != null);
+            _seed= chromosome._seed;
+            _lengthgene=chromosome._lengthgene;
+>>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
             _genes=new int[chromosome._genes.Length];
             for(int i=0; i<_genes.Length; i++){
                 _genes[i]=chromosome._genes[i];
@@ -55,6 +74,9 @@ namespace GeneticAlgorithm
         /// <returns></returns>
         public IChromosome[] Reproduce(IChromosome spouse, double mutationProb)
         {   
+            
+            Debug.Assert(spouse != null);
+            Debug.Assert(mutationProb >= 0 && mutationProb <1, "Mutation cant Be 0 or above 1");
             return CrossoverFunction(spouse, mutationProb);
         }
         private Chromosome[] CrossoverFunction(IChromosome spouse, double mutationprob){
@@ -80,14 +102,17 @@ namespace GeneticAlgorithm
             }
             //Mutate
             for(int c=0; c< child1.Genes.Length;c++){
-                if(mutationprob>rand.NextDouble())
+                if(mutationprob>0 && mutationprob>rand.NextDouble())
                 {
                 child1._genes[c]= rand.Next(0,7);
                 child2._genes[c]= rand.Next(0,7);
                 }
             }
             Chromosome[] childs=new Chromosome[]{child1,child2};
+            
+            Debug.Assert(childs!= null,"Why are the childs null");
             return childs;
+
         }
       
 
@@ -113,6 +138,7 @@ namespace GeneticAlgorithm
         /// <value></value>
         public int this[int index] {
             get{
+                Debug.Assert(index <_genes.Length);
                 return _genes[index];
             }
            }

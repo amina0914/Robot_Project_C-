@@ -4,6 +4,7 @@
     <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" />
   </ItemGroup>
 
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>

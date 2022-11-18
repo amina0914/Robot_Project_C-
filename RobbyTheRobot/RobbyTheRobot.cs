@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeneticAlgorithm;
+<<<<<<< HEAD
 using System.IO;
 
+=======
+>>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
 namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot
@@ -12,6 +15,7 @@ namespace RobbyTheRobot
         private int _nbTrials {get;}
         private int? _seed {get;}
         public int NumberOfActions {get;}
+
         public int NumberOfTestGrids {get;}
         public int GridSize {get;}
         public int NumberOfGenerations {get;}
