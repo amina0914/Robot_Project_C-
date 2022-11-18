@@ -79,8 +79,12 @@ namespace RobbyVisualizer
             System.Windows.Forms.DialogResult dialogResult = folderBrowserDialog.ShowDialog();
             if (dialogResult == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath)) 
             {
-                myfiles = Directory.GetFiles(folderBrowserDialog.SelectedPath);
-                Array.Sort(myfiles);      
+                try{
+                    myfiles = Directory.GetFiles(folderBrowserDialog.SelectedPath);
+                    Array.Sort(myfiles);    
+                } catch{
+                    System.Windows.Forms.MessageBox.Show("An invalid/empty folder was provided");
+                }  
             }
 
             _robbyGrid = _robby.GenerateRandomTestGrid();
