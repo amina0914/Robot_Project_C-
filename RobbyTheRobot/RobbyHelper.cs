@@ -23,6 +23,7 @@ namespace RobbyTheRobot
             int gene = RobbyHelper.FindGeneIndex(direction);
             //find the move
             PossibleMoves move = (PossibleMoves)moves[gene];
+
             bool done;
             do
             {
@@ -65,9 +66,6 @@ namespace RobbyTheRobot
                         move = (PossibleMoves)num;
                         break;
                 }
-                // to delete this line, printing to debug
-                Console.WriteLine("inside score for allele : " + x + " " + y);
-
             }
             while (!done);
             return 0;

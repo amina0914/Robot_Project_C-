@@ -51,7 +51,7 @@ namespace RobbyVisualizer
             moveCount = 0;
             totalNumberMoves = 200;
             score = 0;
-            robby = Robby.CreateRobby(200, 200, 100, 0.05, 0.05);
+            robby = Robby.CreateRobby(1000, 243, 100, 0.05, 0.05);
             robbyGrid = robby.GenerateRandomTestGrid();
 
             //robby.GeneratePossibleSolutions("C:/Users/ganco/OneDrive/Desktop/robby");

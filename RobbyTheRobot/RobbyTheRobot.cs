@@ -25,6 +25,7 @@ namespace RobbyTheRobot
                 _seed = seed ;
             }
             NumberOfGenerations = nbGenerations;
+            //is pop size just nbGenes
             _populationSize = populationSize;
             GridSize = 100;
             NumberOfActions = 200;
