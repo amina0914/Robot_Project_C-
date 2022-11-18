@@ -31,7 +31,7 @@ namespace RobbyVisualizer
         private int moveCount;
         private double score;
         private List<int> moves;    
-        private int[] arraymovesver;
+        private int[] arrayMoves;
         private IRobbyTheRobot robby;
         private SpriteFont font;
         private Random rand = new Random();
@@ -47,7 +47,7 @@ namespace RobbyVisualizer
             _robbyPosY= rand.Next(0,10);
             _robbySprite = new RobbySprite(this,  (_robbyPosX*60)+200, (_robbyPosY*60)+10);
             timer = new Stopwatch();
-            offset = 1000;
+            offset = 700;
             moveCount = 0;
             totalNumberMoves = 200;
             score = 0;
@@ -74,63 +74,14 @@ namespace RobbyVisualizer
                 foreach(string generationFile in myfiles)
                 {
                     moves = GetMoves(generationFile);
+                    arrayMoves = moves.ToArray();
                 }
                 
             }
 
-            arraymovesver = moves.ToArray();
-
-            // robbyGrid = robby.GenerateRandomTestGrid();
-
-            // SimulationSprite[,] grid = new SimulationSprite[10,10];
-            // int initialPosX = 200;
-            // int initialPosY = 10;
-            // int posX=initialPosX;
-            // int posY=initialPosY;
-            // bool isEmpty = true;
-            // bool isRobbyHere = false;
-
-            // for (int a=0; a<grid.GetLength(0); a++)
-            // {
-            //     for (int b=0; b<grid.GetLength(1); b++)
-            //     {
-            //         if (robbyGrid[a,b] == ContentsOfGrid.Can)
-            //         {
-            //             isEmpty = false;
-            //         }
-            //         SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
-            //         Components.Add(newGridSquare);
-            //         posX = posX + 60; 
-            //         isEmpty = true;
-            //         isRobbyHere = false;
-            //     }
-            //     posX = initialPosX;
-            //     posY = posY + 60;
-            // }
-
-            Components.Add(_robbySprite);
-
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            this.SpriteBatch = new SpriteBatch(GraphicsDevice);
-            this.Texture = Content.Load<Texture2D>("square");
-            // this.Texture = Content.Load<Texture2D>("blue_rectangle");
-            this._backgroundTexture = Content.Load<Texture2D>("background");
-            this._folderTexture = Content.Load<Texture2D>("folder");
-            font = Content.Load<SpriteFont>("font");
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            Random rand= new Random();
             
-             
+
+            robbyGrid = robby.GenerateRandomTestGrid();
 
             SimulationSprite[,] grid = new SimulationSprite[10,10];
             int initialPosX = 200;
@@ -158,11 +109,62 @@ namespace RobbyVisualizer
                 posY = posY + 60;
             }
 
+            Components.Add(_robbySprite);
+
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            this.SpriteBatch = new SpriteBatch(GraphicsDevice);
+            this.Texture = Content.Load<Texture2D>("square");
+            // this.Texture = Content.Load<Texture2D>("blue_rectangle");
+            this._backgroundTexture = Content.Load<Texture2D>("background");
+            this._folderTexture = Content.Load<Texture2D>("folder");
+            font = Content.Load<SpriteFont>("font");
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            Random rand= new Random();
+            
+             
+            
+            // SimulationSprite[,] grid = new SimulationSprite[10,10];
+            // int initialPosX = 200;
+            // int initialPosY = 10;
+            // int posX=initialPosX;
+            // int posY=initialPosY;
+            // bool isEmpty = true;
+            // bool isRobbyHere = false;
+
+            // for (int a=0; a<grid.GetLength(0); a++)
+            // {
+            //     for (int b=0; b<grid.GetLength(1); b++)
+            //     {
+            //         if (robbyGrid[a,b] == ContentsOfGrid.Can)
+            //         {
+            //             isEmpty = false;
+            //         }
+            //         SimulationSprite newGridSquare = new SimulationSprite(this, posX, posY, isEmpty, isRobbyHere);
+            //         Components.Add(newGridSquare);
+            //         posX = posX + 60; 
+            //         isEmpty = true;
+            //         isRobbyHere = false;
+            //     }
+            //     posX = initialPosX;
+            //     posY = posY + 60;
+            // }
+            
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
@@ -170,7 +172,7 @@ namespace RobbyVisualizer
             SpriteBatch.DrawString(font, "Generation: " , new Vector2(0, 0), Color.Black);
             SpriteBatch.DrawString(font, "Move number: " + moveCount + "/"+totalNumberMoves, new Vector2(0, 20), Color.Black);
             SpriteBatch.DrawString(font, "Current score: " + score, new Vector2(0, 40), Color.Black);
-            SpriteBatch.End();
+        
             if(moveCount < totalNumberMoves)
             {
                timer.Start();
@@ -178,14 +180,15 @@ namespace RobbyVisualizer
                 {                                
                     MoveRobby2();
                     moveCount++; 
-                    Console.WriteLine("Current Score: "+score)    ;                           
                     timer.Reset();
+                    
                 } 
             }
             else 
             {
 
             }
+            SpriteBatch.End();
             base.Draw(gameTime);
         }
 
@@ -231,10 +234,15 @@ namespace RobbyVisualizer
 
         // using score for allele
         private void MoveRobby2(){
-            Random rnd = new Random();
-            score += RobbyHelper.ScoreForAllele(arraymovesver, robbyGrid, rnd, ref _robbyPosX, ref _robbyPosY);
+            double previousScore = score;
+            score += RobbyHelper.ScoreForAllele(arrayMoves, robbyGrid, rand, ref _robbyPosX, ref _robbyPosY);
             _robbySprite.PosX = (_robbyPosX*60)+200;
             _robbySprite.PosY = (_robbyPosY*60)+10;
+            if (score == (previousScore + 10)){
+                Console.WriteLine("inside if of moveRobby, previous score " + previousScore + " new score " + score);
+                SimulationSprite GridSquare = new SimulationSprite(this, _robbySprite.PosX,  _robbySprite.PosY, false, true);
+                Components.Add(GridSquare);
+            }
         }
 
     }
