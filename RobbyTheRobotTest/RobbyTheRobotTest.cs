@@ -69,46 +69,46 @@ namespace RobbyTheRobotTest
         public void TestGeneratePossibleSolutionsFiles()
         { 
             // Generating the solutions from genetic algorithm that will be written to the files
-           // robby.GeneratePossibleSolutions("C:/Users/amina/Downloads/Generations");
+           robby.GeneratePossibleSolutions("./TestingGenerations/");
 
             // check if the first generation file exists
             bool file1Exists = false;
-            if (File.Exists("C:/Users/amina/Downloads/Generations/Generation1")) {
+            if (File.Exists("./TestingGenerations/Generation1")) {
                 file1Exists = true;
             }
             Assert.IsTrue(file1Exists);
 
             // check if the 20th generation file exists
             bool file2Exists = false;
-            if (File.Exists("C:/Users/amina/Downloads/Generations/Generation20")) {
+            if (File.Exists("./TestingGenerations/Generation20")) {
                 file2Exists = true;
             }
             Assert.IsTrue(file2Exists);
 
             // check if the 100th generation file exists
             bool file3Exists = false;
-            if (File.Exists("C:/Users/amina/Downloads/Generations/Generation100")) {
+            if (File.Exists("./TestingGenerations/Generation100")) {
                 file3Exists = true;
             }
             Assert.IsTrue(file3Exists);
 
             // check if the 200th generation file exists
             bool file4Exists = false;
-            if (File.Exists("C:/Users/amina/Downloads/Generations/Generation200")) {
+            if (File.Exists("./TestingGenerations/Generation200")) {
                 file4Exists = true;
             }
             Assert.IsTrue(file4Exists);
 
             // check if the 500th generation file exists
             bool file5Exists = false;
-            if (File.Exists("C:/Users/amina/Downloads/Generations/Generation500")) {
+            if (File.Exists("./TestingGenerations/Generation500")) {
                 file5Exists = true;
             }
             Assert.IsTrue(file5Exists);
 
             // check if the 1000th generation file exists
             bool file6Exists = false;
-            if (File.Exists("C:/Users/amina/Downloads/Generations/Generation1000")) {
+            if (File.Exists("./TestingGenerations/Generation1000")) {
                 file6Exists = true;
             }
             Assert.IsTrue(file6Exists);
@@ -146,15 +146,5 @@ namespace RobbyTheRobotTest
         }
 
 
-        // // Test the compute fitness function with the seed
-        // [TestMethod]
-        // public void TestComputeFitness()
-        // { 
-        //    Chromosome chromo = new IChromosome(63, 7, 4);
-        //    IGeneration gen = null;
-        //    double fitness = robby.ComputeFitness(chromo, gen);
-        //    Console.WriteLine(fitness);
-
-        // }
     }
 }
