@@ -61,7 +61,6 @@ namespace RobbyIterationGenerator
 
                     }
                 });
-                    // t = Task.Run(() =>{
                     stopWatch.Start();
                     var robby = RobbyLib.CreateRobby(numGenerations, populationSize, numberOfTrials, mutationRate,eliteRate);
                     robby.FileWritten += PrintCurrentGeneration;
