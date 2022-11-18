@@ -43,6 +43,7 @@ namespace RobbyVisualizer
             this.SpriteBatchTile = new SpriteBatch(GraphicsDevice);
             this._canTexture = this._game.Content.Load<Texture2D>("can");
             this._robbyTexture = this._game.Content.Load<Texture2D>("robby");
+            // blue rectangle gets displayed on the spot where Robby picked a can
             this._texture2 = this._game.Content.Load<Texture2D>("blue_rectangle");
         }
 

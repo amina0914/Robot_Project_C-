@@ -14,12 +14,13 @@ namespace RobbyVisualizer
     public class RobbySprite : DrawableGameComponent
     {
         private RobbyVisualizerGame _game;
+        
+        // PoxX and PosY are properties that are modified from main RobbyVisuzalizerGame class, this is what allows  robby to move in the grid
         public int PosX{get;set;}
         public int PosY{get;set;}
         private int _sizeX;
         private int _sizeY;
         private Color _color; 
-    
         private Texture2D _robbyTexture;
         public RobbySprite(RobbyVisualizerGame robbyGame, int posX, int posY): base(robbyGame)
         {
@@ -33,6 +34,7 @@ namespace RobbyVisualizer
 
         protected override void LoadContent()
         {
+            // Gets the robby image to display on the grid
             this._robbyTexture = this._game.Content.Load<Texture2D>("robby");
         }
 
