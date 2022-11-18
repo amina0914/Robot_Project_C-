@@ -1,4 +1,10 @@
-﻿using System;
+﻿/**
+@author: Amina Turdalieva 
+@student id: 2035572
+@date: 19-11-2022
+@description: This is the class for RobbyTheRobot, it creates his grid, generates his possible solutions, and computed his fitness.
+*/
+using System;
 using System.Collections.Generic;
 using System.IO;
 using GeneticAlgorithm;
@@ -7,7 +13,7 @@ namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot
     {
-        private int _populationSize {get;}
+        private int _populationSize;
         private int? _seed;
         private int _nbGenes;
         private IGeneticAlgorithm _geneticAlg;
@@ -18,6 +24,7 @@ namespace RobbyTheRobot
         public double MutationRate {get;}
         public double EliteRate {get;}
 
+        // Event that is used in the console to notify the user that a file with the solutions has been written
         public event FileEventHandler FileWritten;
 
         public RobbyTheRobot (int nbGenerations, int populationSize, int nbTrials, double mutationRate, double eliteRate, int? seed=null){
@@ -25,7 +32,6 @@ namespace RobbyTheRobot
                 _seed = seed ;
             }
             NumberOfGenerations = nbGenerations;
-            //is pop size just nbGenes
             _populationSize = populationSize;
             GridSize = 100;
             NumberOfActions = 200;
@@ -36,15 +42,19 @@ namespace RobbyTheRobot
             _geneticAlg = GeneticLib.CreateGeneticAlgorithm(this._populationSize, this._nbGenes, Enum.GetNames(typeof(PossibleMoves)).Length, this.MutationRate, this.EliteRate, this.NumberOfTestGrids, ComputeFitness);
         }
 
+        // This function generates the random grid for robby to run in. 
+        // It uses a helper method GenerateRandomLocation() to set 50% to be empty and the other 50% filled with cans.
         public ContentsOfGrid[,] GenerateRandomTestGrid()
         {
             ContentsOfGrid[,] grid = new ContentsOfGrid[Convert.ToInt32(Math.Sqrt(GridSize)), Convert.ToInt32(Math.Sqrt(GridSize))];
             // sets the positions of the cans 
-            List<int> randomCansPositions = generateRandomLocation();
+            List<int> randomCansPositions = GenerateRandomLocation();
 
             // sets all positions of the grid to start with empty
-            for (int a=0; a<grid.GetLength(0); a++){
-                for (int b=0; b<grid.GetLength(1); b++){
+            for (int a=0; a<grid.GetLength(0); a++)
+            {
+                for (int b=0; b<grid.GetLength(1); b++)
+                {
                     grid[a,b] = ContentsOfGrid.Empty;
                 }
             }
@@ -67,7 +77,26 @@ namespace RobbyTheRobot
             return grid;
         }
 
-        // Method was tested, works!
+        // This is a helper method used by GenerateRandomTestGrid(), it creates a list of 50 random positions 
+        // between 0 and 100 (the size of the grid). The method makes sure that all 50 positions to be filled with cans are unique and not repeated.
+        private List<int> GenerateRandomLocation()
+        {
+            Random rnd = new Random();
+            
+            int randomLocation;
+            List<int> listRandomLocations = new List<int>();
+            for (int i=0; i<50; i++){
+                do {
+                    randomLocation = rnd.Next(0, GridSize);
+                }
+                while (listRandomLocations.Contains(randomLocation));
+                listRandomLocations.Add(randomLocation);
+            }
+            return listRandomLocations;
+        }
+
+        // This method calls GenerateGeneration from the genetic algorithm and writes the information 
+        // (max score, number of actions, moves) to the file using a helper method WriteToFile().
         public void GeneratePossibleSolutions(string folderPath)
         {
             string fileName = "Generation";
@@ -82,7 +111,7 @@ namespace RobbyTheRobot
                 maxScore = gen.MaxFitness;
                 nbMoves = _nbGenes;
                 genes = gen[0].Genes;
-                // (if i%) save to file 1st, 20th, 100, 200, 500 and 1000th
+                // Saves to file 1st, 20th, 100, 200, 500 and 1000th generations
                 if (i == 0 || i==19 || i==99 || i==199 || i==499 || i==999)
                 {        
                     int fileIndex = i+1;
@@ -93,7 +122,7 @@ namespace RobbyTheRobot
             }  
         }
 
-        // This methods writes results of a generation from the genetic algorithm to a file
+        // This helper method writes results of a generation from the genetic algorithm to a file
         // If the folder does not exist, it creates it
         private void writeToFile(string folderPath, string fileName, double maxScore, int nbMoves, int[] genes){
             if (!Directory.Exists(folderPath))
@@ -115,23 +144,8 @@ namespace RobbyTheRobot
             }
         }
 
-        private List<int> generateRandomLocation()
-        {
-            Random rnd = new Random();
-            
-            int randomLocation;
-            List<int> listRandomLocations = new List<int>();
-            for (int i=0; i<50; i++){
-                do {
-                    randomLocation = rnd.Next(0, GridSize);
-                }
-                while (listRandomLocations.Contains(randomLocation));
-                listRandomLocations.Add(randomLocation);
-            }
-            return listRandomLocations;
-        }
 
-        // method to calculate fitness ComputeFitness()
+        // This method calculates the fitness of a chromosome looping through the number of actions.
         // calls generateRandomGrid, runs Robby through grid, scoring moves 
         public double ComputeFitness(IChromosome chromosome, IGeneration gen){
             // calls the generate grid
