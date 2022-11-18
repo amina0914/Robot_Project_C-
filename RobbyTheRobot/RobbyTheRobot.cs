@@ -129,9 +129,12 @@ namespace RobbyTheRobot
                 if (i == 0 || i==19 || i==99 || i==199 || i==499 || i==999)
                 {        
                     int fileIndex = i+1;
-                    writeToFile(folderPath, fileName + fileIndex, maxScore, nbMoves, genes); 
-                    //  not sure about the event param
-                    FileWritten?.Invoke(" The max score, the number of moves and the genes were written to " + fileName);
+                    try{
+                        writeToFile(folderPath, fileName + fileIndex, maxScore, nbMoves, genes); 
+                        FileWritten?.Invoke(" The max score, the number of moves and the genes were written to " + fileName);
+                    } catch {
+                        Console.WriteLine("An error occured then writing data to the file");
+                    }
                 }
             }  
         }
