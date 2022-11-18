@@ -1,3 +1,7 @@
+﻿/**
+@author: Octavio Abel Ganchozo Paladines 
+@student id: 1539613
+*/
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -37,6 +41,10 @@ namespace GeneticAlgorithm
         return _chromosomes[index];
       }
     }
+     /// <summary>
+    /// Creates a Generation based on Chromosome[] and Algorithm to instantiate
+    /// the necesssary variables
+    /// </summary>
     public Generation(Chromosome[] arrayChromosomes,IGeneticAlgorithm algorithm)
     {
       Debug.Assert(arrayChromosomes != null && algorithm != null);
@@ -48,8 +56,12 @@ namespace GeneticAlgorithm
       {
         _chromosomes[i] = new Chromosome(arrayChromosomes[i]);
       }
+
     }
 
+     /// <summary>
+    /// Creates a Generation based on Algorithm, ComputeFitness and seed can be nullable
+    /// </summary>
     public Generation(IGeneticAlgorithm algorithm, FitnessEventHandler fitnessEvent, int? seed)
     {
       Debug.Assert(fitnessEvent != null && algorithm != null);
@@ -99,7 +111,6 @@ namespace GeneticAlgorithm
     /// </summary>
     public void EvaluateFitnessOfPopulation()
     {
-      //Here Invoke the Handler and that should be it.
 
       if (_fitnessHandler != null && _algorithm != null && _algorithm.NumberOfTrials>1) 
       {
@@ -120,6 +131,7 @@ namespace GeneticAlgorithm
          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));}
          );
       }
+      //Sorting By top Fitness
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
     }
