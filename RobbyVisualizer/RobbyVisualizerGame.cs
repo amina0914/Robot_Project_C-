@@ -33,7 +33,7 @@ namespace RobbyVisualizer
         private List<int> moves;    
         private int[] arraymovesver;
         private IRobbyTheRobot robby;
-        private IGeneticAlgorithm alg;
+        private SpriteFont font;
         public RobbyVisualizerGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -122,6 +122,7 @@ namespace RobbyVisualizer
             // this.Texture = Content.Load<Texture2D>("blue_rectangle");
             this._backgroundTexture = Content.Load<Texture2D>("background");
             this._folderTexture = Content.Load<Texture2D>("folder");
+            font = Content.Load<SpriteFont>("font");
         }
 
         protected override void Update(GameTime gameTime)
@@ -141,13 +142,12 @@ namespace RobbyVisualizer
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
             // SpriteBatch.Draw(_folderTexture, new Rectangle(450, 600, 150, 120), Color.CornflowerBlue);
+            SpriteBatch.DrawString(font, "Move number:" + moveCount, new Vector2(0, 0), Color.Black);
+            SpriteBatch.DrawString(font, "Score:" + score, new Vector2(0, 20), Color.Black);
             SpriteBatch.End();
                timer.Start();
                 if(timer.ElapsedMilliseconds >= offset) 
-                {                   
-                    // MoveRobby(moves[moveCount]);
-                //    double b= RobbyHelper.ScoreForAllele(moves.ToArray<int>(),robbyGrid,rand,ref _robbyPosX,ref _robbyPosY);
-                
+                {                                
                     MoveRobby2();
                     moveCount++; 
                     Console.WriteLine("Current Score: "+score)    ;                           
@@ -158,8 +158,6 @@ namespace RobbyVisualizer
 
 
         // Reads provided file, gets the moves list
-        // * For now, assumes that the moves are at the 3rd line, will need to be fixed
-        // * Ask Dirk if can assume where, in file, are the moves YES we can
         private List<int> GetMoves(String filePath){
             List <int> moves = new List<int>();
                 String line = System.IO.File.ReadLines(filePath).Skip(2).Take(1).First();
@@ -185,7 +183,7 @@ namespace RobbyVisualizer
                 _robbySprite.PosX+= 60;
             }
              else if (move == 3){
-                _robbySprite.PosX= _robbySprite.PosX-60;;
+                _robbySprite.PosX= _robbySprite.PosX-60;
             } else if (move == 4){
                 _robbySprite.PosX+= 60;
             }
@@ -201,9 +199,7 @@ namespace RobbyVisualizer
         // using score for allele
         private void MoveRobby2(){
             Random rnd = new Random();
-            // moves.ToArray();
-           int[] movesArray = {6 ,5, 5, 3, 5, 2, 0, 5 ,2 ,2 ,5, 4, 3, 5, 1, 0, 5, 6, 3, 5, 6, 1, 5, 0, 2, 0, 2, 1, 5, 2, 3, 6, 4, 0, 5, 0, 1, 5, 5, 2, 5, 3, 6, 6, 3, 3, 5, 5, 1, 5, 1, 3, 5, 3, 0, 6, 6, 0, 6, 3, 0 ,2 ,3 ,3 ,6 ,5 ,0 ,3 ,2 ,6 ,6 ,2 ,6 ,3 ,3 ,3 ,4 ,6 ,2 ,4 ,5 ,0 ,5 ,1, 3, 5, 1, 2, 5, 1, 2, 5, 1, 2, 6, 4, 6, 2, 5, 3, 5, 4, 1, 0, 1, 5, 4, 6, 0, 1, 0, 3, 6, 3, 2, 5, 3, 2, 5, 2, 6, 6, 5, 6, 5, 0, 6, 5, 0, 1, 1, 0, 2, 3, 5, 0, 5, 1, 3, 6, 1, 6, 0, 2, 0, 6, 6, 0, 6, 0, 2, 6, 0, 0, 4, 2, 3, 3, 5, 5, 5, 3, 1, 5, 1, 2, 5, 6, 2, 1, 4, 2, 5, 2, 6, 2, 5, 2, 6, 6, 6, 6, 3, 1, 5, 1, 4, 3, 6, 1, 1, 3, 1, 5, 4, 4, 4, 6, 6, 2, 6, 1, 1, 6, 2, 5, 1, 3, 5, 1, 1, 4 ,3 ,5, 0, 0, 6, 2, 4, 5 ,1 ,4 ,3 ,2 ,6 ,2 ,2 ,2 ,3 ,1 ,3 ,2 ,1 ,1 ,2 ,6 ,5 ,5 ,3 ,3, 3, 2, 0};
-             score += RobbyHelper.ScoreForAllele(arraymovesver, robbyGrid, rnd, ref _robbyPosX, ref _robbyPosY);
+            score += RobbyHelper.ScoreForAllele(arraymovesver, robbyGrid, rnd, ref _robbyPosX, ref _robbyPosY);
             _robbySprite.PosX = (_robbyPosX*60)+200;
             _robbySprite.PosY = (_robbyPosY*60)+10;
         }

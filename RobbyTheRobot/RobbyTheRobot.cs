@@ -84,7 +84,8 @@ namespace RobbyTheRobot
                 // (if i%) save to file 1st, 20th, 100, 200, 500 and 1000th
                 if (i == 0 || i==19 || i==99 || i==199 || i==499 || i==999)
                 {        
-                    writeToFile(folderPath, fileName + i, maxScore, nbMoves, genes); 
+                    int fileIndex = i+1;
+                    writeToFile(folderPath, fileName + fileIndex, maxScore, nbMoves, genes); 
                     //  not sure about the event param
                     FileWritten?.Invoke(folderPath + maxScore + nbMoves + genes);
                 }

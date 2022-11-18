@@ -3,10 +3,7 @@ using GeneticAlgorithm;
 
 namespace RobbyTheRobot
 {
-<<<<<<< HEAD
     //change back to private, set to public for testing purposes in visualizer
-=======
->>>>>>> 8dbb64850e9a90d318b77a4c570d38a4adf04053
     public class RobbyHelper
     {
         
