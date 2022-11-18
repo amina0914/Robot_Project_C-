@@ -1,3 +1,8 @@
+﻿/**
+@author: Octavio Abel Ganchozo Paladines 
+@student id: 1539613
+*/
+
 using System;
 using System.Diagnostics;
 using System.Linq;
