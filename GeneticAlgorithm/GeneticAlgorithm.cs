@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+
 namespace GeneticAlgorithm
 {
   internal class GeneticAlgorithm : IGeneticAlgorithm
@@ -13,11 +15,13 @@ namespace GeneticAlgorithm
 
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
     {
-      if(seed !=null){
-        _seed = seed ;
-      }else{
-        _seed=null;
-      }
+      Debug.Assert(populationSize >0);
+      Debug.Assert(numberOfGenes >0);
+      Debug.Assert(mutationRate >0 && eliteRate>0 && mutationRate <=1 &&eliteRate<=1 && numberOfTrials>0);
+      Debug.Assert(fitnessCalculation !=null);
+      
+      _seed = seed ;
+      
       PopulationSize = populationSize;
       NumberOfGenes = numberOfGenes;
       LengthOfGene = lengthOfGene;
@@ -55,7 +59,7 @@ namespace GeneticAlgorithm
     /// <returns>The current generation</returns>
     public IGeneration GenerateGeneration()
     {
-     GenerationCount++;
+      GenerationCount++;
       Random rand = _seed != null ? new Random((int)_seed) : new Random();
       if (CurrentGeneration == null)
       {
@@ -83,23 +87,21 @@ namespace GeneticAlgorithm
 
         count = elitepopulation;
 
-        //Before It ignored the Evaluation step and only % elite had fitness but not the new childs
+        //Breeding Process and filling with the childs
         for(int i=elitepopulation; i < PopulationSize; i ++)
         {
            int index1 = rand.Next(0, elitepopulation);
           int index2 = rand.Next(0, elitepopulation);
           IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
           newgen[i] = new Chromosome(childs[0] as Chromosome);
-          newgen[i+=1] = new Chromosome(childs[0] as Chromosome);
+          newgen[i+=1] = new Chromosome(childs[1] as Chromosome);
 
         }
         //Making sure Everyone gets evaluated
-        CurrentGeneration = new Generation(newgen);
-        (CurrentGeneration as Generation).Algorithm=this;
-         (CurrentGeneration as Generation).FitnessHandler+= FitnessCalculation;
+        CurrentGeneration = new Generation(newgen,this);
         (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
-        // return CurrentGeneration;
       }
+      Debug.Assert(CurrentGeneration!= null);
       return CurrentGeneration;
       
     }
