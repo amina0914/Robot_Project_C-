@@ -1,9 +1,4 @@
 using System;
-<<<<<<< HEAD
-=======
-using GeneticAlgorithm;
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
-
 namespace RobbyTheRobot
 {
     class RobbyHelper

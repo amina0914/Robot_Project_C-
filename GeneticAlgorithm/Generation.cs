@@ -1,8 +1,5 @@
 using System;
-<<<<<<< HEAD
-=======
 using System.Diagnostics;
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,16 +8,9 @@ namespace GeneticAlgorithm
   internal class Generation : IGenerationDetails
   {
     private Chromosome[] _chromosomes;
-<<<<<<< HEAD
-    private IGeneticAlgorithm _algorithm;
-    public FitnessEventHandler _fitnessHandler{get;set;}
-    int? _seed;
-
-=======
     private IGeneticAlgorithm _algorithm{get;set;}
     public FitnessEventHandler _fitnessHandler{get;set;}
     int? _seed;
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
     /// <summary>
     /// The average fitness across all Chromosomes
     /// </summary>
@@ -47,16 +37,6 @@ namespace GeneticAlgorithm
         return _chromosomes[index];
       }
     }
-<<<<<<< HEAD
-    //WORK AROUND TO MAKE SURE THE FITNESSCAL EXIST ON THE CONTEXT OTHERWISE IT BE ALWAYS 0 WHEN
-    //FITNESS IS CALCULATED
-    public Generation(Chromosome[] arrayChromosomes, IGeneticAlgorithm algorithm)
-    {
-      
-       _algorithm = algorithm;
-       _fitnessHandler=_algorithm.FitnessCalculation;
-      _chromosomes = new Chromosome[arrayChromosomes.Length];
-=======
     public Generation(Chromosome[] arrayChromosomes,IGeneticAlgorithm algorithm)
     {
       Debug.Assert(arrayChromosomes != null && algorithm != null);
@@ -64,16 +44,10 @@ namespace GeneticAlgorithm
       _fitnessHandler=_algorithm.FitnessCalculation;
 
        _chromosomes = new Chromosome[arrayChromosomes.Length];
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
       for (int i = 0; i < arrayChromosomes.Length; i++)
       {
         _chromosomes[i] = new Chromosome(arrayChromosomes[i]);
       }
-<<<<<<< HEAD
-      // EvaluateFitnessOfPopulation();Uncommenting to let GA Handle this and see if it breaks
-=======
-
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
     }
 
     public Generation(IGeneticAlgorithm algorithm, FitnessEventHandler fitnessEvent, int? seed)
@@ -81,18 +55,8 @@ namespace GeneticAlgorithm
       Debug.Assert(fitnessEvent != null && algorithm != null);
       _algorithm = algorithm;
       _fitnessHandler += fitnessEvent;
-<<<<<<< HEAD
-      if (seed != null)
-      {
-        _seed = seed;
-
-      }else{
-        _seed=null;
-      }
-=======
       _seed = seed;
 
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
       _chromosomes = new Chromosome[_algorithm.PopulationSize];
       for (int i = 0; i < _chromosomes.Length; i++)
       {
@@ -106,11 +70,7 @@ namespace GeneticAlgorithm
     /// <returns></returns>
     public IChromosome SelectParent()
     {
-<<<<<<< HEAD
-      Random rand = _seed != null ? new Random((int)_seed) : new Random();
-=======
      Random rand = _seed != null ? new Random((int)_seed) : new Random();
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
        int elitepopulation=0;
       Chromosome potentialparent;
        //SELECTING FROM THE % Elite batch only randomly
@@ -140,13 +100,8 @@ namespace GeneticAlgorithm
     public void EvaluateFitnessOfPopulation()
     {
       //Here Invoke the Handler and that should be it.
-<<<<<<< HEAD
-      //To Review it Again.
-      if (_fitnessHandler != null && _algorithm != null) 
-=======
 
       if (_fitnessHandler != null && _algorithm != null && _algorithm.NumberOfTrials>1) 
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
       {
         
         Parallel.ForEach(_chromosomes, chromo => {
@@ -158,13 +113,6 @@ namespace GeneticAlgorithm
          chromo.Fitness = (fitness /((double) _algorithm.NumberOfTrials));}
          );
        
-<<<<<<< HEAD
-      }
-     
-      Array.Sort(_chromosomes);
-      Array.Reverse(_chromosomes);
-
-=======
       }else{
         Parallel.ForEach(_chromosomes, chromo => {
          double fitness = 0;
@@ -174,7 +122,6 @@ namespace GeneticAlgorithm
       }
       Array.Sort(_chromosomes);
       Array.Reverse(_chromosomes);
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
     }
 
 

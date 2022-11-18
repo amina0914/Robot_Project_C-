@@ -14,14 +14,6 @@ namespace GeneticAlgorithm
 
 
     public GeneticAlgorithm(int populationSize, int numberOfGenes, int lengthOfGene, double mutationRate, double eliteRate, int numberOfTrials, FitnessEventHandler fitnessCalculation, int? seed = null)
-<<<<<<< HEAD
-    { 
-      if(seed !=null){
-        _seed = seed ;
-      }else{
-        _seed=null;
-      }
-=======
     {
       Debug.Assert(populationSize >0);
       Debug.Assert(numberOfGenes >0);
@@ -30,7 +22,6 @@ namespace GeneticAlgorithm
       
       _seed = seed ;
       
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
       PopulationSize = populationSize;
       NumberOfGenes = numberOfGenes;
       LengthOfGene = lengthOfGene;
@@ -38,12 +29,6 @@ namespace GeneticAlgorithm
       EliteRate = eliteRate;
       NumberOfTrials = numberOfTrials;
       FitnessCalculation = fitnessCalculation;
-<<<<<<< HEAD
-      
-     
-=======
-
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
     }
     /// <summary>
     /// The number of times the fitness function should be called when computing the result
@@ -95,31 +80,17 @@ namespace GeneticAlgorithm
         //WILL SELECT % ELITE PARENTS AS WELL AS THEIR FITNESS 
         for (int i = 0; i < elitepopulation; i++)
         {
-<<<<<<< HEAD
-          IChromosome parent = CurrentGeneration[i];
-=======
           IChromosome parent = (CurrentGeneration as IGenerationDetails)?.SelectParent();
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
           newgen[i] = new Chromosome(parent as Chromosome);
         }
 
         count = elitepopulation;
 
-<<<<<<< HEAD
-        //Before It ignored the Evaluation step and only % elite had fitness but not the new childs
-=======
         //Breeding Process and filling with the childs
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
         for(int i=elitepopulation; i < PopulationSize; i ++)
         {
            int index1 = rand.Next(0, elitepopulation);
           int index2 = rand.Next(0, elitepopulation);
-<<<<<<< HEAD
-          while(index2==index1){
-            index2=rand.Next(0, elitepopulation);
-          }
-=======
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
           IChromosome[] childs = newgen[index1]?.Reproduce(newgen[index2], MutationRate);
           newgen[i] = new Chromosome(childs[0] as Chromosome);
           newgen[i+=1] = new Chromosome(childs[1] as Chromosome);
@@ -128,16 +99,10 @@ namespace GeneticAlgorithm
         //Making sure Everyone gets evaluated
         CurrentGeneration = new Generation(newgen,this);
         (CurrentGeneration as IGenerationDetails).EvaluateFitnessOfPopulation();
-<<<<<<< HEAD
-        // return CurrentGeneration;
-      }
-      return CurrentGeneration;
-=======
       }
       Debug.Assert(CurrentGeneration!= null);
       return CurrentGeneration;
       
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
     }
   }
 }

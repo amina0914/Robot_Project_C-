@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeneticAlgorithm;
-<<<<<<< HEAD
 using System.IO;
-
-=======
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
+using GeneticAlgorithm;
 namespace RobbyTheRobot
 {
     internal class RobbyTheRobot : IRobbyTheRobot

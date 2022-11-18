@@ -16,14 +16,6 @@ namespace GeneticAlgorithm
         private int? _seed;
         private int _lengthgene;
         public Chromosome(int numbergenes, int length, int? seed=null )
-<<<<<<< HEAD
-        {
-            if(seed !=null){
-                 _seed=seed;
-            }else{
-                _seed=null;
-            }
-=======
         {   
             //Shouldnt have specific stuff for length an num of genes
             Debug.Assert(numbergenes >0, "Wrong Number of Genes" );
@@ -31,7 +23,6 @@ namespace GeneticAlgorithm
            
             _seed=seed;//no need since it null by default
            
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
             _lengthgene=length;
             _genes= new int[numbergenes];
             Random rand= _seed != null ? new Random((int)_seed): new Random();
@@ -45,20 +36,11 @@ namespace GeneticAlgorithm
         }
 
         public Chromosome(Chromosome chromosome)
-<<<<<<< HEAD
-        {   
-            if(chromosome._seed is null){
-                _seed=null;
-            }else{
-                _seed= chromosome._seed;
-            }
-=======
         {
            
             Debug.Assert(chromosome != null);
             _seed= chromosome._seed;
             _lengthgene=chromosome._lengthgene;
->>>>>>> 7369fdae25654cfea43ea0dcdd6f2c1f7e7f68a9
             _genes=new int[chromosome._genes.Length];
             for(int i=0; i<_genes.Length; i++){
                 _genes[i]=chromosome._genes[i];
