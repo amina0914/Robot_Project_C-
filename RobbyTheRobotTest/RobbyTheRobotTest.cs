@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using GeneticAlgorithm;
 
 namespace RobbyTheRobotTest
 {
@@ -33,7 +34,12 @@ namespace RobbyTheRobotTest
         [TestMethod]
         public void TestGenerateRandomGrid()
         {        
-             ContentsOfGrid[,] randomGrid = robby.GenerateRandomTestGrid();
+            ContentsOfGrid[,] randomGrid = robby.GenerateRandomTestGrid();
+           
+            // Checking that the size of the grid is a 10x10
+            Assert.AreEqual(10, randomGrid.GetLength(0));
+            Assert.AreEqual(10, randomGrid.GetLength(1));
+
              int countCans = 0;
              int countEmpty = 0;
              for (int a=0; a<randomGrid.GetLength(0); a++)
@@ -52,16 +58,11 @@ namespace RobbyTheRobotTest
             }
             // calculating the 50% of the grid size 
             int halfGrid = 50 * (randomGrid.GetLength(0) * randomGrid.GetLength(1)) / 100;
+            // checking if half the grid is empty and the other half has cans
             Assert.AreEqual(halfGrid, countCans);
             Assert.AreEqual(halfGrid, countEmpty);
         }
 
-        
-        // // Test the compute fitness function with the seed
-        // [TestMethod]
-        // public void TestComputeFitness()
-        // { 
-        // }
 
         // Test the GeneratePossibleSolutions function, testing if the files get generated
         [TestMethod]
@@ -143,5 +144,17 @@ namespace RobbyTheRobotTest
             // testing if the file contains the whole array of 200 moves 
             Assert.AreEqual(243, moves.Count);
         }
+
+
+        // // Test the compute fitness function with the seed
+        // [TestMethod]
+        // public void TestComputeFitness()
+        // { 
+        //    Chromosome chromo = new IChromosome(63, 7, 4);
+        //    IGeneration gen = null;
+        //    double fitness = robby.ComputeFitness(chromo, gen);
+        //    Console.WriteLine(fitness);
+
+        // }
     }
 }
