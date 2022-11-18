@@ -1,8 +1,8 @@
 /**
 @author: Amina Turdalieva 
 @student id: 2035572
-@date: 
-@description: This Robby Controller class that is responsible for moving Robby in the grid
+@date: 19-11-2022
+@description: This Robby Controller class that is responsible for creating a Robby sprite
 */
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,9 +14,6 @@ namespace RobbyVisualizer
     public class RobbySprite : DrawableGameComponent
     {
         private RobbyVisualizerGame _game;
-        // public static int PosX{get;set;}
-        // public static int PosY{get;set;}
-
         public int PosX{get;set;}
         public int PosY{get;set;}
         private int _sizeX;

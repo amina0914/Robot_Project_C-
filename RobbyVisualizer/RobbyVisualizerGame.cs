@@ -156,7 +156,7 @@ namespace RobbyVisualizer
             SpriteBatch.Begin();
             SpriteBatch.Draw(_backgroundTexture, GraphicsDevice.Viewport.Bounds, Color.White);
             // SpriteBatch.Draw(_folderTexture, new Rectangle(450, 600, 150, 120), Color.CornflowerBlue);
-            SpriteBatch.DrawString(_font, "Generation: " + generationNumber, new Vector2(0, 0), Color.Black);
+            SpriteBatch.DrawString(_font, generationNumber, new Vector2(0, 0), Color.Black);
             SpriteBatch.DrawString(_font, "Move number: " + _moveCount + "/"+_totalNumberMoves, new Vector2(0, 20), Color.Black);
             SpriteBatch.DrawString(_font, "Current score: " + _score, new Vector2(0, 40), Color.Black);
             SpriteBatch.End();

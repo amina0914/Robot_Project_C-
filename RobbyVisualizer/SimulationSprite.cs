@@ -1,7 +1,7 @@
 /**
 @author: Amina Turdalieva 
 @student id: 2035572
-@date: 
+@date: 19-11-2022
 @description: This is the sprite class that is responsible for creating a new sprite representing the tile in the grid and drawing it on the screen.
 */
 using Microsoft.Xna.Framework;
@@ -21,11 +21,11 @@ namespace RobbyVisualizer
         private Color _color; 
         private bool _isEmpty;
         private Texture2D _canTexture;
-        public bool _isRobbyHere{get;set;}
+        public bool IsRobbyHere{get;set;}
         private Texture2D _robbyTexture;
-        private Texture2D texture2;
+        private Texture2D _texture2;
 
-        public SpriteBatch SpriteBatch2;
+        public SpriteBatch SpriteBatchTile;
         public SimulationSprite(RobbyVisualizerGame robbyGame, int posX, int posY, bool isEmpty, bool isRobbyHere): base(robbyGame)
         {
             this._game = robbyGame;
@@ -35,43 +35,31 @@ namespace RobbyVisualizer
             this._sizeX = 60; 
             this._sizeY = 60;
             this._isEmpty = isEmpty;
-            this._isRobbyHere = isRobbyHere;
+            this.IsRobbyHere = isRobbyHere;
         }
 
         protected override void LoadContent()
         {
-            this.SpriteBatch2 = new SpriteBatch(GraphicsDevice);
+            this.SpriteBatchTile = new SpriteBatch(GraphicsDevice);
             this._canTexture = this._game.Content.Load<Texture2D>("can");
             this._robbyTexture = this._game.Content.Load<Texture2D>("robby");
-            this.texture2 = this._game.Content.Load<Texture2D>("blue_rectangle");
-
+            this._texture2 = this._game.Content.Load<Texture2D>("blue_rectangle");
         }
 
 
         public override void Draw(GameTime gameTime)
         {
-            // _game.SpriteBatch.Begin();
-            // _game.SpriteBatch.Draw(_game.Texture,  new Rectangle(_posX, _posY, _sizeX, _sizeY), _color);
-            // if (!_isEmpty){
-            //     _game.SpriteBatch.Draw(this._canTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
-            // }
-            // if (_isRobbyHere){
-            //     _game.SpriteBatch.Draw(this.texture2,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.Blue);  
-            // }
-            // // if robbyhere then remove the can
-            // _game.SpriteBatch.End();
-            // base.Draw(gameTime);
-
-             SpriteBatch2.Begin();
-            SpriteBatch2.Draw(_game.Texture,  new Rectangle(_posX, _posY, _sizeX, _sizeY), _color);
+            SpriteBatchTile.Begin();
+            SpriteBatchTile.Draw(_game.Texture,  new Rectangle(_posX, _posY, _sizeX, _sizeY), _color);
+            // draws a can if the tile is not empty, the drawn can is a little smaller than the tile 
             if (!_isEmpty){
-                SpriteBatch2.Draw(this._canTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
+                SpriteBatchTile.Draw(this._canTexture,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
             }
-            if (_isRobbyHere){
-                SpriteBatch2.Draw(this.texture2,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
+            // draws a different light blue tile when robby picks a can, the drawn tile is a little smaller than the grid tile 
+            if (IsRobbyHere){
+                SpriteBatchTile.Draw(this._texture2,  new Rectangle(_posX+5, _posY+5, _sizeX-10, _sizeY-10), Color.White);  
             }
-            // if robbyhere then remove the can
-            SpriteBatch2.End();
+            SpriteBatchTile.End();
             base.Draw(gameTime);
         }
     }
