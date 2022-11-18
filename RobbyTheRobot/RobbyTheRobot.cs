@@ -74,7 +74,7 @@ namespace RobbyTheRobot
             for (int i=0; i<randomCansPositions.Count; i++)
             {
                 // if the location contains 2 digits, it separates the digit and sets the grid at digit 1 and digit 2 to can
-                Debug.Assert(randomCansPositions[i] > 0, "Invalid can position");
+                Debug.Assert(randomCansPositions[i] >= 0, "Invalid can position");
                 if (randomCansPositions[i]>9)
                 {
                     String randomPosString = randomCansPositions[i].ToString();
