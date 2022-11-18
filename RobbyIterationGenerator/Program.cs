@@ -1,14 +1,14 @@
 ﻿using System;
 using RobbyTheRobot;
 using System.Diagnostics;
-using System.Threading;
-// using LINQPad;
+using System.Threading.Tasks;
+
 
 namespace RobbyIterationGenerator
 {
     public class Program
     {
-
+        public static Task t;
         public static void Main(string[] args)
         {
             //Here, there should be the way to stop the process if the user presses any key 
@@ -24,11 +24,11 @@ namespace RobbyIterationGenerator
            
             //Declare the stopwatch
             Stopwatch stopWatch = new Stopwatch();
+            Stopwatch totalWatch = new Stopwatch();
         
         
             Console.WriteLine("Welcome to RobbyTheRobot Game. Please enter some information to start to game process");
-            Console.WriteLine("Please note that if you press 'X' key when generating the file, the file generations report about Robby will be stopped and the folder will contain the generation reports up till the time you stopped");
-            Console.WriteLine("If you press 'CTRL C, you will halt the program");
+            Console.WriteLine("Note that if you press X, you will stop the generator and the total time will be printed out");
             
             Console.WriteLine("Enter the population size");
             int populationSize = Convert.ToInt32(Console.ReadLine());
@@ -46,13 +46,22 @@ namespace RobbyIterationGenerator
 
             Console.WriteLine("Generating the file reports....");
 
-            // bool notPressedX = true;
+            
 
-            // while(true){
-            //         cki = Console.ReadKey(true);
-                    // if(cki.Key == ConsoleKey.X){
-                    //     notPressedX = false;
-                    // }
+            Task.Run(() => {
+                    cki = Console.ReadKey(true);
+                    if(cki.Key == ConsoleKey.X){
+                        notPressedX = false;
+                        TimeSpan ts = stopWatch.Elapsed;
+                        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                        ts.Hours, ts.Minutes, ts.Seconds,
+                        ts.Milliseconds / 10);
+                        Console.WriteLine("Total time for generating the files is " + elapsedTime);
+                        Environment.Exit(0);
+
+                    }
+                });
+                    // t = Task.Run(() =>{
                     stopWatch.Start();
                     var robby = RobbyLib.CreateRobby(numGenerations, populationSize, numberOfTrials, mutationRate,eliteRate);
                     robby.FileWritten += PrintCurrentGeneration;
@@ -64,37 +73,12 @@ namespace RobbyIterationGenerator
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10);
                     Console.WriteLine("Total time for generating the files is " + elapsedTime);
-                    // break;
-                // }
-            
-              
-                    // TimeSpan ts = stopWatch.Elapsed;
-                    // // Format and display the TimeSpan value.
-                    // string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    // ts.Hours, ts.Minutes, ts.Seconds,
-                    // ts.Milliseconds / 10);
-                    // Console.WriteLine("Total time for generating the files is " + elapsedTime);
         }
         catch(Exception){
-           Console.WriteLine("Error \n Program Ended");
+           Console.WriteLine("Aborting... \n Program Ended");
         }
     }
-    public static void abortingKey(object sender, ConsoleCancelEventArgs args){
-        Console.WriteLine("\nThe generatign operation has been interrupted.");
-        Console.WriteLine($"You have pressed : {args.SpecialKey}");
-        Console.WriteLine("Are you sure that you would like to quit the file generator? (y/n)");
-        string answer = Convert.ToString(Console.ReadLine());
-        //if "n" the program will continue
-        if(answer == "n"){
-             args.Cancel = true;
-            Console.WriteLine("The read operation will resume...\n");
-        }
-        else{
-            args.Cancel = false;
-            Console.WriteLine("The read operation has been discontinued. Please check the folder you have entered for the report files");
-        }
-    }
-
+   
     public static void PrintCurrentGeneration(string gen){
         Console.WriteLine("Generation " + gen + " is generated");
     }
